@@ -3,7 +3,7 @@ import XCTest
 @testable import clanger
 
 class ExampleUnitTest: XCTestCase {
-    func testUnitTests() {
-        XCTAssert(true)
-    }
+  func testUnitTests() {
+    XCTAssert(true)
+  }
 }
