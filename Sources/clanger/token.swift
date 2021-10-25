@@ -26,7 +26,8 @@ extension CToken: Equatable {
         switch (lhs, rhs) {
             case (.openBrace, .openBrace):                 return true
             case (.closeBrace, .closeBrace):               return true
-            case (.openParen, .closeParen):                return true
+            case (.openParen, .openParen):                 return true
+            case (.closeParen, .closeParen):               return true
             case (.semiColon, .semiColon):                 return true
             case (.keyword(let a), .keyword(let b)):       return a == b
             case (.identifier(let a), .identifier(let b)): return a == b
@@ -39,17 +40,30 @@ extension CToken: Equatable {
 // MARK: Static CToken::FromString
 extension CToken {
     public static func fromString(_ str: String) -> CToken? {
+        if str.count == 1,
+            let punctuation = CToken.punctuationMatch(str.first!) {
+            return punctuation
+        }
         switch str {
-            case "{":      return .openBrace
-            case "}":      return .closeBrace
-            case "(":      return .openParen
-            case ")":      return .closeParen
-            case ";":      return .semiColon
-
             case "int":    return .keyword(.int)
             case "return": return .keyword(.return)
+            // ...
 
-            default:       return nil
+            default:       return .identifier(str)
+        }
+    }
+}
+
+// MARK: Static CToken::punctuationMatches
+extension CToken {
+    public static func punctuationMatch(_ c: Character) -> CToken? {
+        switch c {
+            case "{": return .openBrace
+            case "}": return .closeBrace
+            case "(": return .openParen
+            case ")": return .closeParen
+            case ";": return .semiColon
+            default:  return nil
         }
     }
 }

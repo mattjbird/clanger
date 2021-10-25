@@ -9,15 +9,35 @@ public final class Lexer {
     */
     public init(_ characterStream: CharacterStream) {
        self.characterStream = characterStream
-       self.currentToken = nil
     }
 
     /// Returns the next token in the `inputStream` or nil if we're at the end.
     public func advance() -> CToken? {
-        return self.currentToken
-    }
+        var current = ""
+        for c in self.characterStream {
+            // Skip whitespace
+            if c.isWhitespace { continue }
 
-    public var currentToken: CToken?
+            // Check for single character tokens
+            if current.isEmpty, let token = CToken.punctuationMatch(c) {
+                return token
+            }
+
+            current.append(c)
+
+            // Is this the end of our identifier?
+            guard let next = self.characterStream.peek() else { break }
+            if next.isWhitespace || CToken.punctuationMatch(next) != nil {
+                break
+            }
+        }
+
+        if current.isEmpty {
+            return nil
+        }
+
+        return CToken.fromString(current)
+    }
 
     /// Returns a token iterator which allows things like `lexer.tokens.forEach({ ...`
     public var tokens: TokenSequence {

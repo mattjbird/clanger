@@ -10,7 +10,13 @@ class TestLexer: XCTestCase {
     }
 
     func testPunctuation() {
-        testLex("{}();", [.openBrace, .closeBrace, .openParen, .closeParen])
+        testLex("{}();", [
+            .openBrace,
+            .closeBrace,
+            .openParen,
+            .closeParen,
+            .semiColon,
+        ])
     }
 
     func testIntegerLiterals() {
