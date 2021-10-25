@@ -3,28 +3,17 @@ import Foundation
 /** A Lexer allows one to iterate through `Token`s in an `InputStream`.
  */
 public final class Lexer {
-    /** Create a Lexer for the given `InputStream`
+    /** Create a Lexer for the given `CharacterStream`
 
-        Parameter inputStream: a stream of C tokens, most commonly a C file.
+        Parameter characterStream: a stream of C tokens, most commonly a C file.
     */
-    public init(_ inputStream: InputStream) {
-       self.inputStream = inputStream
+    public init(_ characterStream: CharacterStream) {
+       self.characterStream = characterStream
        self.currentToken = nil
     }
 
-    /*
-        int main() {
-            return 2;
-        }
-
-        int main(){return 2;}
-    */
-
     /// Returns the next token in the `inputStream` or nil if we're at the end.
     public func advance() -> CToken? {
-        guard self.inputStream.hasBytesAvailable else {
-            return nil
-        }
         return self.currentToken
     }
 
@@ -36,7 +25,7 @@ public final class Lexer {
     }
 
     // MARK: - Private
-    private let inputStream: InputStream
+    private let characterStream: CharacterStream
 }
 
 
