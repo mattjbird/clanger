@@ -1,80 +1,101 @@
 {
   "warnings": [
     {
-      "file": "/Users/mjb/hobby/clanger/Sources/clanger/token.swift",
-      "line": 1,
-      "symbol": "Token",
-      "symbol_kind": "source.lang.swift.decl.enum",
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/lexer.swift",
+      "line": 31,
+      "symbol": "Lexer.currentToken",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/mjb/hobby/clanger/Sources/clanger/token.swift",
-      "line": 3,
-      "symbol": "Token.openBrace",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/mjb/hobby/clanger/Sources/clanger/token.swift",
-      "line": 4,
-      "symbol": "Token.closeBrace",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/mjb/hobby/clanger/Sources/clanger/token.swift",
-      "line": 5,
-      "symbol": "Token.openParenthesis",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/lexer.swift",
+      "line": 46,
+      "symbol": "TokenSequence.init(lexer:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/token.swift",
       "line": 6,
-      "symbol": "Token.closeParenthesis",
+      "symbol": "CToken.openBrace",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/token.swift",
       "line": 7,
-      "symbol": "Token.semiColon",
+      "symbol": "CToken.closeBrace",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/token.swift",
       "line": 8,
-      "symbol": "Token.typeKeyword(_:)",
+      "symbol": "CToken.openParenthesis",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/token.swift",
       "line": 9,
-      "symbol": "Token.returnKeyword",
+      "symbol": "CToken.closeParenthesis",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/token.swift",
       "line": 10,
-      "symbol": "Token.identifier",
+      "symbol": "CToken.semiColon",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/token.swift",
       "line": 11,
-      "symbol": "Token.integerLiteral",
+      "symbol": "CToken.keyword(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/mjb/hobby/clanger/Sources/clanger/util/extensions/InputStream.swift",
-      "line": 6,
-      "symbol": "InputStream.init(string:encoding:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/token.swift",
+      "line": 12,
+      "symbol": "CToken.identifier(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/token.swift",
+      "line": 13,
+      "symbol": "CToken.integerLiteral(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/token.swift",
+      "line": 16,
+      "symbol": "CToken.CKeyWord",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/token.swift",
+      "line": 17,
+      "symbol": "CToken.CKeyWord.integer",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/token.swift",
+      "line": 18,
+      "symbol": "CToken.CKeyWord.return",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/token.swift",
+      "line": 41,
+      "symbol": "CToken.fromString(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     }
   ],

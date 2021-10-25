@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Lexer Class Reference</title>
+    <title>CharacterStream Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -13,8 +13,8 @@
     <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/swift/Class/Lexer" class="dashAnchor"></a>
-    <a title="Lexer Class Reference"></a>
+    <a name="//apple_ref/swift/Class/CharacterStream" class="dashAnchor"></a>
+    <a title="CharacterStream Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html"> Docs</a> (50% documented)</p>
@@ -29,7 +29,7 @@
       <p id="breadcrumbs">
         <a href="../index.html"> Reference</a>
         <img id="carat" src="../img/carat.png" alt=""/>
-        Lexer Class Reference
+        CharacterStream Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -65,15 +65,19 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>Lexer</h1>
+            <h1>CharacterStream</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">Lexer</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">CharacterStream</span> <span class="p">:</span> <span class="kt">Sequence</span><span class="p">,</span> <span class="kt">IteratorProtocol</span></code></pre>
 
                 </div>
               </div>
-            <p>A Lexer allows one to iterate through <code>Token</code>s in an <code>InputStream</code>.</p>
+            <p>Represents a buffered stream of <code>Character</code>s backed by an <code>InputStream</code>.</p>
+<pre class="highlight swift"><code><span class="kt">Implemented</span> <span class="k">as</span> <span class="n">a</span> <span class="n">wrapper</span> <span class="n">on</span> <span class="err">`</span><span class="kt">InputStream</span><span class="err">`</span><span class="o">.</span>
+<span class="kt">The</span> <span class="n">chief</span> <span class="n">advantage</span> <span class="n">here</span> <span class="n">over</span> <span class="n">a</span> <span class="n">regular</span> <span class="err">`</span><span class="kt">InputStream</span><span class="err">`</span> <span class="k">is</span> <span class="n">that</span> <span class="n">we</span> <span class="n">can</span> <span class="nf">peek</span><span class="p">()</span>
+<span class="n">and</span> <span class="n">we</span> <span class="k">get</span> <span class="n">a</span> <span class="n">little</span> <span class="n">more</span> <span class="kt">Swift</span><span class="o">-</span><span class="n">friendly</span> <span class="kt">Characters</span> <span class="n">rather</span> <span class="n">than</span> <span class="n">bytes</span><span class="o">.</span>
+</code></pre>
 
           </section>
           <section class="section task-group-section">
@@ -82,9 +86,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7clanger5LexerCyAcA15CharacterStreamCcfc"></a>
+                    <a name="/s:7clanger15CharacterStreamCyACSo07NSInputC0Ccfc"></a>
                     <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7clanger5LexerCyAcA15CharacterStreamCcfc">init(_:<wbr>)</a>
+                    <a class="token" href="#/s:7clanger15CharacterStreamCyACSo07NSInputC0Ccfc">init(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -92,16 +96,17 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Create a Lexer for the given <code><a href="../Classes/CharacterStream.html">CharacterStream</a></code></p>
-<pre class="highlight swift"><code><span class="kt">Parameter</span> <span class="nv">characterStream</span><span class="p">:</span> <span class="n">a</span> <span class="n">stream</span> <span class="n">of</span> <span class="kt">C</span> <span class="n">tokens</span><span class="p">,</span> <span class="n">most</span> <span class="n">commonly</span> <span class="n">a</span> <span class="kt">C</span> <span class="n">file</span><span class="o">.</span>
-</code></pre>
+                        <p>Parameter InputStream: an unopened <code>InputStream</code>. Normally a file but
+this Swift abstraction allows us to use <code>String</code>-backed <code>InputStream</code>s
+for ease of testing. The <code>InputStream</code> will be opened and closed by this
+class according to the RAII idiom.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">_</span> <span class="nv">characterStream</span><span class="p">:</span> <span class="kt"><a href="../Classes/CharacterStream.html">CharacterStream</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">_</span> <span class="nv">inputStream</span><span class="p">:</span> <span class="kt">InputStream</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -111,9 +116,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7clanger5LexerC7advanceAA6CTokenOSgyF"></a>
-                    <a name="//apple_ref/swift/Method/advance()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7clanger5LexerC7advanceAA6CTokenOSgyF">advance()</a>
+                    <a name="/s:7clanger15CharacterStreamC4nextSJSgyF"></a>
+                    <a name="//apple_ref/swift/Method/next()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7clanger15CharacterStreamC4nextSJSgyF">next()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -121,14 +126,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns the next token in the <code>inputStream</code> or nil if we&rsquo;re at the end.</p>
+                        <p>Returns the next <code>Character</code> from the stream and advances the stream</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">advance</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/CToken.html">CToken</a></span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">next</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Character</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -138,9 +143,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7clanger5LexerC12currentTokenAA6CTokenOSgvp"></a>
-                    <a name="//apple_ref/swift/Property/currentToken" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7clanger5LexerC12currentTokenAA6CTokenOSgvp">currentToken</a>
+                    <a name="/s:7clanger15CharacterStreamC4peekSJSgyF"></a>
+                    <a name="//apple_ref/swift/Method/peek()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7clanger15CharacterStreamC4peekSJSgyF">peek()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -148,41 +153,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Returns the next <code>Character</code> from the stream without advancing the stream</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">currentToken</span><span class="p">:</span> <span class="kt"><a href="../Enums/CToken.html">CToken</a></span><span class="p">?</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:7clanger5LexerC6tokensAA13TokenSequenceCvp"></a>
-                    <a name="//apple_ref/swift/Property/tokens" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7clanger5LexerC6tokensAA13TokenSequenceCvp">tokens</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a token iterator which allows things like <code>lexer.tokens.forEach({ ...</code></p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">tokens</span><span class="p">:</span> <span class="kt"><a href="../Classes/TokenSequence.html">TokenSequence</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">peek</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Character</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
