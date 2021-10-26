@@ -12,7 +12,10 @@ public enum CToken {
   case identifier(String)
   case intLiteral(UInt32)
   // ...
+}
 
+// MARK: CToken::CKeyWord
+extension CToken {
   public enum CKeyWord {
     case int
     case `return`
