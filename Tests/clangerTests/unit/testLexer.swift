@@ -21,7 +21,7 @@ class TestLexer: XCTestCase {
 
   func testIntegerLiterals() {
     testLex("0", [.intLiteral(0)])
-    var i = 1
+    var i: UInt32 = 1
     while i < UInt32.max {
       testLex("\(i)", [.intLiteral(i)])
       i *= 2
@@ -83,7 +83,7 @@ class TestLexer: XCTestCase {
   }
 
   private func testLex(_ src: String, _ expected: [CToken]) {
-    let lexer = Lexer(CharacterStream(InputStream(string: src)))
-    XCTAssertEqual(Array(lexer.tokens), expected)
+    let tokens = TokenSequence(CharacterStream(InputStream(string: src)))
+    XCTAssertEqual(Array(tokens), expected)
   }
 }

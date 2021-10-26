@@ -10,7 +10,7 @@ public enum CToken {
   case semiColon
   case keyword(CKeyWord)
   case identifier(String)
-  case intLiteral(Int)
+  case intLiteral(UInt32)
   // ...
 
   public enum CKeyWord {
@@ -40,9 +40,17 @@ extension CToken: Equatable {
 // MARK: Static CToken::FromString
 extension CToken {
   public static func fromString(_ str: String) -> CToken? {
+    // Punctuation
     if str.count == 1, let punctuation = CToken.punctuationMatch(str.first!) {
       return punctuation
     }
+
+    // Literals
+    if let integerLiteral = UInt32(str) {
+      return .intLiteral(integerLiteral)
+    }
+
+    // Keywords and identifiers
     switch str {
       case "int":    return .keyword(.int)
       case "return": return .keyword(.return)

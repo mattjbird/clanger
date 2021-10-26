@@ -1,9 +1,9 @@
 import Foundation
 
-/** A Lexer allows one to iterate through `Token`s in an `InputStream`.
+/** A lexer which exposes a sequence of `CToken`s from a `CharacterStream`.
  */
-public final class Lexer {
-  /** Create a Lexer for the given `CharacterStream`.
+public final class TokenSequence: Sequence, IteratorProtocol {
+  /** Create a TokenSequence for the given `CharacterStream`.
 
     Parameter characterStream: a stream of C tokens, most commonly a C file.
   */
@@ -12,18 +12,18 @@ public final class Lexer {
   }
 
   /// Returns the next token in the `inputStream` or nil if we're at the end.
-  public func advance() -> CToken? {
-    var current = ""
+  public func next() -> CToken? {
+    var currentString = ""
     for c in self.characterStream {
       // Skip whitespace
       if c.isWhitespace { continue }
 
       // Check for single character tokens
-      if current.isEmpty, let token = CToken.punctuationMatch(c) {
+      if currentString.isEmpty, let token = CToken.punctuationMatch(c) {
         return token
       }
 
-      current.append(c)
+      currentString.append(c)
 
       // Is this the end of our identifier?
       guard let next = self.characterStream.peek() else { break }
@@ -32,35 +32,13 @@ public final class Lexer {
       }
     }
 
-    if current.isEmpty {
+    if currentString.isEmpty {
       return nil
     }
 
-    return CToken.fromString(current)
-  }
-
-  /// Returns a token iterator which allows e.g., `lexer.tokens.forEach({ ...`
-  public var tokens: TokenSequence {
-    return TokenSequence(lexer: self)
+    return CToken.fromString(currentString)
   }
 
   // MARK: - Private
   private let characterStream: CharacterStream
-}
-
-
-// MARK: TokenSequence
-/// Helper class to make tokens from a `Lexer` iterable.
-public final class TokenSequence: Sequence, IteratorProtocol {
-  public init(lexer: Lexer) {
-    self.lexer = lexer
-  }
-
-  /// Has the lexer iterate to the next token
-  public func next() -> CToken? {
-    return self.lexer.advance()
-  }
-
-  // MARK: Private
-  private let lexer: Lexer
 }
