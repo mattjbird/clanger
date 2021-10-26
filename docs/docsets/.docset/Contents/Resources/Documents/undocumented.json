@@ -2,14 +2,14 @@
   "warnings": [
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/lexer.swift",
-      "line": 31,
+      "line": 20,
       "symbol": "Lexer.currentToken",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/lexer.swift",
-      "line": 46,
+      "line": 35,
       "symbol": "TokenSequence.init(lexer:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -31,14 +31,14 @@
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/token.swift",
       "line": 8,
-      "symbol": "CToken.openParenthesis",
+      "symbol": "CToken.openParen",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/token.swift",
       "line": 9,
-      "symbol": "CToken.closeParenthesis",
+      "symbol": "CToken.closeParen",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
@@ -66,7 +66,7 @@
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/token.swift",
       "line": 13,
-      "symbol": "CToken.integerLiteral(_:)",
+      "symbol": "CToken.intLiteral(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
@@ -80,7 +80,7 @@
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/token.swift",
       "line": 17,
-      "symbol": "CToken.CKeyWord.integer",
+      "symbol": "CToken.CKeyWord.int",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },

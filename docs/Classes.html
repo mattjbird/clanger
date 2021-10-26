@@ -17,7 +17,7 @@
     <a title="Classes  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html"> Docs</a> (50% documented)</p>
+        <p><a href="index.html"> Docs</a> (48% documented)</p>
         <div class="header-right">
           <form role="search" action="search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -40,9 +40,6 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="Classes/CharacterStream.html">CharacterStream</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/Lexer.html">Lexer</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/TokenSequence.html">TokenSequence</a>
@@ -75,47 +72,6 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7clanger5LexerC"></a>
-                    <a name="//apple_ref/swift/Class/Lexer" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7clanger5LexerC">Lexer</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>A Lexer allows one to iterate through <code>Token</code>s in an <code>InputStream</code>.</p>
-
-                        <a href="Classes/Lexer.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">Lexer</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/TokenSequence"></a>
-                <a name="//apple_ref/swift/Section/TokenSequence" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/TokenSequence"></a>
-                  <h3 class="section-name"><span>TokenSequence</span>
-</h3>
-                </div>
-              </div>
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:7clanger13TokenSequenceC"></a>
                     <a name="//apple_ref/swift/Class/TokenSequence" class="dashAnchor"></a>
                     <a class="token" href="#/s:7clanger13TokenSequenceC">TokenSequence</a>
@@ -126,7 +82,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Helper class to make tokens from a <code><a href="Classes/Lexer.html">Lexer</a></code> iterable.</p>
+                        <p>A lexer which exposes a sequence of <code><a href="Enums/CToken.html">CToken</a></code>s from a <code><a href="Classes/CharacterStream.html">CharacterStream</a></code>.</p>
 
                         <a href="Classes/TokenSequence.html" class="slightly-smaller">See more</a>
                       </div>
@@ -155,10 +111,10 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Represents a buffered stream of <code>Character</code>s backed by an <code>InputStream</code>.</p>
-<pre class="highlight swift"><code><span class="kt">Implemented</span> <span class="k">as</span> <span class="n">a</span> <span class="n">wrapper</span> <span class="n">on</span> <span class="err">`</span><span class="kt">InputStream</span><span class="err">`</span><span class="o">.</span>
-<span class="kt">The</span> <span class="n">chief</span> <span class="n">advantage</span> <span class="n">here</span> <span class="n">over</span> <span class="n">a</span> <span class="n">regular</span> <span class="err">`</span><span class="kt">InputStream</span><span class="err">`</span> <span class="k">is</span> <span class="n">that</span> <span class="n">we</span> <span class="n">can</span> <span class="nf">peek</span><span class="p">()</span>
-<span class="n">and</span> <span class="n">we</span> <span class="k">get</span> <span class="n">a</span> <span class="n">little</span> <span class="n">more</span> <span class="kt">Swift</span><span class="o">-</span><span class="n">friendly</span> <span class="kt">Characters</span> <span class="n">rather</span> <span class="n">than</span> <span class="n">bytes</span><span class="o">.</span>
-</code></pre>
+
+<p>Implemented as a wrapper on <code>InputStream</code>.
+  The chief advantage here over a regular <code>InputStream</code> is that we can peek()
+  and we get a little more Swift-friendly Characters rather than bytes.</p>
 
                         <a href="Classes/CharacterStream.html" class="slightly-smaller">See more</a>
                       </div>
@@ -178,7 +134,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2021-10-25)</p>
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2021-10-26)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>
