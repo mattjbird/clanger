@@ -86,7 +86,7 @@
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/Token.swift",
-      "line": 69,
+      "line": 68,
       "symbol": "CToken.punctuationMatch(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
