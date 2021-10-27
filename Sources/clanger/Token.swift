@@ -10,7 +10,7 @@ public enum CToken {
   case semiColon
   case keyword(CKeyWord)
   case identifier(String)
-  case intLiteral(UInt32)
+  case intLiteral(String)
   // ...
 }
 
@@ -49,8 +49,8 @@ extension CToken {
     }
 
     // Literals
-    if let integerLiteral = UInt32(str) {
-      return .intLiteral(integerLiteral)
+    if str.convertsToIntegerLiteral {
+      return .intLiteral(str)
     }
 
     // Keywords and identifiers
@@ -58,7 +58,6 @@ extension CToken {
       case "int":    return .keyword(.int)
       case "return": return .keyword(.return)
       // ...
-
       default:       return .identifier(str)
     }
   }
@@ -75,5 +74,21 @@ extension CToken {
       case ";": return .semiColon
       default:  return nil
     }
+  }
+}
+
+// MARK: Fileprivate
+fileprivate extension String
+{
+  var convertsToIntegerLiteral: Bool {
+    let isHex = self.hasPrefix("0x")
+    for (i, c) in self.enumerated() {
+      if c.isASCII && (c.isNumber || (isHex && c.isHexDigit)) {
+        continue
+      }
+      if isHex && (i == 0 || i == 1) { continue }
+      return false
+    }
+    return true
   }
 }

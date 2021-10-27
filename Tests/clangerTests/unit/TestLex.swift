@@ -20,12 +20,23 @@ class TestLexer: XCTestCase {
   }
 
   func testIntegerLiterals() {
-    testLex("0", [.intLiteral(0)])
-    var i: UInt32 = 1
-    while i < UInt32.max {
-      testLex("\(i)", [.intLiteral(i)])
-      i *= 2
+    // Decimals
+    for i in stride(from: 0, to: 33, by: 1) {
+      let n = UInt32(UInt64((1 << i) - 1))
+      testLex("\(n)", [.intLiteral("\(n)")])
     }
+
+    // Hexadecimal
+    testLex("0x1", [.intLiteral("0x1")])
+    testLex("0x10", [.intLiteral("0x10")])
+    testLex("0x100", [.intLiteral("0x100")])
+    testLex("0xFFFFFFFF", [.intLiteral("0xFFFFFFFF")])
+
+    // Octals
+    testLex("010", [.intLiteral("010")])
+    testLex("0101", [.intLiteral("0101")])
+    testLex("01010", [.intLiteral("01010")])
+    testLex("037777777777", [.intLiteral("037777777777")])
   }
 
   func testIdentifiers() {
@@ -76,7 +87,7 @@ class TestLexer: XCTestCase {
       .closeParen,
       .openBrace,
       .keyword(.return),
-      .intLiteral(42),
+      .intLiteral("42"),
       .semiColon,
       .closeBrace,
     ])
