@@ -61,11 +61,12 @@ class TestLexer: XCTestCase {
       .identifier("foo"),
       .openBrace,
     ])
-    testLex("f(){;}", [
+    testLex("f(){bar;}", [
       .identifier("f"),
       .openParen,
       .closeParen,
       .openBrace,
+      .identifier("bar"),
       .semiColon,
       .closeBrace,
     ])
