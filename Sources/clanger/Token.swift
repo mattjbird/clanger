@@ -60,6 +60,24 @@ extension CToken {
   }
 }
 
+// MARK: CToken?::toString
+extension Optional where Wrapped == CToken {
+  /// Intended to be used for logging purposes rather than tokenising per se
+  public func toString() -> String {
+    guard let this = self else { return "nil" }
+    switch this {
+      case .openBrace:                  return "{"
+      case .closeBrace:                 return "}"
+      case .openParen:                  return "("
+      case .closeParen:                 return ")"
+      case .semiColon:                  return ";"
+      case .keyword(let keyword):       return "keyword[\(keyword)]"
+      case .identifier(let identifier): return "identifier[\(identifier)]"
+      case .intLiteral(let int):        return "intLiteral[\(int)]"
+    }
+  }
+}
+
 // MARK: Fileprivate
 fileprivate extension String
 {

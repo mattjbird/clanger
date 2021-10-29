@@ -28,7 +28,7 @@ public final class TokenSequence: Sequence, IteratorProtocol {
 
       // Check for single character tokens
       if currentString.isEmpty, let token = CToken.punctuationMatch(c) {
-        return token
+        return self.updateCurrent(token)
       }
 
       currentString.append(c)
@@ -41,15 +41,22 @@ public final class TokenSequence: Sequence, IteratorProtocol {
     }
 
     if currentString.isEmpty {
-      return nil
+      return self.updateCurrent(nil)
     }
 
-    return CToken.fromString(currentString)
+    return self.updateCurrent(CToken.fromString(currentString))
   }
+
+  public private(set) var current: CToken?
 
   public private(set) var line: Int = 0
   public private(set) var column: Int = -1
 
   // MARK: - Private
   private let characterStream: CharacterStream
+
+  private func updateCurrent(_ token: CToken?) -> CToken? {
+    self.current = token
+    return token
+  }
 }
