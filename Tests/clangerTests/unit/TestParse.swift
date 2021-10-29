@@ -31,17 +31,25 @@ class TestParser: XCTestCase {
     XCTAssertEqual(program, expected)
   }
 
-  func testMissingBrace() {
-    let program = try? parser.parse(TestTokenStream([
+  func testMissingComponents() {
+    // Each token here is individually necessary
+    let goodTokens: [CToken] = [
       .keyword(.int),
       .identifier("main"),
       .openParen,
+      .closeParen,
       .openBrace,
       .keyword(.return),
       .intLiteral("0"),
       .semiColon,
       .closeBrace
-    ]))
-    XCTAssertEqual(program, nil)
+    ]
+    // ... so make sure that removing it causes a parsing error
+    for i in stride(from: 0, to: goodTokens.count, by: 1) {
+      var badTokens = goodTokens
+      badTokens.remove(at: i)
+      let ast = try? parser.parse(TestTokenStream(badTokens))
+      XCTAssertEqual(ast, nil)
+    }
   }
 }
