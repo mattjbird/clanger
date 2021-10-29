@@ -94,6 +94,31 @@ class TestLexer: XCTestCase {
     ])
   }
 
+  func testLineAndColumnNumbering() {
+    func getTokens(_ str: String) -> TokenSequence {
+      return TokenSequence(CharacterStream(InputStream(string: str)))
+    }
+
+    // Check columns
+    var tokens = getTokens(";;;")
+    for (i, _) in tokens.enumerated() {
+      XCTAssertEqual(tokens.column, i)
+    }
+
+    tokens = getTokens("hello world")
+    let _ = tokens.next()
+    XCTAssertEqual(tokens.column, "hello".count - 1)
+    let _ = tokens.next()
+    XCTAssertEqual(tokens.column, "hello world".count - 1)
+
+    // Check lines
+    tokens = getTokens(";\n ;\n  ;")
+    for (i, _) in tokens.enumerated() {
+      XCTAssertEqual(tokens.column, i)
+      XCTAssertEqual(tokens.line, i)
+    }
+  }
+
   private func testLex(_ src: String, _ expected: [CToken]) {
     let tokens = TokenSequence(CharacterStream(InputStream(string: src)))
     XCTAssertEqual(Array(tokens), expected)

@@ -15,8 +15,16 @@ public final class TokenSequence: Sequence, IteratorProtocol {
   public func next() -> CToken? {
     var currentString = ""
     for c in self.characterStream {
-      // Skip whitespace
-      if c.isWhitespace { continue }
+      self.column += 1
+
+      if c.isWhitespace {
+        if c.isNewline {
+          self.line += 1
+          self.column = -1
+        }
+        // Skip whitespace
+        continue
+      }
 
       // Check for single character tokens
       if currentString.isEmpty, let token = CToken.punctuationMatch(c) {
@@ -38,6 +46,9 @@ public final class TokenSequence: Sequence, IteratorProtocol {
 
     return CToken.fromString(currentString)
   }
+
+  public private(set) var line: Int = 0
+  public private(set) var column: Int = -1
 
   // MARK: - Private
   private let characterStream: CharacterStream
