@@ -1,12 +1,10 @@
 import Foundation
 
-/** A lexer which exposes a sequence of `CToken`s from a `CharacterStream`.
- */
+/// A lexer which exposes a sequence of `CToken`s from a `CharacterStream`.
 public final class TokenSequence: Sequence, IteratorProtocol {
-  /** Create a TokenSequence for the given `CharacterStream`.
-
-    Parameter characterStream: a stream of C tokens, most commonly a C file.
-  */
+  /// Create a TokenSequence for the given `CharacterStream`.
+  ///
+  /// - Parameter characterStream: a stream of C tokens, most commonly a C file.
   public init(_ characterStream: CharacterStream) {
     self.characterStream = characterStream
   }

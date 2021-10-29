@@ -1,7 +1,5 @@
-/** The tokens that can appear in a C program
-
-  Warning: very much work in progress and incomplete.
-*/
+/// The tokens that can appear in a C program
+/// - Warning: very much work in progress and incomplete!
 public enum CToken: Equatable {
   case openBrace
   case closeBrace
@@ -16,6 +14,7 @@ public enum CToken: Equatable {
 
 // MARK: CToken::CKeyWord
 extension CToken {
+  /// A keyword from the C language
   public enum CKeyWord: Equatable {
     case int
     case `return`

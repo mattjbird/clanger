@@ -1,94 +1,178 @@
 {
   "warnings": [
     {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/Parser.swift",
+      "line": 3,
+      "symbol": "ParseError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/Token.swift",
-      "line": 6,
+      "line": 4,
       "symbol": "CToken.openBrace",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/Token.swift",
-      "line": 7,
+      "line": 5,
       "symbol": "CToken.closeBrace",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/Token.swift",
-      "line": 8,
+      "line": 6,
       "symbol": "CToken.openParen",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/Token.swift",
-      "line": 9,
+      "line": 7,
       "symbol": "CToken.closeParen",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/Token.swift",
-      "line": 10,
+      "line": 8,
       "symbol": "CToken.semiColon",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/Token.swift",
-      "line": 11,
+      "line": 9,
       "symbol": "CToken.keyword(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/Token.swift",
-      "line": 12,
+      "line": 10,
       "symbol": "CToken.identifier(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/Token.swift",
-      "line": 13,
+      "line": 11,
       "symbol": "CToken.intLiteral(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/Token.swift",
-      "line": 19,
+      "line": 17,
       "symbol": "CToken.CKeyWord",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/Token.swift",
-      "line": 20,
+      "line": 18,
       "symbol": "CToken.CKeyWord.int",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/Token.swift",
-      "line": 21,
+      "line": 19,
       "symbol": "CToken.CKeyWord.return",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/Token.swift",
-      "line": 45,
+      "line": 26,
       "symbol": "CToken.fromString(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/Token.swift",
-      "line": 69,
+      "line": 49,
       "symbol": "CToken.punctuationMatch(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/TokenSequence.swift",
+      "line": 48,
+      "symbol": "TokenSequence.current",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/TokenSequence.swift",
+      "line": 50,
+      "symbol": "TokenSequence.line",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/TokenSequence.swift",
+      "line": 51,
+      "symbol": "TokenSequence.column",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/TokenSource.swift",
+      "line": 6,
+      "symbol": "TokenSource.next()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/TokenSource.swift",
+      "line": 8,
+      "symbol": "TokenSource.current",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/TokenSource.swift",
+      "line": 9,
+      "symbol": "TokenSource.line",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/TokenSource.swift",
+      "line": 10,
+      "symbol": "TokenSource.column",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/language/Expression.swift",
+      "line": 3,
+      "symbol": "Expression.integerConstant(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/language/Function.swift",
+      "line": 12,
+      "symbol": "Function.init(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/language/Program.swift",
+      "line": 12,
+      "symbol": "Program.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/language/Statement.swift",
+      "line": 3,
+      "symbol": "Statement.return(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     }
   ],

@@ -6,11 +6,10 @@ public enum ParseError: Error {
   case unexpectedToken(TokenSource)
 }
 
-/** Takes a `TokenSequence` and parses it into an abstract syntax tree. */
+/// Takes a `TokenSequence` and parses it into an abstract syntax tree.
 public class Parser {
-  /** Parses the tokens from a `TokenSource` into an AST of the C program.
-      Throws: an error of type `ParseError` if the token stream is invalid.
-  */
+  /// Parses the tokens from a `TokenSource` into an AST of the C program.
+  /// - Throws: `ParseError.unexpectedToken` if the `TokenSource` is invalid.
   public func parse(_ tokens: TokenSource) throws -> Program {
     let function = try self.parseFunction(tokens)
     return Program(function)
