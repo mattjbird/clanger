@@ -45,7 +45,7 @@ class TestParser: XCTestCase {
       .closeBrace
     ]
     // ... so make sure that removing it causes a parsing error
-    for i in stride(from: 0, to: goodTokens.count, by: 1) {
+    for i in stride(from: 0, to: goodTokens.count - 1, by: 1) {
       var badTokens = goodTokens
       badTokens.remove(at: i)
       let ast = try? parser.parse(TestTokenStream(badTokens))

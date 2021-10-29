@@ -1,13 +1,6 @@
 {
   "warnings": [
     {
-      "file": "/Users/mjb/hobby/clanger/Sources/clanger/Parser.swift",
-      "line": 3,
-      "symbol": "ParseError",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/Token.swift",
       "line": 4,
       "symbol": "CToken.openBrace",

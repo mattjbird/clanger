@@ -17,7 +17,7 @@
     <a title="ParseError Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html"> Docs</a> (48% documented)</p>
+        <p><a href="../index.html"> Docs</a> (53% documented)</p>
         <div class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -106,10 +106,11 @@
                 <div class="language">
                   
                   <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ParseError</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ParseError</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>An <code>Error</code> raised by the <code><a href="../Classes/Parser.html">Parser</a></code>.</p>
 
           </section>
           <section class="section task-group-section">
@@ -137,6 +138,46 @@ parsing context can be retrieved from the <code><a href="../Protocols/TokenSourc
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">unexpectedToken</span><span class="p">(</span><span class="kt"><a href="../Protocols/TokenSource.html">TokenSource</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/CustomStringConvertible"></a>
+                <a name="//apple_ref/swift/Section/CustomStringConvertible" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/CustomStringConvertible"></a>
+                  <h3 class="section-name"><span>CustomStringConvertible</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7clanger10ParseErrorO11descriptionSSvp"></a>
+                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7clanger10ParseErrorO11descriptionSSvp">description</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A public-facing description of the error, suitable for exposing to the end-user.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>

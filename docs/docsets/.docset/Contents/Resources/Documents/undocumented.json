@@ -65,35 +65,28 @@
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/Token.swift",
-      "line": 17,
-      "symbol": "CToken.CKeyWord",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/mjb/hobby/clanger/Sources/clanger/Token.swift",
-      "line": 18,
+      "line": 19,
       "symbol": "CToken.CKeyWord.int",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/Token.swift",
-      "line": 19,
+      "line": 20,
       "symbol": "CToken.CKeyWord.return",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/Token.swift",
-      "line": 26,
+      "line": 27,
       "symbol": "CToken.fromString(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/Token.swift",
-      "line": 49,
+      "line": 50,
       "symbol": "CToken.punctuationMatch(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"

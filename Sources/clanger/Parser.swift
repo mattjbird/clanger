@@ -1,11 +1,5 @@
 import Foundation
 
-public enum ParseError: Error {
-  /// The `Parser` was expecting one token and found another. The current
-  /// parsing context can be retrieved from the `TokenSource`.
-  case unexpectedToken(TokenSource)
-}
-
 /// Takes a `TokenSequence` and parses it into an abstract syntax tree.
 public class Parser {
   /// Parses the tokens from a `TokenSource` into an AST of the C program.
