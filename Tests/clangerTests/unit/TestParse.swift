@@ -18,5 +18,14 @@ class TestParser: XCTestCase {
       .semiColon,
       .closeBrace
     ]))
+    let expected = Program(
+      Function(
+        "main",
+        Statement.return(
+          Expression.integerConstant(0)
+        )
+      )
+    )
+    XCTAssertEqual(program, expected)
   }
 }
