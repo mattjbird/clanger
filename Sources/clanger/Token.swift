@@ -59,12 +59,11 @@ extension CToken {
   }
 }
 
-// MARK: CToken?::toString
-extension Optional where Wrapped == CToken {
+// MARK: CToken::toString
+extension CToken {
   /// Intended to be used for logging purposes rather than tokenising per se
   public func toString() -> String {
-    guard let this = self else { return "nil" }
-    switch this {
+    switch self {
       case .openBrace:                  return "{"
       case .closeBrace:                 return "}"
       case .openParen:                  return "("

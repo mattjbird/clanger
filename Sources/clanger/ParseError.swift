@@ -13,7 +13,7 @@ extension ParseError: CustomStringConvertible {
   public var description: String {
     switch self {
       case .unexpectedToken(let tok):
-        return "Unexpected token at \(tok.line):\(tok.column): '\(tok.current.toString()))'"
+        return "Unexpected token at \(tok.line):\(tok.column): '\(tok.current?.toString() ?? "nil"))'"
     }
   }
 }

@@ -1,6 +1,7 @@
 import XCTest
 import class Foundation.Bundle
 
+/*
 final class clangerTests: XCTestCase {
   func testExample() throws {
     // This is an example of a functional test case.
@@ -45,3 +46,4 @@ final class clangerTests: XCTestCase {
     #endif
   }
 }
+*/
