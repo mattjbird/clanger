@@ -7,7 +7,7 @@ class TestParser: XCTestCase {
   let parser = Parser()
 
   func testReturn0() {
-    let program = parser.parse(TestTokenStream([
+    let program = try? parser.parse(TestTokenStream([
       .keyword(.int),
       .identifier("main"),
       .openParen,
@@ -18,6 +18,8 @@ class TestParser: XCTestCase {
       .semiColon,
       .closeBrace
     ]))
+    XCTAssertNotEqual(program, nil)
+
     let expected = Program(
       Function(
         "main",
@@ -27,5 +29,19 @@ class TestParser: XCTestCase {
       )
     )
     XCTAssertEqual(program, expected)
+  }
+
+  func testMissingBrace() {
+    let program = try? parser.parse(TestTokenStream([
+      .keyword(.int),
+      .identifier("main"),
+      .openParen,
+      .openBrace,
+      .keyword(.return),
+      .intLiteral("0"),
+      .semiColon,
+      .closeBrace
+    ]))
+    XCTAssertEqual(program, nil)
   }
 }
