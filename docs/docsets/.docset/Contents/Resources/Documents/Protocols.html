@@ -42,6 +42,9 @@
                 <a href="Classes/CharacterStream.html">CharacterStream</a>
               </li>
               <li class="nav-group-task">
+                <a href="Classes/Generator.html">Generator</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Classes/Parser.html">Parser</a>
               </li>
               <li class="nav-group-task">
@@ -72,6 +75,9 @@
           <li class="nav-group-name">
             <a href="Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Protocols/OutputHandler.html">OutputHandler</a>
+              </li>
               <li class="nav-group-task">
                 <a href="Protocols/PrettyPrintable.html">PrettyPrintable</a>
               </li>
@@ -106,9 +112,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7clanger11TokenSourceP"></a>
-                    <a name="//apple_ref/swift/Protocol/TokenSource" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7clanger11TokenSourceP">TokenSource</a>
+                    <a name="/s:7clanger13OutputHandlerP"></a>
+                    <a name="//apple_ref/swift/Protocol/OutputHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7clanger13OutputHandlerP">OutputHandler</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -116,16 +122,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Represents an abstract token source, allowing us to decouple the Lexer from
-the Parser and enabling us to implement various test helpers.</p>
+                        <p>Handles output, principally to decouple the Generator from its output and
+allow for easier testing.</p>
 
-                        <a href="Protocols/TokenSource.html" class="slightly-smaller">See more</a>
+                        <a href="Protocols/OutputHandler.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">TokenSource</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">OutputHandler</span></code></pre>
 
                         </div>
                       </div>
@@ -154,6 +160,35 @@ the Parser and enabling us to implement various test helpers.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">PrettyPrintable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7clanger11TokenSourceP"></a>
+                    <a name="//apple_ref/swift/Protocol/TokenSource" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7clanger11TokenSourceP">TokenSource</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Represents an abstract token source, allowing us to decouple the Lexer from
+the Parser and enabling us to implement various test helpers.</p>
+
+                        <a href="Protocols/TokenSource.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">TokenSource</span></code></pre>
 
                         </div>
                       </div>

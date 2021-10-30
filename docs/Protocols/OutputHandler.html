@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>PrettyPrintable Protocol Reference</title>
+    <title>OutputHandler Protocol Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -13,8 +13,8 @@
     <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/swift/Protocol/PrettyPrintable" class="dashAnchor"></a>
-    <a title="PrettyPrintable Protocol Reference"></a>
+    <a name="//apple_ref/swift/Protocol/OutputHandler" class="dashAnchor"></a>
+    <a title="OutputHandler Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html"> Docs</a> (58% documented)</p>
@@ -29,7 +29,7 @@
       <p id="breadcrumbs">
         <a href="../index.html"> Reference</a>
         <img id="carat" src="../img/carat.png" alt=""/>
-        PrettyPrintable Protocol Reference
+        OutputHandler Protocol Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -102,15 +102,16 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>PrettyPrintable</h1>
+            <h1>OutputHandler</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">PrettyPrintable</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">OutputHandler</span></code></pre>
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>Handles output, principally to decouple the Generator from its output and
+allow for easier testing.</p>
 
           </section>
           <section class="section task-group-section">
@@ -119,9 +120,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7clanger15PrettyPrintableP6prettySSyF"></a>
-                    <a name="//apple_ref/swift/Method/pretty()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7clanger15PrettyPrintableP6prettySSyF">pretty()</a>
+                    <a name="/s:7clanger13OutputHandlerP4emityySSF"></a>
+                    <a name="//apple_ref/swift/Method/emit(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7clanger13OutputHandlerP4emityySSF">emit(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -129,14 +130,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns a human-readable representation of the structure.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">pretty</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">emit</span><span class="p">(</span><span class="n">_</span> <span class="nv">str</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>PrettyPrintable Protocol Reference</title>
+    <title>Generator Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -13,8 +13,8 @@
     <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/swift/Protocol/PrettyPrintable" class="dashAnchor"></a>
-    <a title="PrettyPrintable Protocol Reference"></a>
+    <a name="//apple_ref/swift/Class/Generator" class="dashAnchor"></a>
+    <a title="Generator Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html"> Docs</a> (58% documented)</p>
@@ -29,7 +29,7 @@
       <p id="breadcrumbs">
         <a href="../index.html"> Reference</a>
         <img id="carat" src="../img/carat.png" alt=""/>
-        PrettyPrintable Protocol Reference
+        Generator Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -102,15 +102,15 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>PrettyPrintable</h1>
+            <h1>Generator</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">PrettyPrintable</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">Generator</span></code></pre>
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>Transforms a <code><a href="../Structs/Program.html">Program</a></code> AST into 64-bit x86 assembly</p>
 
           </section>
           <section class="section task-group-section">
@@ -119,9 +119,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7clanger15PrettyPrintableP6prettySSyF"></a>
-                    <a name="//apple_ref/swift/Method/pretty()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7clanger15PrettyPrintableP6prettySSyF">pretty()</a>
+                    <a name="/s:7clanger9GeneratorCyAcA13OutputHandler_pcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7clanger9GeneratorCyAcA13OutputHandler_pcfc">init(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -129,14 +129,41 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns a human-readable representation of the structure.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">pretty</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">_</span> <span class="nv">out</span><span class="p">:</span> <span class="kt"><a href="../Protocols/OutputHandler.html">OutputHandler</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7clanger9GeneratorC11emitProgramyyAA0D0VF"></a>
+                    <a name="//apple_ref/swift/Method/emitProgram(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7clanger9GeneratorC11emitProgramyyAA0D0VF">emitProgram(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Converts the <code><a href="../Structs/Program.html">Program</a></code> to x86 assembly with indentation.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">emitProgram</span><span class="p">(</span><span class="n">_</span> <span class="nv">program</span><span class="p">:</span> <span class="kt"><a href="../Structs/Program.html">Program</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
