@@ -104,11 +104,46 @@
             
             <h1 id='clanger' class='heading'>clanger</h1>
 
-<p>A C compiler written in Swift</p>
+<p>A compiler for C written in Swift. Why, you ask? Good question.</p>
 
-<p>Clanger (noun). An absurd or embarrassing blunder.</p>
+<blockquote>
+<p><strong>Clanger (noun)</strong>. <em>An absurd or embarrassing blunder</em>.</p>
+</blockquote>
+<h1 id='documentation' class='heading'>Documentation</h1>
 
-<p>Full documentation available at <a href="https://matthewbyrd.github.io/clanger/">https://matthewbyrd.github.io/clanger/</a></p>
+<p><a href="https://matthewbyrd.github.io/clanger/">https://matthewbyrd.github.io/clanger/</a></p>
+<h1 id='requirements' class='heading'>Requirements</h1>
+
+<p>You&rsquo;ll need Swift. You can install it here: <a href="https://swift.org/getting-started/">https://swift.org/getting-started/</a></p>
+<h1 id='installation' class='heading'>Installation</h1>
+
+<ol>
+<li>Clone the repo:
+<code>
+git clone https://github.com/matthewbyrd/clanger.git
+</code></li>
+<li>Build:
+<code>
+swift build
+</code></li>
+</ol>
+<h1 id='testing' class='heading'>Testing</h1>
+
+<p>There are unit tests for every stage of the compilation. You can run them with:</p>
+<pre class="highlight plaintext"><code>swift test
+</code></pre>
+
+<p>Note: I recommend using <a href="https://github.com/xcpretty/xcpretty">xcpretty</a> for running the tests. Then you can do:</p>
+<pre class="highlight plaintext"><code>swift test 2&gt;&amp;1 | xcpretty
+</code></pre>
+<h1 id='stuff-that-helped' class='heading'>Stuff that helped:</h1>
+
+<ol>
+<li><a href="https://www.nand2tetris.org"><em>Nand2Tetris</em></a>, a fantastic course I did before embarking on this</li>
+<li>Ghuloum’s <a href="http://scheme2006.cs.uchicago.edu/11-ghuloum.pdf"><em>An Incremental Approach to Compiler Construction</em></a></li>
+<li>Nora Sandler&rsquo;s <a href="https://norasandler.com/2017/11/29/Write-a-Compiler.html"><em>Writing A C Compiler</em></a> series.</li>
+<li>The <a href="http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf"><em>C11 Standard language specification</em></a></li>
+</ol>
 
           </section>
         </section>

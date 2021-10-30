@@ -1,6 +1,13 @@
 {
   "warnings": [
     {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/Generator.swift",
+      "line": 5,
+      "symbol": "Generator.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/Token.swift",
       "line": 4,
       "symbol": "CToken.openBrace",
@@ -106,34 +113,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/mjb/hobby/clanger/Sources/clanger/TokenSource.swift",
-      "line": 6,
-      "symbol": "TokenSource.next()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/mjb/hobby/clanger/Sources/clanger/TokenSource.swift",
-      "line": 8,
-      "symbol": "TokenSource.current",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/mjb/hobby/clanger/Sources/clanger/TokenSource.swift",
-      "line": 9,
-      "symbol": "TokenSource.line",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/mjb/hobby/clanger/Sources/clanger/TokenSource.swift",
-      "line": 10,
-      "symbol": "TokenSource.column",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/language/Expression.swift",
       "line": 3,
       "symbol": "Expression.integerConstant(_:)",
@@ -162,10 +141,45 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/util/protocols/OutputHandler.swift",
+      "line": 4,
+      "symbol": "OutputHandler.emit(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/util/protocols/PrettyPrintable.swift",
       "line": 1,
       "symbol": "PrettyPrintable",
       "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/util/protocols/TokenSource.swift",
+      "line": 6,
+      "symbol": "TokenSource.next()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/util/protocols/TokenSource.swift",
+      "line": 8,
+      "symbol": "TokenSource.current",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/util/protocols/TokenSource.swift",
+      "line": 9,
+      "symbol": "TokenSource.line",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/util/protocols/TokenSource.swift",
+      "line": 10,
+      "symbol": "TokenSource.column",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     }
   ],
