@@ -3,13 +3,13 @@ A compiler for C written in Swift. Why, you ask? Good question.
 
 > **Clanger (noun)**. *An absurd or embarrassing blunder*.
 
-# Documentation
+## Documentation
 https://matthewbyrd.github.io/clanger/
 
-# Requirements
+## Requirements
 You'll need Swift. You can install it here: https://swift.org/getting-started/
 
-# Installation
+## Installation
 1. Clone the repo:
 ```
 git clone https://github.com/matthewbyrd/clanger.git
@@ -19,7 +19,7 @@ git clone https://github.com/matthewbyrd/clanger.git
 swift build
 ```
 
-# Testing
+## Testing
 There are unit tests for every stage of the compilation. You can run them with:
 ```
 swift test
@@ -29,7 +29,7 @@ Note: I recommend using [xcpretty](https://github.com/xcpretty/xcpretty) for run
 swift test 2>&1 | xcpretty
 ```
 
-# Stuff that helped:
+## Stuff that helped:
 1. [*Nand2Tetris*](https://www.nand2tetris.org), a fantastic course I did before embarking on this
 2. Ghuloum’s [*An Incremental Approach to Compiler Construction*](http://scheme2006.cs.uchicago.edu/11-ghuloum.pdf)
 3. Nora Sandler's [*Writing A C Compiler*](https://norasandler.com/2017/11/29/Write-a-Compiler.html) series.
