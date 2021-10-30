@@ -22,7 +22,7 @@ public class TestTokenStream: TokenSource {
 
   public var line = 0, column = 0
 
-  // MARK: - Private
-  private let tokens: [CToken]
-  private var currentTokenIdx = 0
+  // MARK: - Internal
+  internal let tokens: [CToken]
+  internal var currentTokenIdx = 0
 }

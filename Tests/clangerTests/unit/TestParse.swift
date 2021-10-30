@@ -3,24 +3,43 @@ import XCTest
 
 @testable import clanger
 
+/// Tests the contract between the output of the Lex step and the Parser
 class TestParser: XCTestCase {
-  let parser = Parser()
+  // MARK: Expressions
+  func testIntegerConstantExpressions() {
+    // Decimals
+    self.testExpression([.intLiteral("42")], .integerConstant(42))
+    // Hexadecimal
+    //self.testExpression([.intLiteral("0x42")], .integerConstant(66))
+    // Octal
+    //self.testExpression([.intLiteral("042")], .integerConstant(34))
 
-  func testReturn0() {
-    let program = try? parser.parse(TestTokenStream([
-      .keyword(.int),
-      .identifier("main"),
-      .openParen,
-      .closeParen,
-      .openBrace,
-      .keyword(.return),
-      .intLiteral("0"),
-      .semiColon,
-      .closeBrace
-    ]))
-    XCTAssertNotEqual(program, nil)
+    // Overflow
+    // TODO
+  }
 
-    let expected = Program(
+  // MARK: Statements
+  func testReturnStatements() {
+    self.testStatement(
+      [.keyword(.return), .intLiteral("0"), .semiColon],
+      Statement.return( Expression.integerConstant(0) )
+    )
+  }
+
+  // MARK: Functions
+  func testBasicFunction() {
+    self.testFunction(
+      [
+        .keyword(.int),
+        .identifier("main"),
+        .openParen,
+        .closeParen,
+        .openBrace,
+        .keyword(.return),
+        .intLiteral("0"),
+        .semiColon,
+        .closeBrace
+      ],
       Function(
         "main",
         Statement.return(
@@ -28,28 +47,64 @@ class TestParser: XCTestCase {
         )
       )
     )
-    XCTAssertEqual(program, expected)
   }
 
-  func testMissingComponents() {
-    // Each token here is individually necessary
-    let goodTokens: [CToken] = [
-      .keyword(.int),
-      .identifier("main"),
-      .openParen,
-      .closeParen,
-      .openBrace,
-      .keyword(.return),
-      .intLiteral("0"),
-      .semiColon,
-      .closeBrace
-    ]
-    // ... so make sure that removing it causes a parsing error
-    for i in stride(from: 0, to: goodTokens.count - 1, by: 1) {
-      var badTokens = goodTokens
+  // MARK: Programs
+  func testBasicProgram() {
+    self.testProgram(
+      [
+        .keyword(.int),
+        .identifier("main"),
+        .openParen,
+        .closeParen,
+        .openBrace,
+        .keyword(.return),
+        .intLiteral("0"),
+        .semiColon,
+        .closeBrace
+      ],
+      Program(
+        Function(
+          "main",
+          Statement.return( Expression.integerConstant(0))
+        )
+      )
+    )
+  }
+
+  // MARK: - Private
+  private let parser = Parser()
+
+  private func testExpression(_ tokens: [CToken], _ expected: Expression?) {
+    self.test(tokens, expected, self.parser.parseExpression)
+  }
+
+  private func testStatement(_ tokens: [CToken], _ expected: Statement?) {
+    self.test(tokens, expected, self.parser.parseStatement)
+  }
+
+  private func testFunction(_ tokens: [CToken], _ expected: Function?) {
+    self.test(tokens, expected, self.parser.parseFunction)
+  }
+
+  private func testProgram(_ tokens: [CToken], _ expected: Program?) {
+    self.test(tokens, expected, self.parser.parse)
+  }
+
+  private func test<T: Equatable>(
+    _ tokens: [CToken],
+    _ expected: T,
+    _ parser: (TokenSource) throws -> T
+  ) {
+    // Check that the tokens can be parsed
+    let out = try? parser(TestTokenStream(tokens))
+    XCTAssertEqual(out, expected)
+
+    // Ensure that every incorrect combination of the tokens fails
+    for i in stride(from: 0, to: tokens.count - 1, by: 1) {
+      var badTokens = tokens
       badTokens.remove(at: i)
-      let ast = try? parser.parse(TestTokenStream(badTokens))
-      XCTAssertEqual(ast, nil)
+      XCTAssertEqual(try? parser(TestTokenStream(badTokens)), nil)
     }
   }
 }

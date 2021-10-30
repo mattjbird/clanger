@@ -1,6 +1,6 @@
 /** Represents a C function.
 
-  Warning: incomplete in the following ways:
+  Warning: incomplete in at least the following ways:
     * doesn't support a return type
     * doesn't support parameters
     * doesn't support multiple statements

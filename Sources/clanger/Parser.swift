@@ -9,8 +9,8 @@ public class Parser {
     return Program(function)
   }
 
-  // MARK: - Private
-  private func parseFunction(_ tokens: TokenSource) throws -> Function {
+  // MARK: - Internal
+  internal func parseFunction(_ tokens: TokenSource) throws -> Function {
     if tokens.next() != .keyword(.int) {
       // TODO: we only handle programs consisting of a single main function
       throw ParseError.unexpectedToken(tokens)
@@ -34,7 +34,7 @@ public class Parser {
     return Function(name, body)
   }
 
-  private func parseStatement(_ tokens: TokenSource) throws -> Statement {
+  internal func parseStatement(_ tokens: TokenSource) throws -> Statement {
     switch tokens.next() {
       case .keyword(let keyword):
         switch keyword {
@@ -54,7 +54,7 @@ public class Parser {
     }
   }
 
-  private func parseExpression(_ tokens: TokenSource) throws -> Expression {
+  internal func parseExpression(_ tokens: TokenSource) throws -> Expression {
     switch tokens.next() {
       case .intLiteral(let t):
         // FIXME: will need to handle overflow, hex, octal, etc.

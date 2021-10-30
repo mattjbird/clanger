@@ -1,6 +1,6 @@
 /** Represents a C program.
 
-  Warning: incomplete in the following ways:
+  Warning: incomplete in at least the following ways:
     * doesn't support multiple functions
     * doesn't support comments
     * doesn't support static data
