@@ -7,15 +7,31 @@ import XCTest
 class TestParser: XCTestCase {
   // MARK: Expressions
   func testIntegerConstantExpressions() {
-    // Decimals
-    self.testExpression([.intLiteral("42")], .integerConstant(42))
-    // Hexadecimal
-    //self.testExpression([.intLiteral("0x42")], .integerConstant(66))
-    // Octal
-    //self.testExpression([.intLiteral("042")], .integerConstant(34))
+    for i in stride(from: 0, to: 32, by: 1) {
+      let n = Int32(UInt64((1 << i) - 1))
+      let decimal = String(n)
+      let hexadecimal = "0x" + String(n, radix: 16)
+      let octal = "0" + String(n, radix: 8)
+      for representation in [decimal, hexadecimal, octal] {
+        self.testExpression([.intLiteral( representation )], .integerConstant(n))
+      }
+    }
+  }
 
-    // Overflow
-    // TODO
+  func testIntegerConstantExpressionOverflow() {
+    let tooBig = UInt64(Int32.max) + 1
+    let decimal = String(tooBig)
+    let hexadecimal = "0x" + String(tooBig, radix: 16)
+    let octal = "0" + String(tooBig, radix: 8)
+    for representation in [decimal, hexadecimal, octal] {
+      var thrownError: Error?
+      let overflowing = TestTokenStream([ .intLiteral(representation) ])
+      XCTAssertThrowsError(try self.parser.parseExpression(overflowing)) {
+        thrownError = $0
+      }
+      XCTAssert(thrownError is ParseError)
+      XCTAssertEqual(thrownError as? ParseError, ParseError.overflow)
+    }
   }
 
   // MARK: Statements
@@ -104,7 +120,14 @@ class TestParser: XCTestCase {
     for i in stride(from: 0, to: tokens.count - 1, by: 1) {
       var badTokens = tokens
       badTokens.remove(at: i)
-      XCTAssertEqual(try? parser(TestTokenStream(badTokens)), nil)
+      let tokenStream = TestTokenStream(badTokens)
+
+      var thrownError: Error?
+      XCTAssertThrowsError(try parser(tokenStream)) {
+        thrownError = $0
+      }
+      XCTAssert(thrownError is ParseError)
+      XCTAssertEqual(thrownError as? ParseError, ParseError.unexpectedToken)
     }
   }
 }
