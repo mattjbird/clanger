@@ -13,3 +13,10 @@ public struct Program: Equatable {
     self.function = function
   }
 }
+
+// MARK: Program+PrettyPrintable
+extension Program: PrettyPrintable {
+  public func pretty() -> String {
+    return self.function.pretty()
+  }
+}

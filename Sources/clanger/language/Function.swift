@@ -14,3 +14,15 @@ public struct Function: Equatable {
     self.body = body
   }
 }
+
+// MARK: Function+PrettyPrintable
+extension Function: PrettyPrintable {
+  public func pretty() -> String {
+    return """
+      FUNC INT \(self.name):
+        params: ()
+        body:
+          \(self.body.pretty())
+    """
+  }
+}

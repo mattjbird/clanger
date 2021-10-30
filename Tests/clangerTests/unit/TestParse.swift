@@ -91,23 +91,23 @@ class TestParser: XCTestCase {
   // MARK: - Private
   private let parser = Parser()
 
-  private func testExpression(_ tokens: [CToken], _ expected: Expression?) {
+  private func testExpression(_ tokens: [CToken], _ expected: Expression) {
     self.test(tokens, expected, self.parser.parseExpression)
   }
 
-  private func testStatement(_ tokens: [CToken], _ expected: Statement?) {
+  private func testStatement(_ tokens: [CToken], _ expected: Statement) {
     self.test(tokens, expected, self.parser.parseStatement)
   }
 
-  private func testFunction(_ tokens: [CToken], _ expected: Function?) {
+  private func testFunction(_ tokens: [CToken], _ expected: Function) {
     self.test(tokens, expected, self.parser.parseFunction)
   }
 
-  private func testProgram(_ tokens: [CToken], _ expected: Program?) {
+  private func testProgram(_ tokens: [CToken], _ expected: Program) {
     self.test(tokens, expected, self.parser.parse)
   }
 
-  private func test<T: Equatable>(
+  private func test<T: Equatable & PrettyPrintable>(
     _ tokens: [CToken],
     _ expected: T,
     _ parser: (TokenSource) throws -> T
