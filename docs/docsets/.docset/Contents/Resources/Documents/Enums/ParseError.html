@@ -17,7 +17,7 @@
     <a title="ParseError Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html"> Docs</a> (53% documented)</p>
+        <p><a href="../index.html"> Docs</a> (52% documented)</p>
         <div class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -98,11 +98,11 @@
                 <div class="language">
                   
                   <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ParseError</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ParseError</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
 
                 </div>
               </div>
-            <p>An <code>Error</code> raised by the <code><a href="../Classes/Parser.html">Parser</a></code>.</p>
+            <p>An <code>Error</code> raised by the <code><a href="../Classes/Parser.html">Parser</a></code>.
+Check the <code><a href="../Protocols/TokenSource.html">TokenSource</a></code> for information on the line/column/token, etc.</p>
 
           </section>
           <section class="section task-group-section">
@@ -111,9 +111,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7clanger10ParseErrorO15unexpectedTokenyAcA0E6Source_pcACmF"></a>
-                    <a name="//apple_ref/swift/Element/unexpectedToken(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7clanger10ParseErrorO15unexpectedTokenyAcA0E6Source_pcACmF">unexpectedToken(_:<wbr>)</a>
+                    <a name="/s:7clanger10ParseErrorO15unexpectedTokenyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/unexpectedToken" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7clanger10ParseErrorO15unexpectedTokenyA2CmF">unexpectedToken</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -121,40 +121,26 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <code><a href="../Classes/Parser.html">Parser</a></code> was expecting one token and found another. The current
-parsing context can be retrieved from the <code><a href="../Protocols/TokenSource.html">TokenSource</a></code>.</p>
+                        <p>The <code><a href="../Classes/Parser.html">Parser</a></code> encountered an unexpected <code><a href="../Enums/CToken.html">CToken</a></code></p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">unexpectedToken</span><span class="p">(</span><span class="kt"><a href="../Protocols/TokenSource.html">TokenSource</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">unexpectedToken</span></code></pre>
 
                         </div>
                       </div>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/CustomStringConvertible"></a>
-                <a name="//apple_ref/swift/Section/CustomStringConvertible" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/CustomStringConvertible"></a>
-                  <h3 class="section-name"><span>CustomStringConvertible</span>
-</h3>
-                </div>
-              </div>
-              <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7clanger10ParseErrorO11descriptionSSvp"></a>
-                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7clanger10ParseErrorO11descriptionSSvp">description</a>
+                    <a name="/s:7clanger10ParseErrorO8overflowyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/overflow" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7clanger10ParseErrorO8overflowyA2CmF">overflow</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -162,14 +148,14 @@ parsing context can be retrieved from the <code><a href="../Protocols/TokenSourc
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A public-facing description of the error, suitable for exposing to the end-user.</p>
+                        <p>The <code><a href="../Classes/Parser.html">Parser</a></code> encountered an integer overflow</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">overflow</span></code></pre>
 
                         </div>
                       </div>

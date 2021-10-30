@@ -17,7 +17,7 @@
     <a title="Parser Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html"> Docs</a> (53% documented)</p>
+        <p><a href="../index.html"> Docs</a> (52% documented)</p>
         <div class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -123,7 +123,10 @@
                         <p>Parses the tokens from a <code><a href="../Protocols/TokenSource.html">TokenSource</a></code> into an AST of the C program.</p>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    <code>ParseError.unexpectedToken</code> if the <code><a href="../Protocols/TokenSource.html">TokenSource</a></code> is invalid.
+    <ul>
+<li><code><a href="../Enums/ParseError.html#/s:7clanger10ParseErrorO15unexpectedTokenyA2CmF">ParseError.unexpectedToken</a></code> if the tokens are syntactically invalid.</li>
+<li><code><a href="../Enums/ParseError.html#/s:7clanger10ParseErrorO8overflowyA2CmF">ParseError.overflow</a></code> if a data type would overflow</li>
+</ul>
 
 </div>
 
