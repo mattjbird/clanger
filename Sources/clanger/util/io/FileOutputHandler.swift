@@ -6,7 +6,7 @@ public final class FileOutputHandler: OutputHandler {
   /// - Parameter path: a relative (or absolute) path to a file.
   public init?(_ path: String) {
     guard !FileManager.default.fileExists(atPath: path) else {
-      logger.erorr("File already exists at \(path)")
+      logger.error("File already exists at \(path)")
       return nil
     }
     guard let out = OutputStream(toFileAtPath: path, append: true) else {
