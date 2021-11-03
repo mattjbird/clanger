@@ -17,7 +17,7 @@ class testGenerator: XCTestCase {
           .globl _meaning_of_life
       _meaning_of_life:
           movl    $42, %eax
-          ret
+          ret\n
       """
     )
   }

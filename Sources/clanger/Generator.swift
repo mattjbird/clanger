@@ -13,9 +13,9 @@ public final class Generator {
 
   // MARK: - Internal
   internal func emitFunction(_ function: Function) {
-    out.emit("    .globl _\(function.name)") // make func visible to linker
-    out.emit("_\(function.name):")            // label
-    emitStatement(function.body)
+    self.emit("    .globl _\(function.name)")  // make func visible to linker
+    self.emit("_\(function.name):")            // label
+    self.emitStatement(function.body)
   }
 
   internal func emitStatement(_ statement: Statement) {
@@ -23,8 +23,8 @@ public final class Generator {
       case .return(let expression):
         // TODO: this is only going to work when returning a constant
         let value = generateExpression(expression)
-        out.emit("    movl    $\(value), %eax") // val => return register
-        out.emit("    ret")                     // return
+        self.emit("    movl    $\(value), %eax") // val => return register
+        self.emit("    ret")                     // return
     }
   }
 
@@ -37,4 +37,8 @@ public final class Generator {
 
   // MARK: - Private
   private let out: OutputHandler
+
+  private func emit(_ str: String) {
+    self.out.emit(str + "\n")
+  }
 }

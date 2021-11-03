@@ -3,6 +3,7 @@ import XCTest
 
 @testable import clanger
 
+/* Replace this with a test which compiles and runs a file
 class test01SimpleReturn: XCTestCase {
   func testSimpleReturn() {
     let program = """
@@ -14,12 +15,12 @@ class test01SimpleReturn: XCTestCase {
           .globl _main
       _main:
           movl    $9001, %eax
-          ret
+          ret\n
       """
-    let tokens = TokenSequence(CharacterStream(InputStream(string: program)))
-    let ast = try! Parser().parse(tokens)
-    let out = TestOutputHandler()
-    Generator(out).emitProgram(ast)
-    XCTAssertEqual(out.value, assembly)
+    let output = TestOutputHandler()
+    let compiler = Compiler(output: output)
+    try! compiler.compile(CharacterStream(InputStream(string: program)))
+    XCTAssertEqual(output.value, assembly)
   }
 }
+*/

@@ -17,6 +17,7 @@ let package = Package(
             dependencies: []),
         .testTarget(
             name: "clangerTests",
-            dependencies: ["clanger"])
+            dependencies: ["clanger"],
+            exclude: ["data"])
     ]
 )
