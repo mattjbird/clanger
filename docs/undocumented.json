@@ -1,6 +1,13 @@
 {
   "warnings": [
     {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/Compiler.swift",
+      "line": 3,
+      "symbol": "Compiler",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/Generator.swift",
       "line": 5,
       "symbol": "Generator.init(_:)",
@@ -138,6 +145,13 @@
       "line": 3,
       "symbol": "Statement.return(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/util/io/FileOutputHandler.swift",
+      "line": 25,
+      "symbol": "FileOutputHandler.emit(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
