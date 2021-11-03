@@ -9,7 +9,7 @@ public final class Compiler {
     }
     self.preprocess(path)
     guard let asmPath = self.produceAssembly(path) else {
-      // TOOD: error
+      logger.error("Failed to produce assembly")
       return
     }
     self.assemble(asmPath)
@@ -27,14 +27,14 @@ public final class Compiler {
 
   private func produceAssembly(_ path: String) -> String? {
     guard let input = InputStream(fileAtPath: path) else {
-      // TODO: error log
+      logger.error("Failed to initialise input stream for \(path)")
       return nil
     }
 
     // FIXME: do something better here
     let outputPath = path.replacingOccurrences(of: ".c", with: ".s")
     guard let output = FileOutputHandler(outputPath) else {
-      // TODO: error log
+      logger.error("Failed to initialise output handler at \(outputPath)")
       return nil
     }
     let tokens = TokenSequence(CharacterStream(input))
