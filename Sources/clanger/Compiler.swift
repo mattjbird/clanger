@@ -5,6 +5,7 @@ public final class Compiler {
   /// Returns early if the C file `path` doesn't exist.
   public func compile(_ path: String) {
     guard pathIsValid(path) else {
+      logger.error("Invalid path for compile: \(path)")
       return
     }
     self.preprocess(path)
