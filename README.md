@@ -14,9 +14,23 @@ You'll need Swift. You can install it here: https://swift.org/getting-started/
 ```
 git clone https://github.com/matthewbyrd/clanger.git
 ```
-2. Build:
+2a. Debug build:
 ```
 swift build
+```
+2b. Release build:
+```
+swift build -c release
+```
+
+## Run
+Debug build:
+```
+swift run clanger file.c
+```
+Release build:
+```
+build/release/clanger file.c
 ```
 
 ## Testing
