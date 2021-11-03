@@ -54,8 +54,6 @@ public final class Compiler {
   }
 
   private func cleanup(_ path: String) {
-    // TODO: we need to wait for the assembly() command to finish before we
-    // remove files
-    //try? FileManager.default.removeItem(atPath: path)
+    try? FileManager.default.removeItem(atPath: path)
   }
 }
