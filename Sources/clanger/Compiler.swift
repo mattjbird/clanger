@@ -23,7 +23,7 @@ public final class Compiler {
   }
 
   private func preprocess(_ path: String) {
-
+    // TODO
   }
 
   private func produceAssembly(_ path: String) -> String? {
@@ -51,6 +51,7 @@ public final class Compiler {
   }
 
   private func assemble(_ path: String, _ outPath: String) {
+    // TODO: error handling
     systemCall("gcc \(path) -o \(outPath)")
   }
 
