@@ -57,13 +57,16 @@ public class Parser {
   }
 
   internal func parseExpression(_ tokens: TokenSource) throws -> Expression {
-    switch tokens.next() {
-      case .intLiteral(let str):
-        return .integerConstant( try self.parseIntegerLiteral(str) )
-      default:
-        // TODO: we only handle returns
-        throw ParseError.unexpectedToken
+    guard let token = tokens.next() else {
+      // TODO: add an EOF token
+      throw ParseError.unexpectedToken
     }
+    if case .intLiteral(let str) = token {
+      return .integerConstant( try self.parseIntegerLiteral(str) )
+    } else if let op = self.parseOperator(token) {
+      return .unaryOp(op, try self.parseExpression(tokens))
+    }
+    throw ParseError.unexpectedToken
   }
 
   // MARK: - Private
@@ -88,5 +91,14 @@ public class Parser {
       throw ParseError.overflow
     }
     return Int32(value)
+  }
+
+  private func parseOperator(_ token: CToken) -> Expression.Operator? {
+    switch token {
+      case .arithmeticNegation: return .arithmeticNegation
+      case .bitwiseComplement:  return .bitwiseComplement
+      case .negation:           return .negation
+      default:                  return nil
+    }
   }
 }

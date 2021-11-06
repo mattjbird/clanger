@@ -24,14 +24,42 @@ class TestParser: XCTestCase {
     let hexadecimal = "0x" + String(tooBig, radix: 16)
     let octal = "0" + String(tooBig, radix: 8)
     for representation in [decimal, hexadecimal, octal] {
-      var thrownError: Error?
-      let overflowing = TestTokenStream([ .intLiteral(representation) ])
-      XCTAssertThrowsError(try self.parser.parseExpression(overflowing)) {
-        thrownError = $0
-      }
-      XCTAssert(thrownError is ParseError)
-      XCTAssertEqual(thrownError as? ParseError, ParseError.overflow)
+      self.testExpression([ .intLiteral(representation)], throwsError: .overflow)
     }
+  }
+
+  func testUnaryOperatorExpressions() {
+    self.testExpression(
+      [.arithmeticNegation, .intLiteral("1")],
+      .unaryOp(.arithmeticNegation, .integerConstant(1))
+    )
+    self.testExpression(
+      [.bitwiseComplement, .intLiteral("25")],
+      .unaryOp(.bitwiseComplement, .integerConstant(25))
+    )
+    self.testExpression(
+      [.negation, .intLiteral("0")],
+      .unaryOp(.negation, .integerConstant(0))
+    )
+
+    // Nested
+    self.testExpression(
+      [.negation, .negation, .intLiteral("0")],
+      .unaryOp(.negation, .unaryOp(.negation, .integerConstant(0)))
+    )
+    self.testExpression(
+      [.bitwiseComplement, .arithmeticNegation, .negation, .intLiteral("9001")],
+      .unaryOp(
+        .bitwiseComplement,
+        .unaryOp(
+          .arithmeticNegation,
+          .unaryOp(
+            .negation,
+            .integerConstant(9001)
+          )
+        )
+      )
+    )
   }
 
   // MARK: Statements
@@ -92,31 +120,75 @@ class TestParser: XCTestCase {
   private let parser = Parser()
 
   private func testExpression(_ tokens: [CToken], _ expected: Expression) {
-    self.test(tokens, expected, self.parser.parseExpression)
+    self.testParse(tokens, expected, self.parser.parseExpression)
+  }
+
+  private func testExpression(_ tokens: [CToken], throwsError err: ParseError) {
+    self.testParse(tokens, self.parser.parseExpression, throwsError: err)
   }
 
   private func testStatement(_ tokens: [CToken], _ expected: Statement) {
-    self.test(tokens, expected, self.parser.parseStatement)
+    self.testParse(tokens, expected, self.parser.parseStatement)
+    self.testMissingComponentsFailParse(tokens, self.parser.parseStatement)
+  }
+
+  private func testStatement(_ tokens: [CToken], throwsError err: ParseError) {
+    self.testParse(tokens, self.parser.parseStatement, throwsError: err)
   }
 
   private func testFunction(_ tokens: [CToken], _ expected: Function) {
-    self.test(tokens, expected, self.parser.parseFunction)
+    self.testParse(tokens, expected, self.parser.parseFunction)
+    self.testMissingComponentsFailParse(tokens, self.parser.parseFunction)
+  }
+
+  private func testFunction(_ tokens: [CToken], throwsError err: ParseError) {
+    self.testParse(tokens, self.parser.parseFunction, throwsError: err)
   }
 
   private func testProgram(_ tokens: [CToken], _ expected: Program) {
-    self.test(tokens, expected, self.parser.parse)
+    self.testParse(tokens, expected, self.parser.parse)
+    self.testMissingComponentsFailParse(tokens, self.parser.parse)
   }
 
-  private func test<T: Equatable & PrettyPrintable>(
+  private func testProgram(_ tokens: [CToken], throwsError err: ParseError) {
+    self.testParse(tokens, self.parser.parse, throwsError: err)
+  }
+
+  // Check that the tokens can be parsed
+  private func testParse<T: Equatable & PrettyPrintable>(
     _ tokens: [CToken],
     _ expected: T,
     _ parser: (TokenSource) throws -> T
   ) {
-    // Check that the tokens can be parsed
     let out = try? parser(TestTokenStream(tokens))
-    XCTAssertEqual(out, expected)
+    AssertASTEqual(out, expected)
+  }
 
-    // Ensure that every incorrect combination of the tokens fails
+  private func testParse<T: Equatable & PrettyPrintable>(
+    _ tokens: [CToken],
+    _ parser: (TokenSource) throws -> T,
+    throwsError error: ParseError
+  ) {
+    let tokenStream = TestTokenStream(tokens)
+    var thrownError: Error?
+    XCTAssertThrowsError(try parser(tokenStream)) {
+      thrownError = $0
+    }
+    XCTAssert(thrownError is ParseError)
+    XCTAssertEqual(thrownError as? ParseError, error)
+  }
+
+  // Checks that every incorrect combination of the tokens fails.
+  // Note: this assumes that each individual token is necessary to the token
+  // stream. As things get more complex, this clearly isn't the case. For
+  // instance, "-1" and "1" are both valid, so we can't check our parsing of
+  // "-1" by removing "-" and asserting that the parsing fails! Hence why we
+  // don't use this for expressions.
+  private func testMissingComponentsFailParse<T: Equatable & PrettyPrintable>(
+    _ tokens: [CToken],
+    _ parser: (TokenSource) throws -> T
+  ) {
+    guard tokens.count > 1 else { return }
     for i in stride(from: 0, to: tokens.count - 1, by: 1) {
       var badTokens = tokens
       badTokens.remove(at: i)
@@ -130,4 +202,29 @@ class TestParser: XCTestCase {
       XCTAssertEqual(thrownError as? ParseError, ParseError.unexpectedToken)
     }
   }
+}
+
+// Convenient replacement for XCTAssertEqual when dealing with ASTs.
+// When the test fails, this will pretty print the tree-- much nicer for debugging!
+fileprivate func AssertASTEqual<T: Equatable & PrettyPrintable>(
+  _ lhs: T?,
+  _ rhs: T?,
+  file: StaticString = #filePath,
+  line: UInt = #line
+) {
+  if lhs == rhs { return }
+  XCTFail("""
+    XCTAssertion fail.
+
+    Abstract Syntax Trees do not match:
+
+    \(lhs?.pretty() ?? "nil")
+
+    does not equal
+
+    \(rhs?.pretty() ?? "nil")\n
+    """,
+    file: file,
+    line: line
+  )
 }

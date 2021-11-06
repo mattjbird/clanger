@@ -1,6 +1,16 @@
 /// Warning: incomplete
 public enum Expression: Equatable {
   case integerConstant(Int32)
+  indirect case unaryOp(Operator, Expression)
+}
+
+// MARK: Expression:Operator
+extension Expression {
+  public enum Operator: Character {
+    case arithmeticNegation = "-"
+    case bitwiseComplement  = "~"
+    case negation           = "!"
+  }
 }
 
 // MARK: Expression+PrettyPrintable
@@ -9,6 +19,8 @@ extension Expression: PrettyPrintable {
     switch self {
       case .integerConstant(let value):
         return "Int<\(value)>"
+      case .unaryOp(let op, let expression):
+        return "UnaryOp<\(op),\(expression.pretty())>"
     }
   }
 }

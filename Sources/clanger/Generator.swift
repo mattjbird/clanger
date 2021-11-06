@@ -32,6 +32,8 @@ public final class Generator {
     switch expression {
       case .integerConstant(let value):
         return String(value)
+      case .unaryOp(let op, let expr):
+        fatalError("TODO")
     }
   }
 
