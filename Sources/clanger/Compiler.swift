@@ -3,7 +3,7 @@ import Foundation
 public final class Compiler {
   /// Compiles a single file containing C code to x86 assembly.
   /// Returns early if the C file `path` doesn't exist.
-  public func compile(_ path: String) {
+  public func compile(_ path: String, _ outPath: String) {
     guard pathIsValid(path) else {
       logger.error("Invalid path for compile: \(path)")
       return
@@ -13,7 +13,7 @@ public final class Compiler {
       logger.error("Failed to produce assembly")
       return
     }
-    self.assemble(asmPath)
+    self.assemble(asmPath, outPath)
     self.cleanup(asmPath)
   }
 
@@ -50,8 +50,8 @@ public final class Compiler {
     return outputPath
   }
 
-  private func assemble(_ path: String) {
-    systemCall("gcc \(path) -o out")
+  private func assemble(_ path: String, _ outPath: String) {
+    systemCall("gcc \(path) -o \(outPath)")
   }
 
   private func cleanup(_ path: String) {

@@ -5,23 +5,25 @@ class FunctionalTestCase: XCTestCase {
   // Compiles the given file, runs the executable, and checks the return code
   internal func compileAndAssert(_ file: String, returns expectedReturnCode: Int32) {
     // Compile the file
-    try! self.runClanger(args: [file])
+    let exePath = "out"
+    try! self.runClangerCompile(c: file, out: exePath)
 
     // Run the executable
-    let outFile = URL(fileURLWithPath: "out")
-    let returnCode = try! self.runExecutable(path: outFile, args: [])
-    XCTAssert(FileManager.default.fileExists(atPath: outFile.path), "Failed to generate executable")
+    let exe = URL(fileURLWithPath: exePath)
+    let returnCode = try! self.runExecutable(path: exe, args: [])
+    XCTAssert(FileManager.default.fileExists(atPath: exe.path), "Failed to generate executable")
 
     // Cleanup
-    try! FileManager.default.removeItem(atPath: outFile.path)
+    try! FileManager.default.removeItem(atPath: exe.path)
 
     XCTAssertEqual(returnCode, expectedReturnCode)
   }
 
   // Runs clanger with the given `args`, returning status
   @discardableResult
-  private func runClanger(args: [String]) throws -> Int32? {
+  private func runClangerCompile(c: String, out: String) throws -> Int32? {
     let clanger = productsDirectory.appendingPathComponent("clanger")
+    let args = ["compile", c, "--out", out]
     return try self.runExecutable(path: clanger, args: args)
  }
 

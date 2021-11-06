@@ -1,21 +1,62 @@
+import ArgumentParser
 import Foundation
 import Logging
 
-main( Array(CommandLine.arguments.dropFirst()) )
 
-private func main(_ args: [String]) {
-  // Use stderr instead of stdout for logging.
-  LoggingSystem.bootstrap(StreamLogHandler.standardError)
+// Entry-point for clanger
+LoggingSystem.bootstrap(StreamLogHandler.standardError)
+Clanger.main()
 
-  // Compile all the files we're passed.
-  // TODO: add a usage statement / help
-  guard args.count > 0 else {
-    logger.error("No C files to compile. Exiting")
-    return
+
+fileprivate struct Clanger: ParsableCommand {
+  static let configuration = CommandConfiguration(
+    abstract: "Clanger is a compiler for a small (but growing!) subset of C",
+    subcommands: [Compile.self, PrettyAST.self]
+  )
+
+  /// clanger compile <file>
+  struct Compile: ParsableCommand {
+    static let configuration = CommandConfiguration(
+      abstract: "Compiles the given C file"
+    )
+
+    @Argument(help: "The path to the file you'd like to compile")
+    var target: String
+
+    @Option(help: "The path for the outputted executable")
+    var out: String = "out"
+
+    /// Throws ValidationError if any of the `targets` don't exist
+    func validate() throws {
+      guard FileManager.default.fileExists(atPath: target) else {
+        throw ValidationError("No such file at '\(target)'")
+      }
+    }
+
+    func run() {
+      Compiler().compile(self.target, self.out)
+    }
   }
 
-  for path in args {
-    logger.info("Compiling \(path)")
-    Compiler().compile(path)
+  /// clanger pretty-ast <file>
+  struct PrettyAST: ParsableCommand {
+    static let configuration = CommandConfiguration(
+      abstract: "Generates a pretty AST from the given C file"
+    )
+
+    @Argument(help: "The path to the file for which you want to generate an AST")
+    var target: String
+
+    /// Throws ValidationError if no file exists at `path`
+    func validate() throws {
+      guard FileManager.default.fileExists(atPath: target) else {
+        throw ValidationError("No such file at '\(target)'")
+      }
+    }
+
+    func run() {
+      // TODO
+      print("This is work in progress and currently does nothing. Sorry!")
+    }
   }
 }
