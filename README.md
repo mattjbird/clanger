@@ -1,5 +1,7 @@
 # clanger
-A compiler for C written in Swift. Why, you ask? Good question.
+A compiler for a small (but growing!) subset of the C programming language, written in Swift. 
+
+Why, you ask? Good question...
 
 > **Clanger (noun)**. *An absurd or embarrassing blunder*.
 
@@ -7,7 +9,7 @@ A compiler for C written in Swift. Why, you ask? Good question.
 https://matthewbyrd.github.io/clanger/
 
 ## Requirements
-You'll need Swift. You can install it here: https://swift.org/getting-started/
+You'll need Swift. You can get it here: https://swift.org/getting-started/
 
 ## Installation
 1. Clone the repo:
