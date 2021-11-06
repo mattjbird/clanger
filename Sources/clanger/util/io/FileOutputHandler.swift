@@ -2,6 +2,9 @@ import Foundation
 
 /// A wrapper on `OutputStream` which conforms to `OutputHandler`.
 public final class FileOutputHandler: OutputHandler {
+  /// The path to the associated file.
+  public let path: String
+
   /// Returns a `FileOutputHandler` if the file `path` exists, else nil.
   /// - Parameter path: a relative (or absolute) path to a file.
   public init?(_ path: String) {
@@ -14,6 +17,7 @@ public final class FileOutputHandler: OutputHandler {
     }
     out.open()
     self.outputStream = out
+    self.path = path
     self.outputStream.open()
   }
 

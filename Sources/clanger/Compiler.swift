@@ -8,13 +8,21 @@ public final class Compiler {
       logger.error("Invalid path for compile: \(path)")
       return
     }
+
     self.preprocess(path)
-    guard let asmPath = self.produceAssembly(path) else {
+
+    guard let outputHandler = self.setupAssemblyOutput(path) else {
+      logger.error("Failed to initialise ouput handler")
+      return
+    }
+    defer { self.cleanup(outputHandler.path) }
+
+    guard self.produceAssembly(path, outputHandler) else {
       logger.error("Failed to produce assembly")
       return
     }
-    self.assemble(asmPath, outPath)
-    self.cleanup(asmPath)
+
+    self.assemble(outputHandler.path, outPath)
   }
 
   // MARK: - Private
@@ -26,28 +34,33 @@ public final class Compiler {
     // TODO
   }
 
-  private func produceAssembly(_ path: String) -> String? {
-    guard let input = InputStream(fileAtPath: path) else {
-      logger.error("Failed to initialise input stream for \(path)")
-      return nil
+  private func setupAssemblyOutput(_ sourcePath: String) -> FileOutputHandler? {
+    let outPath = sourcePath.appending(".s")
+    return FileOutputHandler(outPath)
+  }
+
+  private func produceAssembly(_ sourcePath: String, _ output: FileOutputHandler) -> Bool {
+    guard let input = InputStream(fileAtPath: sourcePath) else {
+      logger.error("Failed to initialise input stream for \(sourcePath)")
+      return false
     }
 
-    // FIXME: do something better here
-    let outputPath = path.replacingOccurrences(of: ".c", with: ".s")
-    guard let output = FileOutputHandler(outputPath) else {
-      logger.error("Failed to initialise output handler at \(outputPath)")
-      return nil
-    }
     let tokens = TokenSequence(CharacterStream(input))
     let ast: Program!
     do {
       try ast = Parser().parse(tokens)
+    } catch ParseError.unexpectedToken {
+      logger.error("Unexpected token: \(tokens.debugContext)")
+      return false
+    } catch ParseError.overflow {
+      logger.error("Overflow: \(tokens.debugContext)")
+      return false
     } catch {
-      // TODO: error log
-      return nil
+      logger.error("Unhandled error: \(error): \(tokens.debugContext)")
+      return false
     }
     Generator(output).emitProgram(ast)
-    return outputPath
+    return true
   }
 
   private func assemble(_ path: String, _ outPath: String) {

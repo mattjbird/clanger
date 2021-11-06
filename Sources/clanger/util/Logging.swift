@@ -1,4 +1,4 @@
 import Logging
 
 /// A global `Logger`
-public let logger = Logger(label: "com.clangerTests.main")
+public let logger = Logger(label: "com.clanger.main")

@@ -47,8 +47,14 @@ public final class TokenSequence: Sequence, IteratorProtocol {
 
   public private(set) var current: CToken?
 
-  public private(set) var line: Int = 0
-  public private(set) var column: Int = -1
+  /// A string with the context (current token; line; column) for debugging.
+  public var debugContext: String {
+    return "'\(self.current?.toString() ?? "")' (line:\(self.line) col:\(self.column))"
+  }
+
+  // MARK: - Internal
+  internal private(set) var line: Int = 0
+  internal private(set) var column: Int = -1
 
   // MARK: - Private
   private let characterStream: CharacterStream

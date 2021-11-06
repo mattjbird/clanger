@@ -6,8 +6,6 @@ public protocol TokenSource {
   func next() -> CToken?
 
   var current: CToken? { get }
-  var line: Int { get }
-  var column: Int { get }
 }
 
 extension TokenSequence: TokenSource {}
