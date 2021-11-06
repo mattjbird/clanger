@@ -45,7 +45,7 @@ extension CToken {
   }
 }
 
-// MARK: Static CToken::punctuationMatches
+// MARK: Static CToken::punctuationMatch
 extension CToken {
   public static func punctuationMatch(_ c: Character) -> CToken? {
     switch c {
@@ -60,7 +60,7 @@ extension CToken {
 }
 
 // MARK: CToken::CustomDebugStringConvertible
-extension CToken: CustomDebugStringConvertible{
+extension CToken: CustomDebugStringConvertible {
   public var debugDescription: String {
     switch self {
       case .openBrace:                  return "{"
@@ -76,8 +76,7 @@ extension CToken: CustomDebugStringConvertible{
 }
 
 // MARK: Fileprivate
-fileprivate extension String
-{
+fileprivate extension String {
   var convertsToIntegerLiteral: Bool {
     let isHex = self.hasPrefix("0x")
     for (i, c) in self.enumerated() {
