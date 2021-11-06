@@ -106,20 +106,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/mjb/hobby/clanger/Sources/clanger/TokenSequence.swift",
-      "line": 50,
-      "symbol": "TokenSequence.line",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/mjb/hobby/clanger/Sources/clanger/TokenSequence.swift",
-      "line": 51,
-      "symbol": "TokenSequence.column",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/language/Expression.swift",
       "line": 3,
       "symbol": "Expression.integerConstant(_:)",
@@ -149,7 +135,7 @@
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/util/io/FileOutputHandler.swift",
-      "line": 25,
+      "line": 29,
       "symbol": "FileOutputHandler.emit(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -179,20 +165,6 @@
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/util/protocols/TokenSource.swift",
       "line": 8,
       "symbol": "TokenSource.current",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/mjb/hobby/clanger/Sources/clanger/util/protocols/TokenSource.swift",
-      "line": 9,
-      "symbol": "TokenSource.line",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/mjb/hobby/clanger/Sources/clanger/util/protocols/TokenSource.swift",
-      "line": 10,
-      "symbol": "TokenSource.column",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     }

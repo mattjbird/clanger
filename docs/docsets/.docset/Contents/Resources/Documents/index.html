@@ -145,10 +145,12 @@ cp .build/release/clanger clanger
 </code></li>
 </ol>
 <h2 id='running' class='heading'>Running</h2>
+
+<p>To compile a file, just use <code>clanger compile</code>:</p>
 <pre class="highlight plaintext"><code>clanger compile &lt;file-path.c&gt; --out &lt;executable-path&gt;
 </code></pre>
 
-<p>See clanger &ndash;help for more info and other subcommands:</p>
+<p>See <code>clanger --help</code> for more info and other subcommands:</p>
 <pre class="highlight plaintext"><code>$ swift run clanger --help
 OVERVIEW: Clanger is a compiler for a small (but growing!) subset of C
 
@@ -163,9 +165,18 @@ SUBCOMMANDS:
 
   See 'clanger help &lt;subcommand&gt;' for detailed help.
 </code></pre>
+
+<p>The <code>pretty-ast</code> command is quite neat; it prints out an abstract-syntax-tree of the given C file:</p>
+<pre class="highlight plaintext"><code>$ clanger pretty-ast foo.c
+  FUNC INT main:
+    params: ()
+    body:
+      RETURN Int&lt;42&gt;
+</code></pre>
 <h2 id='testing' class='heading'>Testing</h2>
 
-<p>There are unit tests for every stage of the compilation. You can run them with:</p>
+<p>There are unit tests for every stage of the compilation, and functional tests which test whole C files. 
+You can run them like so:</p>
 <pre class="highlight plaintext"><code>swift test
 </code></pre>
 
