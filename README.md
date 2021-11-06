@@ -23,6 +23,7 @@ cp .build/release/clanger clanger
 ```
 
 ## Running
+To compile a file:
 ```
 clanger compile <file-path.c> --out <executable-path>
 ```
@@ -41,6 +42,14 @@ SUBCOMMANDS:
   pretty-ast              Generates a pretty AST from the given C file
 
   See 'clanger help <subcommand>' for detailed help.
+```
+The `pretty-ast` command is quite neat; it prints out an abstract-syntax-tree of the given C file:
+```
+$ clanger pretty-ast foo.c
+  FUNC INT main:
+    params: ()
+    body:
+      RETURN Int<42>
 ```
 
 ## Testing
