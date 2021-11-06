@@ -6,9 +6,9 @@ public enum CToken: Equatable {
   case openParen
   case closeParen
   case semiColon
-  case arithmeticNegation
-  case bitwiseComplement
   case negation
+  case bitwiseComplement
+  case logicalNegation
   case keyword(CKeyWord)
   case identifier(String)
   case intLiteral(String)
@@ -57,9 +57,9 @@ extension CToken {
       case "(": return .openParen
       case ")": return .closeParen
       case ";": return .semiColon
-      case "-": return .arithmeticNegation
+      case "-": return .negation
       case "~": return .bitwiseComplement
-      case "!": return .negation
+      case "!": return .logicalNegation
       default:  return nil
     }
   }
@@ -74,9 +74,9 @@ extension CToken: CustomDebugStringConvertible {
       case .openParen:                  return "("
       case .closeParen:                 return ")"
       case .semiColon:                  return ";"
-      case .arithmeticNegation:         return "-"
+      case .negation:                   return "-"
       case .bitwiseComplement:          return "~"
-      case .negation:                   return "!"
+      case .logicalNegation:            return "!"
       case .keyword(let keyword):       return "\(keyword)"
       case .identifier(let identifier): return identifier
       case .intLiteral(let int):        return String(int)

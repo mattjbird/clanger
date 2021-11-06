@@ -16,9 +16,9 @@ class TestLexer: XCTestCase {
       .openParen,
       .closeParen,
       .semiColon,
-      .arithmeticNegation,
+      .negation,
       .bitwiseComplement,
-      .negation
+      .logicalNegation
     ]) {
       testLex(String(token), [expected])
     }

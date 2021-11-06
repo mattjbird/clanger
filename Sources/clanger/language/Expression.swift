@@ -7,9 +7,9 @@ public enum Expression: Equatable {
 // MARK: Expression:Operator
 extension Expression {
   public enum Operator: Character {
-    case arithmeticNegation = "-"
+    case negation           = "-"
     case bitwiseComplement  = "~"
-    case negation           = "!"
+    case logicalNegation    = "!"
   }
 }
 

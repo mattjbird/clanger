@@ -30,16 +30,16 @@ class TestParser: XCTestCase {
 
   func testUnaryOperatorExpressions() {
     self.testExpression(
-      [.arithmeticNegation, .intLiteral("1")],
-      .unaryOp(.arithmeticNegation, .integerConstant(1))
+      [.negation, .intLiteral("1")],
+      .unaryOp(.negation, .integerConstant(1))
     )
     self.testExpression(
       [.bitwiseComplement, .intLiteral("25")],
       .unaryOp(.bitwiseComplement, .integerConstant(25))
     )
     self.testExpression(
-      [.negation, .intLiteral("0")],
-      .unaryOp(.negation, .integerConstant(0))
+      [.logicalNegation, .intLiteral("0")],
+      .unaryOp(.logicalNegation, .integerConstant(0))
     )
 
     // Nested
@@ -48,13 +48,13 @@ class TestParser: XCTestCase {
       .unaryOp(.negation, .unaryOp(.negation, .integerConstant(0)))
     )
     self.testExpression(
-      [.bitwiseComplement, .arithmeticNegation, .negation, .intLiteral("9001")],
+      [.bitwiseComplement, .negation, .logicalNegation, .intLiteral("9001")],
       .unaryOp(
         .bitwiseComplement,
         .unaryOp(
-          .arithmeticNegation,
+          .negation,
           .unaryOp(
-            .negation,
+            .logicalNegation,
             .integerConstant(9001)
           )
         )
