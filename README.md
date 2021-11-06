@@ -16,23 +16,31 @@ You'll need Swift. You can get it here: https://swift.org/getting-started/
 ```
 git clone https://github.com/matthewbyrd/clanger.git
 ```
-2a. Debug build:
-```
-swift build
-```
-2b. Release build:
+2. Build:
 ```
 swift build -c release
+cp .build/release/clanger clanger
 ```
 
-## Run
-Debug build:
+## Running
 ```
-swift run clanger file.c
+clanger compile <file-path.c> --out <executable-path>
 ```
-Release build:
+See clanger --help for more info and other subcommands:
 ```
-build/release/clanger file.c
+$ swift run clanger --help
+OVERVIEW: Clanger is a compiler for a small (but growing!) subset of C
+
+USAGE: clanger <subcommand>
+
+OPTIONS:
+  -h, --help              Show help information.
+
+SUBCOMMANDS:
+  compile                 Compiles the given C file
+  pretty-ast              Generates a pretty AST from the given C file
+
+  See 'clanger help <subcommand>' for detailed help.
 ```
 
 ## Testing
