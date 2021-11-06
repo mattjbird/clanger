@@ -10,13 +10,18 @@ class TestLexer: XCTestCase {
   }
 
   func testPunctuation() {
-    testLex("{}();", [
-      .openBrace,
+    for (token, expected) in zip("{}();-~!", [
+      CToken.openBrace,
       .closeBrace,
       .openParen,
       .closeParen,
       .semiColon,
-    ])
+      .arithmeticNegation,
+      .bitwiseComplement,
+      .negation
+    ]) {
+      testLex(String(token), [expected])
+    }
   }
 
   func testIntegerLiterals() {
