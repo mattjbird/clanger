@@ -23,11 +23,11 @@ cp .build/release/clanger clanger
 ```
 
 ## Running
-To compile a file:
+To compile a file, just use `clanger compile`:
 ```
 clanger compile <file-path.c> --out <executable-path>
 ```
-See clanger --help for more info and other subcommands:
+See `clanger --help` for more info and other subcommands:
 ```
 $ swift run clanger --help
 OVERVIEW: Clanger is a compiler for a small (but growing!) subset of C
@@ -53,7 +53,8 @@ $ clanger pretty-ast foo.c
 ```
 
 ## Testing
-There are unit tests for every stage of the compilation. You can run them with:
+There are unit tests for every stage of the compilation, and functional tests which test whole C files. 
+You can run them like so:
 ```
 swift test
 ```
