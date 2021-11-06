@@ -115,7 +115,7 @@ class TestLexer: XCTestCase {
     tokens = getTokens(";\n ;\n  ;")
     for (i, _) in tokens.enumerated() {
       XCTAssertEqual(tokens.column, i)
-      XCTAssertEqual(tokens.line, i)
+      XCTAssertEqual(tokens.line, i + 1)
     }
   }
 

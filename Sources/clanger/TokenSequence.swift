@@ -49,11 +49,11 @@ public final class TokenSequence: Sequence, IteratorProtocol {
 
   /// A string with the context (current token; line; column) for debugging.
   public var debugContext: String {
-    return "'\(self.current?.toString() ?? "")' (line:\(self.line) col:\(self.column))"
+    return "'\(self.current?.debugDescription ?? "")' (line:\(self.line) col:\(self.column))"
   }
 
   // MARK: - Internal
-  internal private(set) var line: Int = 0
+  internal private(set) var line: Int = 1
   internal private(set) var column: Int = -1
 
   // MARK: - Private

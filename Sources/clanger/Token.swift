@@ -59,19 +59,18 @@ extension CToken {
   }
 }
 
-// MARK: CToken::toString
-extension CToken {
-  /// Intended to be used for logging purposes rather than tokenising per se
-  public func toString() -> String {
+// MARK: CToken::CustomDebugStringConvertible
+extension CToken: CustomDebugStringConvertible{
+  public var debugDescription: String {
     switch self {
       case .openBrace:                  return "{"
       case .closeBrace:                 return "}"
       case .openParen:                  return "("
       case .closeParen:                 return ")"
       case .semiColon:                  return ";"
-      case .keyword(let keyword):       return "keyword[\(keyword)]"
-      case .identifier(let identifier): return "identifier[\(identifier)]"
-      case .intLiteral(let int):        return "intLiteral[\(int)]"
+      case .keyword(let keyword):       return "\(keyword)"
+      case .identifier(let identifier): return identifier
+      case .intLiteral(let int):        return String(int)
     }
   }
 }
