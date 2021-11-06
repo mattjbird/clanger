@@ -121,6 +121,7 @@
                 <div class="language">
                   
                   <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">CToken</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">CToken</span><span class="p">:</span> <span class="kt">CustomDebugStringConvertible</span></code></pre>
 
                 </div>
               </div>
@@ -476,11 +477,11 @@
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/CToken%3A%3AtoString"></a>
-                <a name="//apple_ref/swift/Section/CToken::toString" class="dashAnchor"></a>
+                <a name="/CToken%3A%3ACustomDebugStringConvertible"></a>
+                <a name="//apple_ref/swift/Section/CToken::CustomDebugStringConvertible" class="dashAnchor"></a>
                 <div class="section-name-container">
-                  <a class="section-name-link" href="#/CToken%3A%3AtoString"></a>
-                  <h3 class="section-name"><span>CToken::toString</span>
+                  <a class="section-name-link" href="#/CToken%3A%3ACustomDebugStringConvertible"></a>
+                  <h3 class="section-name"><span>CToken::CustomDebugStringConvertible</span>
 </h3>
                 </div>
               </div>
@@ -488,9 +489,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7clanger6CTokenO8toStringSSyF"></a>
-                    <a name="//apple_ref/swift/Method/toString()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7clanger6CTokenO8toStringSSyF">toString()</a>
+                    <a name="/s:s28CustomDebugStringConvertibleP16debugDescriptionSSvp"></a>
+                    <a name="//apple_ref/swift/Property/debugDescription" class="dashAnchor"></a>
+                    <a class="token" href="#/s:s28CustomDebugStringConvertibleP16debugDescriptionSSvp">debugDescription</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -498,14 +499,13 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Intended to be used for logging purposes rather than tokenising per se</p>
-
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">toString</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">debugDescription</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
