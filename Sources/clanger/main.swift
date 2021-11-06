@@ -55,8 +55,7 @@ fileprivate struct Clanger: ParsableCommand {
     }
 
     func run() {
-      // TODO
-      print("This is work in progress and currently does nothing. Sorry!")
+      Compiler().producePrettyAST(self.target)
     }
   }
 }
