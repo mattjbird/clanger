@@ -3,52 +3,47 @@ import Foundation
 /// Transforms a `Program` AST into 64-bit x86 assembly
 public final class Generator {
   public init(_ out: OutputHandler) {
-    self.out = out
+    builder = X86_64Builder(out)
   }
 
-  /// Converts the `Program` to x86 assembly with indentation.
-  public func emitProgram(_ program: Program) {
-    emitFunction(program.function)
+  /// Converts the `Program` to x86_64 AT&T assembly.
+  public func genProgram(_ prog: Program) {
+    genFunction(prog.function)
   }
 
   // MARK: - Internal
-  internal func emitFunction(_ function: Function) {
-    self.emit("    .globl _\(function.name)")  // make func visible to linker
-    self.emit("_\(function.name):")            // label
-    self.emitStatement(function.body)
+  func genFunction(_ f: Function) {
+    builder.global(f.name)
+    builder.label(f.name)
+    genStatement(f.body)
   }
 
-  internal func emitStatement(_ statement: Statement) {
+  func genStatement(_ statement: Statement) {
     switch statement {
-      case .return(let expression):
-        // TODO: this is only going to work when returning a constant
-        self.emitExpression(expression)
-        self.emit("    ret")                     // return
+      case .return(let expr):
+        genExpression(expr)
+        builder.ret()
     }
   }
 
-  internal func emitExpression(_ expression: Expression) {
-    switch expression {
-      case .integerConstant(let value):
-        let value = String(value)
-        self.emit("    movl    $\(value), %eax") // val => return register
+  func genExpression(_ expr: Expression) {
+    switch expr {
+      case .integerConstant(let val):
+        builder.movl(val, .eax)
       case .unaryOp(let op, let expr):
         switch op {
           case .negation:
-            self.emitExpression(expr)
-            self.emit("    neg    %eax")         // negate return-register
+            genExpression(expr)
+            builder.neg(.eax)
           case .bitwiseComplement:
-            self.emitExpression(expr)
-            self.emit("    not    %eax")         // bitwise-not return-register
-          case .logicalNegation: fatalError("TODO")
+            genExpression(expr)
+            builder.not(.eax)
+          case .logicalNegation:
+            fatalError("TODO")
         }
     }
   }
 
   // MARK: - Private
-  private let out: OutputHandler
-
-  private func emit(_ str: String) {
-    self.out.emit(str + "\n")
-  }
+  private let builder: X86_64Builder
 }

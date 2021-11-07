@@ -85,19 +85,19 @@ class TestGenerator: XCTestCase {
 
   // MARK: - Private
   private func testProgram(_ program: Program, _ expected: String) {
-    self.test({ $0.emitProgram(program) }, expected)
+    self.test({ $0.genProgram(program) }, expected)
   }
 
   private func testFunction(_ function: Function, _ expected: String) {
-    self.test({ $0.emitFunction(function) }, expected)
+    self.test({ $0.genFunction(function) }, expected)
   }
 
   private func testStatement(_ statement: Statement, _ expected: String) {
-    self.test({ $0.emitStatement(statement) }, expected)
+    self.test({ $0.genStatement(statement) }, expected)
   }
 
   private func testExpression(_ expression: Expression, _ expected: String) {
-    self.test({ $0.emitExpression(expression) }, expected)
+    self.test({ $0.genExpression(expression) }, expected)
   }
 
   private func test(_ genFunction: (Generator) -> (), _ expected: String) {

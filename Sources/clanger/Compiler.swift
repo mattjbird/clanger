@@ -53,7 +53,7 @@ public final class Compiler {
     guard let ast = self.produceAst(sourcePath) else {
       return false
     }
-    Generator(output).emitProgram(ast)
+    Generator(output).genProgram(ast)
     return true
   }
 
