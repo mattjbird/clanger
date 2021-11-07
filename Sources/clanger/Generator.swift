@@ -36,8 +36,10 @@ public final class Generator {
         switch op {
           case .negation:
             self.emitExpression(expr)
-            self.emit("    neg    %eax")         // negate return register
-          case .bitwiseComplement: fatalError("TODO")
+            self.emit("    neg    %eax")         // negate return-register
+          case .bitwiseComplement:
+            self.emitExpression(expr)
+            self.emit("    not    %eax")         // bitwise-not return-register
           case .logicalNegation: fatalError("TODO")
         }
     }

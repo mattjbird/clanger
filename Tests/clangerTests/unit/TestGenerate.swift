@@ -19,6 +19,13 @@ class TestGenerator: XCTestCase {
       neg     %eax
       """
     )
+    self.testExpression(
+      .unaryOp(.bitwiseComplement, .integerConstant(7)),
+      """
+      movl    $7, %eax
+      not     %eax
+      """
+    )
 
     // Nested
     self.testExpression(
