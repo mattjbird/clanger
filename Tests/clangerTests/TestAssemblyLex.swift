@@ -16,6 +16,7 @@ class TestAssemblyLexer: XCTestCase {
     testLex("movl", [.keyword(.movl)])
     testLex("ret", [.keyword(.ret)])
     testLex("neg", [.keyword(.neg)])
+    testLex("not", [.keyword(.not)])
   }
 
   func testPunctuation() {

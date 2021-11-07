@@ -21,9 +21,10 @@ internal enum AssemblyToken: Equatable {
   }
 
   internal enum AssemblyKeyword: String {
-    case movl  = "movl"
-    case ret   = "ret"
-    case neg   = "neg"
+    case movl = "movl"
+    case ret  = "ret"
+    case neg  = "neg"
+    case not  = "not"
   }
 
   internal enum AssemblyRegister: String {
