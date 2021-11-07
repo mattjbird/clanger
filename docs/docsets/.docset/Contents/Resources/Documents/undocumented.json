@@ -52,48 +52,69 @@
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/Token.swift",
       "line": 9,
-      "symbol": "CToken.keyword(_:)",
+      "symbol": "CToken.negation",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/Token.swift",
       "line": 10,
-      "symbol": "CToken.identifier(_:)",
+      "symbol": "CToken.bitwiseComplement",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/Token.swift",
       "line": 11,
+      "symbol": "CToken.logicalNegation",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/Token.swift",
+      "line": 12,
+      "symbol": "CToken.keyword(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/Token.swift",
+      "line": 13,
+      "symbol": "CToken.identifier(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/Token.swift",
+      "line": 14,
       "symbol": "CToken.intLiteral(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/Token.swift",
-      "line": 19,
+      "line": 22,
       "symbol": "CToken.CKeyWord.int",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/Token.swift",
-      "line": 20,
+      "line": 23,
       "symbol": "CToken.CKeyWord.return",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/Token.swift",
-      "line": 27,
+      "line": 30,
       "symbol": "CToken.fromString(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/Token.swift",
-      "line": 50,
+      "line": 53,
       "symbol": "CToken.punctuationMatch(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
@@ -109,6 +130,41 @@
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/language/Expression.swift",
       "line": 3,
       "symbol": "Expression.integerConstant(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/language/Expression.swift",
+      "line": 4,
+      "symbol": "Expression.unaryOp(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/language/Expression.swift",
+      "line": 9,
+      "symbol": "Expression.Operator",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/language/Expression.swift",
+      "line": 10,
+      "symbol": "Expression.Operator.negation",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/language/Expression.swift",
+      "line": 11,
+      "symbol": "Expression.Operator.bitwiseComplement",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/language/Expression.swift",
+      "line": 12,
+      "symbol": "Expression.Operator.logicalNegation",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
