@@ -3,7 +3,8 @@ import XCTest
 
 @testable import clanger
 
-/// Tests the contract between the output of the Lex step and the Parser
+/// Tests the contract between the output of the Lex step and the Parser.
+/// Takes C tokens and checks that the correct abstract-syntax tree is created.
 class TestParser: XCTestCase {
   // MARK: Expressions
   func testIntegerConstantExpressions() {

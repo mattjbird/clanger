@@ -3,6 +3,7 @@ import XCTest
 
 @testable import clanger
 
+/// Ensures that C inputs are correctly tokenised.
 class TestLexer: XCTestCase {
   func testKeywords() {
     testLex("return", [.keyword(.return)])
