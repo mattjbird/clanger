@@ -10,4 +10,9 @@ class FunctionalTests: FunctionalTestCase {
   func test01ReturnIntConstant() {
     self.compileAndAssert("Tests/clangerTests/data/01ReturnIntConstant.c", returns: 43)
   }
+
+  func test02ReturnNegIntConstant() {
+    // -43 => 213
+    self.compileAndAssert("Tests/clangerTests/data/02ReturnNegIntConstant.c", returns: 213)
+  }
 }

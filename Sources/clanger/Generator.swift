@@ -22,18 +22,24 @@ public final class Generator {
     switch statement {
       case .return(let expression):
         // TODO: this is only going to work when returning a constant
-        let value = generateExpression(expression)
-        self.emit("    movl    $\(value), %eax") // val => return register
+        self.emitExpression(expression)
         self.emit("    ret")                     // return
     }
   }
 
-  internal func generateExpression(_ expression: Expression) -> String {
+  internal func emitExpression(_ expression: Expression) {
     switch expression {
       case .integerConstant(let value):
-        return String(value)
+        let value = String(value)
+        self.emit("    movl    $\(value), %eax") // val => return register
       case .unaryOp(let op, let expr):
-        fatalError("TODO")
+        switch op {
+          case .negation:
+            self.emitExpression(expr)
+            self.emit("    neg    %eax")         // negate return register
+          case .bitwiseComplement: fatalError("TODO")
+          case .logicalNegation: fatalError("TODO")
+        }
     }
   }
 
