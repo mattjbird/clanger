@@ -8,27 +8,36 @@ import XCTest
 class TestGenerator: XCTestCase {
   // MARK: Expressions
   func testConstants() {
-    self.testExpression( .integerConstant(9001), "movl  $9001, %eax" )
+    testExpression( .integerConstant(9001), "movl  $9001, %eax" )
   }
 
   func testUnaryOps() {
-    self.testExpression(
+    testExpression(
       .unaryOp(.negation, .integerConstant(3)),
       """
       movl    $3, %eax
       neg     %eax
       """
     )
-    self.testExpression(
+    testExpression(
       .unaryOp(.bitwiseComplement, .integerConstant(7)),
       """
       movl    $7, %eax
       not     %eax
       """
     )
+    testExpression(
+      .unaryOp(.logicalNegation, .integerConstant(1)),
+      """
+      movl    $1, %eax
+      cmpl    $0, %eax
+      movl    $0, %eax
+      sete    %al
+      """
+    )
 
     // Nested
-    self.testExpression(
+    testExpression(
       .unaryOp(.negation, .unaryOp(.negation, .integerConstant(842))),
       """
       movl    $842, %eax
@@ -40,7 +49,7 @@ class TestGenerator: XCTestCase {
 
   // MARK: Statements
   func testReturn() {
-    self.testStatement(
+    testStatement(
       Statement.return( Expression.integerConstant(42)),
       """
       movl    $42, %eax
@@ -51,7 +60,7 @@ class TestGenerator: XCTestCase {
 
   // MARK: Functions
   func testFunctionSimpleReturn() {
-    self.testFunction(
+    testFunction(
       Function(
         "meaning_of_life",
         Statement.return( Expression.integerConstant(42))
@@ -67,7 +76,7 @@ class TestGenerator: XCTestCase {
 
   // Programs
   func testReturn0() {
-    self.testProgram(
+    testProgram(
       Program(
         Function(
           "main",
@@ -85,19 +94,19 @@ class TestGenerator: XCTestCase {
 
   // MARK: - Private
   private func testProgram(_ program: Program, _ expected: String) {
-    self.test({ $0.genProgram(program) }, expected)
+    test({ $0.genProgram(program) }, expected)
   }
 
   private func testFunction(_ function: Function, _ expected: String) {
-    self.test({ $0.genFunction(function) }, expected)
+    test({ $0.genFunction(function) }, expected)
   }
 
   private func testStatement(_ statement: Statement, _ expected: String) {
-    self.test({ $0.genStatement(statement) }, expected)
+    test({ $0.genStatement(statement) }, expected)
   }
 
   private func testExpression(_ expression: Expression, _ expected: String) {
-    self.test({ $0.genExpression(expression) }, expected)
+    test({ $0.genExpression(expression) }, expected)
   }
 
   private func test(_ genFunction: (Generator) -> (), _ expected: String) {

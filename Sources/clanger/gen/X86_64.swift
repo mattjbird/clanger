@@ -8,4 +8,3 @@ public enum X86_64 {
   }
 
 }
-

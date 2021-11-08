@@ -39,7 +39,11 @@ public final class Generator {
             genExpression(expr)
             builder.not(.eax)
           case .logicalNegation:
-            fatalError("TODO")
+            // %eax => 1 iff expr == 0
+            genExpression(expr)
+            builder.cmpl(0, .eax)
+            builder.movl(0, .eax) // sete can only check eax's lsb (al)
+            builder.sete(.al)
         }
     }
   }
