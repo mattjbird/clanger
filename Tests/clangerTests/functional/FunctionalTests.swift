@@ -22,7 +22,7 @@ class FunctionalTests: XCTestCase {
   }
 
   // MARK: - Private
-  private func compile(_ str: String) -> Int32 {
+  private func compile(_ str: String, _ expectFail: Bool=false) -> Int32 {
     let tmpIn = "tmp-in"
     defer { try! FileManager.default.removeItem(atPath: tmpIn) }
     try! str.write(toFile: tmpIn, atomically: false, encoding: .utf8)
@@ -30,7 +30,10 @@ class FunctionalTests: XCTestCase {
     let tmpOut = "tmp-out"
     defer { try! FileManager.default.removeItem(atPath: tmpOut) }
 
-    Compiler().compile(tmpIn, tmpOut)
+    guard Compiler().compile(tmpIn, tmpOut) else {
+      if !expectFail { XCTFail("Compilation failed") }
+      return -1
+    }
 
     let process = Process()
     process.executableURL = URL(fileURLWithPath: tmpOut)

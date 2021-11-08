@@ -1,28 +1,29 @@
 import Foundation
 
 public final class Compiler {
-  /// Compiles a single file containing C code to x86 assembly.
-  /// Returns early if the C file `path` doesn't exist.
-  public func compile(_ sourcePath: String, _ outPath: String) {
+  /// Compiles a C file to an executable, returning whether this was successful.
+  @discardableResult
+  public func compile(_ sourcePath: String, _ outPath: String) -> Bool {
     guard pathIsValid(sourcePath) else {
       logger.error("Invalid path for compile: \(sourcePath)")
-      return
+      return false
     }
 
     self.preprocess(sourcePath)
 
     guard let outputHandler = self.setupAssemblyOutput(sourcePath) else {
       logger.error("Failed to initialise ouput handler")
-      return
+      return false
     }
     defer { self.cleanup(outputHandler.path) }
 
     guard self.produceAssembly(sourcePath, outputHandler) else {
       logger.error("Failed to produce assembly")
-      return
+      return false
     }
 
     self.assemble(outputHandler.path, outPath)
+    return true
   }
 
   /// Generates and pretty-prints an abstract-syntax-tree for the given source
