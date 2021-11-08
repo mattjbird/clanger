@@ -30,6 +30,7 @@ class TestParser: XCTestCase {
   }
 
   func testUnaryOperatorExpressions() {
+    // Basic
     self.testExpression(
       [.negation, .intLiteral("1")],
       .unaryOp(.negation, .integerConstant(1))
@@ -61,6 +62,9 @@ class TestParser: XCTestCase {
         )
       )
     )
+
+    // Missing operands
+    self.testExpression([.bitwiseComplement, .negation], throwsError: .unexpectedToken)
   }
 
   // MARK: Statements
