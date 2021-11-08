@@ -21,6 +21,6 @@ let package = Package(
     .testTarget(
       name: "clangerTests",
       dependencies: ["clanger"],
-      exclude: ["data"])
+      exclude: [])
   ]
 )

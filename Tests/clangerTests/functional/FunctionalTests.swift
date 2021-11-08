@@ -3,26 +3,46 @@ import XCTest
 
 @testable import clanger
 
-/// These functional tests use the full C files in Tests/clangerTests/data.
-/// In each test, a file is compiled, the executable is run, and its return code
-/// is checked against an expected value.
-class FunctionalTests: FunctionalTestCase {
-  func test01ReturnIntConstant() {
-    self.compileAndAssert(testData("01ReturnIntConstant.c"), returns: 43)
+class FunctionalTests: XCTestCase {
+  func testReturnInt() {
+    XCTAssertEqual(compile("int main() { return 42; }"), 42)
   }
 
-  func test02ReturnNegIntConstant() {
-    // -43 => 213
-    self.compileAndAssert(testData("02ReturnNegIntConstant.c"), returns: 213)
+  func testReturnNegative() {
+    XCTAssertEqual(compile("int main() { return -43; }"), 213)
   }
 
-  func test03ReturnBitwiseComplement() {
+  func testReturnBitwiseComplement() {
     // ~4 => 251 for 8 bits
-    self.compileAndAssert(testData("03ReturnBitwiseComplement.c"), returns: 251)
+    XCTAssertEqual(compile("int main() { return ~4; }"), 251)
+  }
+
+  func testReturnLogicalNegation() {
+    XCTAssertEqual(compile("int main() { return !1; }"), 0)
   }
 
   // MARK: - Private
-  func testData(_ file: String) -> String {
-    return "Tests/clangerTests/data/\(file)"
+  private func compile(_ str: String) -> Int32 {
+    let tmpIn = "tmp-in"
+    defer { try! FileManager.default.removeItem(atPath: tmpIn) }
+    try! str.write(toFile: tmpIn, atomically: false, encoding: .utf8)
+
+    let tmpOut = "tmp-out"
+    defer { try! FileManager.default.removeItem(atPath: tmpOut) }
+
+    Compiler().compile(tmpIn, tmpOut)
+
+    let process = Process()
+    process.executableURL = URL(fileURLWithPath: tmpOut)
+    let pipe = Pipe()
+    process.standardOutput = pipe
+    try! process.run()
+    process.waitUntilExit()
+
+    return process.terminationStatus
+
+    // Note: in the future we can return the printed output like this
+    //let data = pipe.fileHandleForReading.readDataToEndOfFile()
+    //return String(data: data, encoding: .utf8)!
   }
 }
