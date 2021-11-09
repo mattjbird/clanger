@@ -5,47 +5,85 @@ import XCTest
 
 class FunctionalTests: XCTestCase {
   func testReturnInt() {
-    XCTAssertEqual(compile("int main() { return 42; }"), 42)
+    let source = """
+      int main() {
+        return 42;
+      }
+    """
+    XCTAssertEqual(execute(source), 42)
   }
 
   func testReturnNegative() {
-    XCTAssertEqual(compile("int main() { return -43; }"), 213)
+    let source = """
+      int main() {
+        return -43;
+      }
+    """
+    XCTAssertEqual(execute(source), 213)
   }
 
   func testReturnBitwiseComplement() {
+    let source = """
+      int main() {
+        return ~4;
+      }
+    """
     // ~4 => 251 for 8 bits
-    XCTAssertEqual(compile("int main() { return ~4; }"), 251)
+    XCTAssertEqual(execute(source), 251)
   }
 
   func testReturnLogicalNegation() {
-    XCTAssertEqual(compile("int main() { return !1; }"), 0)
+    let source = """
+      int main() {
+        return !1;
+      }
+    """
+    XCTAssertEqual(execute(source), 0)
+  }
+}
+
+
+private extension FunctionalTests {
+  func execute(_ source: String) -> Int? {
+    return execute(source)?.returnCode
   }
 
-  // MARK: - Private
-  private func compile(_ str: String, _ expectFail: Bool=false) -> Int32 {
-    let tmpIn = "tmp-in"
-    defer { try! FileManager.default.removeItem(atPath: tmpIn) }
-    try! str.write(toFile: tmpIn, atomically: false, encoding: .utf8)
+  func execute(_ source: String) -> String? {
+    return execute(source)?.rtdout
+  }
 
-    let tmpOut = "tmp-out"
-    defer { try! FileManager.default.removeItem(atPath: tmpOut) }
+  func execute(_ source: String) -> ExecOutcome? {
+    let tmpSrc = tmpPath()
+    let tmpExec = tmpPath()
+    defer { [tmpSrc, tmpExec].forEach({ try! FileManager.default.removeItem(atPath: $0)})}
 
-    guard Compiler().compile(tmpIn, tmpOut) else {
-      if !expectFail { XCTFail("Compilation failed") }
-      return -1
+    try! source.write(toFile: tmpSrc, atomically: false, encoding: .utf8)
+
+    guard Compiler().compile(tmpSrc, tmpExec) else {
+      return nil
     }
 
     let process = Process()
-    process.executableURL = URL(fileURLWithPath: tmpOut)
+    process.executableURL = URL(fileURLWithPath: tmpExec)
     let pipe = Pipe()
     process.standardOutput = pipe
     try! process.run()
     process.waitUntilExit()
 
-    return process.terminationStatus
+    let stdout = String(data:
+      pipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8
+    )!
+    return ExecOutcome(stdout: stdout, returnCode: Int(process.terminationStatus))
+  }
 
-    // Note: in the future we can return the printed output like this
-    //let data = pipe.fileHandleForReading.readDataToEndOfFile()
-    //return String(data: data, encoding: .utf8)!
+  struct ExecOutcome {
+    let stdout: String
+    let returnCode: Int
+  }
+
+  func tmpPath() -> String {
+    return URL(fileURLWithPath:
+      NSTemporaryDirectory()
+    ).appendingPathComponent(UUID().uuidString).path
   }
 }
