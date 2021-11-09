@@ -49,7 +49,7 @@ private extension FunctionalTests {
   }
 
   func execute(_ source: String) -> String? {
-    return execute(source)?.rtdout
+    return execute(source)?.stdout
   }
 
   func execute(_ source: String) -> ExecOutcome? {
