@@ -22,6 +22,13 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/gen/X86_64.swift",
+      "line": 7,
+      "symbol": "X86_64.Reg.al",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
       "line": 4,
       "symbol": "CToken.openBrace",
