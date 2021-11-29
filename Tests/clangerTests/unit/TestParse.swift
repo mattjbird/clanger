@@ -32,7 +32,7 @@ class TestParser: XCTestCase {
   func testUnaryOperatorExpressions() {
     // Basic
     self.testExpression(
-      [.negation, .intLiteral("1")],
+      [.hyphen, .intLiteral("1")],
       .unaryOp(.negation, .integerConstant(1))
     )
     self.testExpression(
@@ -46,11 +46,11 @@ class TestParser: XCTestCase {
 
     // Nested
     self.testExpression(
-      [.negation, .negation, .intLiteral("0")],
+      [.hyphen, .hyphen, .intLiteral("0")],
       .unaryOp(.negation, .unaryOp(.negation, .integerConstant(0)))
     )
     self.testExpression(
-      [.bitwiseComplement, .negation, .logicalNegation, .intLiteral("9001")],
+      [.bitwiseComplement, .hyphen, .logicalNegation, .intLiteral("9001")],
       .unaryOp(
         .bitwiseComplement,
         .unaryOp(
@@ -64,7 +64,7 @@ class TestParser: XCTestCase {
     )
 
     // Missing operands
-    self.testExpression([.bitwiseComplement, .negation], throwsError: .unexpectedToken)
+    self.testExpression([.bitwiseComplement, .hyphen], throwsError: .unexpectedToken)
   }
 
   // MARK: Statements

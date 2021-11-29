@@ -11,15 +11,18 @@ class TestLexer: XCTestCase {
   }
 
   func testPunctuation() {
-    for (token, expected) in zip("{}();-~!", [
+    for (token, expected) in zip("{}();-~!+/*", [
       CToken.openBrace,
       .closeBrace,
       .openParen,
       .closeParen,
       .semiColon,
-      .negation,
+      .hyphen,
       .bitwiseComplement,
-      .logicalNegation
+      .logicalNegation,
+      .addition,
+      .division,
+      .asterisk,
     ]) {
       testLex(String(token), [expected])
     }

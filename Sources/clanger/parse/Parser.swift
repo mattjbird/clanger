@@ -95,7 +95,7 @@ public class Parser {
 
   private func parseOperator(_ token: CToken) -> Expression.Operator? {
     switch token {
-      case .negation:           return .negation
+      case .hyphen:             return .negation
       case .bitwiseComplement:  return .bitwiseComplement
       case .logicalNegation:    return .logicalNegation
       default:                  return nil
