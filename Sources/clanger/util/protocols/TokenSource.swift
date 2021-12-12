@@ -4,6 +4,7 @@ import Foundation
 /// the Parser and enabling us to implement various test helpers.
 public protocol TokenSource {
   func next() -> CToken?
+  func peek() -> CToken?
 
   var current: CToken? { get }
 }

@@ -10,10 +10,11 @@ public class TestTokenStream: TokenSource {
 
   public func next() -> CToken? {
     defer { self.currentTokenIdx += 1 }
-    if self.currentTokenIdx >= self.tokens.count {
-      return nil
-    }
-    return self.tokens[self.currentTokenIdx]
+    return _next()
+  }
+
+  public func peek() -> CToken? {
+    return _next()
   }
 
   public var current: CToken? {
@@ -25,4 +26,12 @@ public class TestTokenStream: TokenSource {
   // MARK: - Internal
   internal let tokens: [CToken]
   internal var currentTokenIdx = 0
+
+  // MARK: - Private
+  private func _next() -> CToken? {
+    if self.currentTokenIdx >= self.tokens.count {
+      return nil
+    }
+    return self.tokens[self.currentTokenIdx]
+  }
 }
