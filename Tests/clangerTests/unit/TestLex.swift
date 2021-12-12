@@ -104,10 +104,6 @@ class TestLexer: XCTestCase {
   }
 
   func testLineAndColumnNumbering() {
-    func getTokens(_ str: String) -> TokenSequence {
-      return TokenSequence(CharacterStream(InputStream(string: str)))
-    }
-
     // Check columns
     var tokens = getTokens(";;;")
     for (i, _) in tokens.enumerated() {
@@ -128,8 +124,27 @@ class TestLexer: XCTestCase {
     }
   }
 
+  func testPeeking() {
+    var tokens = getTokens("Hello World")
+    XCTAssertEqual(tokens.peek(), .identifier("Hello"))
+    XCTAssertEqual(tokens.next(), .identifier("Hello"))
+    XCTAssertEqual(tokens.peek(), .identifier("World"))
+    XCTAssertEqual(tokens.next(), .identifier("World"))
+    XCTAssertEqual(tokens.peek(), nil)
+    XCTAssertEqual(tokens.next(), nil)
+
+    // Double peek
+    tokens = getTokens(";)")
+    XCTAssertEqual(tokens.peek(), .semiColon)
+    XCTAssertEqual(tokens.peek(), .semiColon)
+  }
+
+  private func getTokens(_ str: String) -> TokenSequence {
+    return TokenSequence(CharacterStream(InputStream(string: str)))
+  }
+
   private func testLex(_ src: String, _ expected: [CToken]) {
-    let tokens = TokenSequence(CharacterStream(InputStream(string: src)))
+    let tokens = getTokens(src)
     XCTAssertEqual(Array(tokens), expected)
   }
 }
