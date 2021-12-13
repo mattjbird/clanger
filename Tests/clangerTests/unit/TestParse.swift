@@ -68,20 +68,35 @@ class TestParser: XCTestCase {
   }
 
   func testBinaryOperatorExpressions() {
-    for (tokOp, op) in [
-      (CToken.addition, Expression.BinaryOperator.add),
-      (.hyphen, .minus),
+    for (tokOp, op) in Array<(CToken, Expression.BinaryOperator)>([
+      (.addition, .add),
+      (.hyphen,   .minus),
       (.asterisk, .multiply),
-      (.division, .divide)] {
+      (.division, .divide)
+    ]) {
       self.testExpression(
         [.intLiteral("1"), tokOp, .intLiteral("2")],
         .binaryOp(op, .integerConstant(1), .integerConstant(2))
       )
-
-      // FIXME! This test is failing!!!!
-      self.testExpression(
-        [.openBrace, .intLiteral("1"), tokOp, .intLiteral("2"), .closeBrace, tokOp, .intLiteral("3")],
-        .binaryOp(op, .binaryOp(op, .integerConstant(1), .integerConstant(2)), .integerConstant(3))
+      // Nested expression
+      self.testExpression([
+        .openParen,
+        .intLiteral("1"),
+        tokOp,
+        .intLiteral("2"),
+        .closeParen,
+        tokOp,
+        .intLiteral("3")
+      ],
+        .binaryOp(
+          op,
+          .binaryOp(
+            op,
+            .integerConstant(1),
+            .integerConstant(2)
+          ),
+          .integerConstant(3)
+        )
       )
     }
   }
@@ -184,8 +199,19 @@ class TestParser: XCTestCase {
     _ expected: T,
     _ parser: (TokenSource) throws -> T
   ) {
-    let out = try? parser(TestTokenStream(tokens))
-    AssertASTEqual(out, expected)
+    let tokenStream = TestTokenStream(tokens)
+    do {
+      let out = try parser(tokenStream)
+      AssertASTEqual(out, expected)
+      return
+    } catch ParseError.unexpectedToken {
+       print("Unexpected token: \(tokenStream.current?.debugDescription ?? "")")
+    } catch ParseError.overflow {
+      print("Overflow: \(tokenStream.current?.debugDescription ?? "")")
+    } catch {
+      print("Unhandled exception!")
+    }
+    XCTFail("Parsing failed")
   }
 
   private func testParse<T: Equatable & PrettyPrintable>(
