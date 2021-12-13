@@ -66,7 +66,7 @@
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
       "line": 9,
-      "symbol": "CToken.negation",
+      "symbol": "CToken.hyphen",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
@@ -107,35 +107,56 @@
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
-      "line": 22,
+      "line": 15,
+      "symbol": "CToken.addition",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
+      "line": 16,
+      "symbol": "CToken.division",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
+      "line": 17,
+      "symbol": "CToken.asterisk",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
+      "line": 25,
       "symbol": "CToken.CKeyWord.int",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
-      "line": 23,
+      "line": 26,
       "symbol": "CToken.CKeyWord.return",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
-      "line": 30,
+      "line": 33,
       "symbol": "CToken.fromString(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
-      "line": 53,
+      "line": 56,
       "symbol": "CToken.punctuationMatch(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/TokenSequence.swift",
-      "line": 48,
+      "line": 31,
       "symbol": "TokenSequence.current",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
@@ -177,29 +198,71 @@
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/parse/AST.swift",
-      "line": 32,
-      "symbol": "Expression.Operator",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/mjb/hobby/clanger/Sources/clanger/parse/AST.swift",
-      "line": 33,
-      "symbol": "Expression.Operator.negation",
+      "line": 30,
+      "symbol": "Expression.binaryOp(_:_:_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/parse/AST.swift",
+      "line": 33,
+      "symbol": "Expression.UnaryOperator",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/parse/AST.swift",
       "line": 34,
-      "symbol": "Expression.Operator.bitwiseComplement",
+      "symbol": "Expression.UnaryOperator.negation",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/parse/AST.swift",
       "line": 35,
-      "symbol": "Expression.Operator.logicalNegation",
+      "symbol": "Expression.UnaryOperator.bitwiseComplement",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/parse/AST.swift",
+      "line": 36,
+      "symbol": "Expression.UnaryOperator.logicalNegation",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/parse/AST.swift",
+      "line": 38,
+      "symbol": "Expression.BinaryOperator",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/parse/AST.swift",
+      "line": 39,
+      "symbol": "Expression.BinaryOperator.minus",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/parse/AST.swift",
+      "line": 40,
+      "symbol": "Expression.BinaryOperator.add",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/parse/AST.swift",
+      "line": 41,
+      "symbol": "Expression.BinaryOperator.multiply",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/parse/AST.swift",
+      "line": 42,
+      "symbol": "Expression.BinaryOperator.divide",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
@@ -233,7 +296,14 @@
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/util/protocols/TokenSource.swift",
-      "line": 8,
+      "line": 7,
+      "symbol": "TokenSource.peek()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/util/protocols/TokenSource.swift",
+      "line": 9,
       "symbol": "TokenSource.current",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
