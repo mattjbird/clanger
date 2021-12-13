@@ -56,15 +56,56 @@ public class Parser {
     }
   }
 
-  internal func parseExpression(_ tokens: TokenSource) throws -> Expression {
+  // <exp> ::= <term> { ("+" | "-") <term> }
+  func parseExpression(_ tokens: TokenSource) throws -> Expression {
+    var term = try parseTerm(tokens)
+    var next = tokens.peek()
+    while next == .addition || next == .hyphen {
+      guard let op = parseBinaryOperator(tokens.next()!) else {
+        throw ParseError.unexpectedToken
+      }
+      let nextTerm = try parseTerm(tokens)
+      term = .binaryOp(op, term, nextTerm)
+      next = tokens.peek()
+    }
+    return term
+  }
+
+  // <term> ::= <factor> { ("*" | "/") <factor> }
+  func parseTerm(_ tokens: TokenSource) throws -> Expression {
+    var factor = try parseFactor(tokens)
+    var next = tokens.peek()
+    while next == .asterisk || next == .division {
+      guard let op = parseBinaryOperator(tokens.next()!) else {
+        throw ParseError.unexpectedToken
+      }
+      let nextFactor = try parseFactor(tokens)
+      factor = .binaryOp(op, factor, nextFactor)
+      next = tokens.peek()
+    }
+    return factor
+  }
+
+  // <factor> ::= "(" <exp> ")" | <unary_op> <factor> | <int>
+  func parseFactor(_ tokens: TokenSource) throws -> Expression {
     guard let token = tokens.next() else {
       // TODO: add an EOF token
       throw ParseError.unexpectedToken
     }
-    if case .intLiteral(let str) = token {
+    if token == .openParen {
+      // <factor> ::= "(" <exp> ")"
+      let expr = try parseExpression(tokens)
+      if tokens.next() != .closeParen {
+        throw ParseError.unexpectedToken
+      }
+      return expr
+    } else if let op = parseUnaryOperator(token) {
+      // <factor> ::= <unary_op> <factor>
+      let factor = try parseFactor(tokens)
+      return .unaryOp(op, factor)
+    } else if case .intLiteral(let str) = token {
+      // <factor> ::= <int>
       return .integerConstant( try self.parseIntegerLiteral(str) )
-    } else if let op = self.parseOperator(token) {
-      return .unaryOp(op, try self.parseExpression(tokens))
     }
     throw ParseError.unexpectedToken
   }
@@ -93,12 +134,22 @@ public class Parser {
     return Int32(value)
   }
 
-  private func parseOperator(_ token: CToken) -> Expression.Operator? {
+  private func parseUnaryOperator(_ token: CToken) -> Expression.UnaryOperator? {
     switch token {
       case .hyphen:             return .negation
       case .bitwiseComplement:  return .bitwiseComplement
       case .logicalNegation:    return .logicalNegation
       default:                  return nil
+    }
+  }
+
+  private func parseBinaryOperator(_ token: CToken) -> Expression.BinaryOperator? {
+    switch token {
+      case .hyphen:   return .minus
+      case .addition: return .add
+      case .asterisk: return .multiply
+      case .division: return .divide
+      default:        return nil
     }
   }
 }

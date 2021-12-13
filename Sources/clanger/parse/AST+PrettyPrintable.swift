@@ -31,6 +31,8 @@ extension Expression: PrettyPrintable {
         return "Int<\(value)>"
       case .unaryOp(let op, let expression):
         return "UnaryOp<\(op),\(expression.pretty())>"
+      case .binaryOp(let op, let expr1, let expr2):
+        return "BinaryOp<\(op),\(expr1.pretty()),\(expr2.pretty())>"
     }
   }
 }
