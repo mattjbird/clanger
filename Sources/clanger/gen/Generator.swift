@@ -45,6 +45,8 @@ public final class Generator {
             builder.movl(0, .eax) // sete can only check eax's lsb (al)
             builder.sete(.al)
         }
+      case .binaryOp(_, _, _):
+        fatalError("Unimplemented binary op!")
     }
   }
 

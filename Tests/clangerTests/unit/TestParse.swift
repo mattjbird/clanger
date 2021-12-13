@@ -67,6 +67,25 @@ class TestParser: XCTestCase {
     self.testExpression([.bitwiseComplement, .hyphen], throwsError: .unexpectedToken)
   }
 
+  func testBinaryOperatorExpressions() {
+    for (tokOp, op) in [
+      (CToken.addition, Expression.BinaryOperator.add),
+      (.hyphen, .minus),
+      (.asterisk, .multiply),
+      (.division, .divide)] {
+      self.testExpression(
+        [.intLiteral("1"), tokOp, .intLiteral("2")],
+        .binaryOp(op, .integerConstant(1), .integerConstant(2))
+      )
+
+      // FIXME! This test is failing!!!!
+      self.testExpression(
+        [.openBrace, .intLiteral("1"), tokOp, .intLiteral("2"), .closeBrace, tokOp, .intLiteral("3")],
+        .binaryOp(op, .binaryOp(op, .integerConstant(1), .integerConstant(2)), .integerConstant(3))
+      )
+    }
+  }
+
   // MARK: Statements
   func testReturnStatements() {
     self.testStatement(

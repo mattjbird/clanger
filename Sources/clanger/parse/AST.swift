@@ -26,12 +26,19 @@ public enum Statement: Equatable {
 /// Represents a C expression
 public enum Expression: Equatable {
   case integerConstant(Int32)
-  indirect case unaryOp(Operator, Expression)
+  indirect case unaryOp(UnaryOperator, Expression)
+  indirect case binaryOp(BinaryOperator, Expression, Expression)
 }
 extension Expression {
-  public enum Operator: Character {
+  public enum UnaryOperator: Character {
     case negation           = "-"
     case bitwiseComplement  = "~"
     case logicalNegation    = "!"
+  }
+  public enum BinaryOperator: Character {
+    case minus     = "-"
+    case add       = "+"
+    case multiply  = "*"
+    case divide    = "/"
   }
 }
