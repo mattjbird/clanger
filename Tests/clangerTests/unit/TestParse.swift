@@ -6,7 +6,11 @@ import XCTest
 /// Tests the contract between the output of the Lex step and the Parser.
 /// Takes C tokens and checks that the correct abstract-syntax tree is created.
 class TestParser: XCTestCase {
-  // MARK: Expressions
+  private let parser = Parser()
+}
+
+// MARK: Expressions
+extension TestParser {
   func testIntegerConstantExpressions() {
     for i in stride(from: 0, to: 32, by: 1) {
       let n = Int32(UInt64((1 << i) - 1))
@@ -124,16 +128,20 @@ class TestParser: XCTestCase {
       )
     }
   }
+}
 
-  // MARK: Statements
+// MARK: Statements
+extension TestParser {
   func testReturnStatements() {
     self.testStatement(
       [.keyword(.return), .intLiteral("0"), .semiColon],
       Statement.return( Expression.integerConstant(0) )
     )
   }
+}
 
-  // MARK: Functions
+// MARK: Functions
+extension TestParser {
   func testBasicFunction() {
     self.testFunction(
       [
@@ -155,8 +163,10 @@ class TestParser: XCTestCase {
       )
     )
   }
+}
 
-  // MARK: Programs
+// MARK: Programs
+extension TestParser {
   func testBasicProgram() {
     self.testProgram(
       [
@@ -178,10 +188,10 @@ class TestParser: XCTestCase {
       )
     )
   }
+}
 
-  // MARK: - Private
-  private let parser = Parser()
-
+// MARK: Private
+private extension TestParser {
   private func testExpression(_ tokens: [CToken], _ expected: Expression) {
     self.testParse(tokens, expected, self.parser.parseExpression)
   }
@@ -192,7 +202,6 @@ class TestParser: XCTestCase {
 
   private func testStatement(_ tokens: [CToken], _ expected: Statement) {
     self.testParse(tokens, expected, self.parser.parseStatement)
-    self.testMissingComponentsFailParse(tokens, self.parser.parseStatement)
   }
 
   private func testStatement(_ tokens: [CToken], throwsError err: ParseError) {
@@ -201,7 +210,6 @@ class TestParser: XCTestCase {
 
   private func testFunction(_ tokens: [CToken], _ expected: Function) {
     self.testParse(tokens, expected, self.parser.parseFunction)
-    self.testMissingComponentsFailParse(tokens, self.parser.parseFunction)
   }
 
   private func testFunction(_ tokens: [CToken], throwsError err: ParseError) {
@@ -210,7 +218,6 @@ class TestParser: XCTestCase {
 
   private func testProgram(_ tokens: [CToken], _ expected: Program) {
     self.testParse(tokens, expected, self.parser.parse)
-    self.testMissingComponentsFailParse(tokens, self.parser.parse)
   }
 
   private func testProgram(_ tokens: [CToken], throwsError err: ParseError) {
@@ -238,6 +245,7 @@ class TestParser: XCTestCase {
     XCTFail("Parsing failed")
   }
 
+  // Check that trying to parse the tokens throws an error
   private func testParse<T: Equatable & PrettyPrintable>(
     _ tokens: [CToken],
     _ parser: (TokenSource) throws -> T,
@@ -250,31 +258,6 @@ class TestParser: XCTestCase {
     }
     XCTAssert(thrownError is ParseError)
     XCTAssertEqual(thrownError as? ParseError, error)
-  }
-
-  // Checks that every incorrect combination of the tokens fails.
-  // Note: this assumes that each individual token is necessary to the token
-  // stream. As things get more complex, this clearly isn't the case. For
-  // instance, "-1" and "1" are both valid, so we can't check our parsing of
-  // "-1" by removing "-" and asserting that the parsing fails! Hence why we
-  // don't use this for expressions.
-  private func testMissingComponentsFailParse<T: Equatable & PrettyPrintable>(
-    _ tokens: [CToken],
-    _ parser: (TokenSource) throws -> T
-  ) {
-    guard tokens.count > 1 else { return }
-    for i in stride(from: 0, to: tokens.count - 1, by: 1) {
-      var badTokens = tokens
-      badTokens.remove(at: i)
-      let tokenStream = TestTokenStream(badTokens)
-
-      var thrownError: Error?
-      XCTAssertThrowsError(try parser(tokenStream)) {
-        thrownError = $0
-      }
-      XCTAssert(thrownError is ParseError)
-      XCTAssertEqual(thrownError as? ParseError, ParseError.unexpectedToken)
-    }
   }
 }
 
