@@ -74,20 +74,15 @@ class TestParser: XCTestCase {
       (.asterisk, .multiply),
       (.division, .divide)
     ]) {
+      // e.g., 1 + 2
       self.testExpression(
         [.intLiteral("1"), tokOp, .intLiteral("2")],
         .binaryOp(op, .integerConstant(1), .integerConstant(2))
       )
-      // Nested expression
-      self.testExpression([
-        .openParen,
-        .intLiteral("1"),
-        tokOp,
-        .intLiteral("2"),
-        .closeParen,
-        tokOp,
-        .intLiteral("3")
-      ],
+
+      // left associativity e.g., 1 + 2 + 3
+      self.testExpression(
+        [.intLiteral("1"), tokOp, .intLiteral("2"), tokOp, .intLiteral("3")],
         .binaryOp(
           op,
           .binaryOp(
@@ -96,6 +91,35 @@ class TestParser: XCTestCase {
             .integerConstant(2)
           ),
           .integerConstant(3)
+        )
+      )
+
+      // braces e.g., 1 + ((2 + 3) + 4)
+      self.testExpression([
+        .intLiteral("1"),
+        tokOp,
+        .openParen,
+        .openParen,
+        .intLiteral("2"),
+        tokOp,
+        .intLiteral("3"),
+        .closeParen,
+        tokOp,
+        .intLiteral("4"),
+        .closeParen
+      ],
+        .binaryOp(
+          op,
+          .integerConstant(1),
+          .binaryOp(
+            op,
+            .binaryOp(
+              op,
+              .integerConstant(2),
+              .integerConstant(3)
+            ),
+            .integerConstant(4)
+          )
         )
       )
     }
