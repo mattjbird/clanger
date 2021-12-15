@@ -1,14 +1,15 @@
 /// A Token in assembly in the AT&T x86 syntax
 internal enum AssemblyToken: Equatable {
   case directive(AssemblyDirective)
-  case puncutation(AssemblyPunctuation)
+  case punctuation(AssemblyPunctuation)
   case keyword(AssemblyKeyword)
   case register(AssemblyRegister)
   case identifier(String)
   case literal(String)
 
-  case punctuation(AssemblyPunctuation)
 
+  // TODO: we don't want to treat this punctuation as a token per se, but
+  // instead require that e.g., registers are prefixed correctly.
   internal enum AssemblyPunctuation: Character {
     case literalPrefix  = "$"
     case registerPrefix = "%"
@@ -27,11 +28,20 @@ internal enum AssemblyToken: Equatable {
     case not
     case cmpl
     case sete
+
+    case push
+    case pop
+
+    case addl
+    case imul
+    case subl
+    case idivl
   }
 
   internal enum AssemblyRegister: String {
     case eax
     case al
+    case ecx
   }
 }
 
@@ -40,7 +50,7 @@ extension AssemblyToken {
   static func fromString(_ str: String) -> AssemblyToken? {
     if str.count == 1,
       let punctuation = AssemblyToken.AssemblyPunctuation(rawValue: str.first!) {
-      return .puncutation(punctuation)
+      return .punctuation(punctuation)
     }
     if let directive = AssemblyToken.AssemblyDirective(rawValue: str) {
       return .directive(directive)

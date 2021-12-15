@@ -19,6 +19,8 @@ class TestAssemblyLexer: XCTestCase {
     testLex("not", [.keyword(.not)])
     testLex("cmpl", [.keyword(.cmpl)])
     testLex("sete", [.keyword(.sete)])
+    testLex("push", [.keyword(.push)])
+    testLex("pop", [.keyword(.pop)])
   }
 
   func testPunctuation() {
@@ -48,18 +50,91 @@ class TestAssemblyLexer: XCTestCase {
 
   func testReturnLiteral() {
     testLex("""
-    movl  $9, %eax
-    ret
+      movl  $9, %eax
+      ret
+      """,
+      [
+        .keyword(.movl),
+        .punctuation(.literalPrefix),
+        .literal("9"),
+        .punctuation(.comma),
+        .punctuation(.registerPrefix),
+        .register(.eax),
+        .keyword(.ret)
+      ]
+    )
+  }
+
+  func testLogicalNegation() {
+    testLex("""
+      movl    $1, %eax
+      cmpl    $0, %eax
+      movl    $0, %eax
+      sete    %al
+      """,
+      [
+        .keyword(.movl),
+        .punctuation(.literalPrefix),
+        .literal("1"),
+        .punctuation(.comma),
+        .punctuation(.registerPrefix),
+        .register(.eax),
+        .keyword(.cmpl),
+        .punctuation(.literalPrefix),
+        .literal("0"),
+        .punctuation(.comma),
+        .punctuation(.registerPrefix),
+        .register(.eax),
+        .keyword(.movl),
+        .punctuation(.literalPrefix),
+        .literal("0"),
+        .punctuation(.comma),
+        .punctuation(.registerPrefix),
+        .register(.eax),
+        .keyword(.sete),
+        .punctuation(.registerPrefix),
+        .register(.al),
+    ])
+  }
+
+  func testAddition() {
+    testLex("""
+      movl    $1, %eax
+      push    %eax
+      movl    $2, %eax
+      pop     %ecx
+      addl    %ecx, %eax
     """,
-    [
-      .keyword(.movl),
-      .punctuation(.literalPrefix),
-      .literal("9"),
-      .punctuation(.comma),
-      .punctuation(.registerPrefix),
-      .register(.eax),
-      .keyword(.ret)
-    ]
+      [
+        .keyword(.movl),
+        .punctuation(.literalPrefix),
+        .literal("1"),
+        .punctuation(.comma),
+        .punctuation(.registerPrefix),
+        .register(.eax),
+
+        .keyword(.push),
+        .punctuation(.registerPrefix),
+        .register(.eax),
+
+        .keyword(.movl),
+        .punctuation(.literalPrefix),
+        .literal("2"),
+        .punctuation(.comma),
+        .punctuation(.registerPrefix),
+        .register(.eax),
+
+        .keyword(.pop),
+        .punctuation(.registerPrefix),
+        .register(.ecx),
+
+        .keyword(.addl),
+        .punctuation(.registerPrefix),
+        .register(.ecx),
+        .punctuation(.comma),
+        .punctuation(.registerPrefix),
+        .register(.eax)
+      ]
     )
   }
 
