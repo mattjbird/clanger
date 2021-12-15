@@ -33,22 +33,25 @@ extension TestParser {
     }
   }
 
-  func testUnaryOperatorExpressions() {
-    // Basic
-    self.testExpression(
-      [.hyphen, .intLiteral("1")],
-      .unaryOp(.negation, .integerConstant(1))
-    )
-    self.testExpression(
-      [.bitwiseComplement, .intLiteral("25")],
-      .unaryOp(.bitwiseComplement, .integerConstant(25))
-    )
-    self.testExpression(
-      [.logicalNegation, .intLiteral("0")],
-      .unaryOp(.logicalNegation, .integerConstant(0))
-    )
+  private func tokenUnaryOpPairs() -> [(CToken, Expression.UnaryOperator)] {
+    return [
+      // token     =>       operator
+      (.hyphen,            .negation),
+      (.bitwiseComplement, .bitwiseComplement),
+      (.logicalNegation,   .logicalNegation),
+    ]
+  }
 
-    // Nested
+  func testUnaryOperatorExpressionsBasic() {
+    for (tokOp, op) in tokenUnaryOpPairs() {
+      self.testExpression(
+        [tokOp, .intLiteral("1337")],
+        .unaryOp(op, .integerConstant(1337))
+      )
+    }
+  }
+
+  func testUnaryOperatorExpressionsNested() {
     self.testExpression(
       [.hyphen, .hyphen, .intLiteral("0")],
       .unaryOp(.negation, .unaryOp(.negation, .integerConstant(0)))
@@ -66,25 +69,38 @@ extension TestParser {
         )
       )
     )
-
-    // Missing operands
-    self.testExpression([.bitwiseComplement, .hyphen], throwsError: .unexpectedToken)
   }
 
-  func testBinaryOperatorExpressions() {
-    for (tokOp, op) in Array<(CToken, Expression.BinaryOperator)>([
+  func testUnaryOperatorExpressionsMissingOperands() {
+    for tokOp in tokenUnaryOpPairs().map(\.0) {
+      self.testExpression([tokOp], throwsError: .unexpectedToken)
+      self.testExpression([tokOp, tokOp], throwsError: .unexpectedToken)
+    }
+  }
+
+  private func tokenBinaryOpPairs() -> [(CToken, Expression.BinaryOperator)] {
+    return [
+      // token => operator
       (.addition, .add),
       (.hyphen,   .minus),
       (.asterisk, .multiply),
-      (.division, .divide)
-    ]) {
-      // e.g., 1 + 2
+      (.division, .divide),
+    ]
+  }
+
+  func testBinaryOperatorExpressionsBasic() {
+    // e.g., 1 + 2
+    for (tokOp, op) in tokenBinaryOpPairs() {
       self.testExpression(
         [.intLiteral("1"), tokOp, .intLiteral("2")],
         .binaryOp(op, .integerConstant(1), .integerConstant(2))
       )
+    }
+  }
 
-      // left associativity e.g., 1 + 2 + 3
+  func testBinaryOperatorExpressionsLeftAssociativity() {
+    // e.g., 1 + 2 + 3
+    for (tokOp, op) in tokenBinaryOpPairs() {
       self.testExpression(
         [.intLiteral("1"), tokOp, .intLiteral("2"), tokOp, .intLiteral("3")],
         .binaryOp(
@@ -97,8 +113,12 @@ extension TestParser {
           .integerConstant(3)
         )
       )
+    }
+  }
 
-      // braces e.g., 1 + ((2 + 3) + 4)
+  func testBinaryOperatorExpressionsNested() {
+    // braces e.g., 1 + ((2 + 3) + 4)
+    for (tokOp, op) in tokenBinaryOpPairs() {
       self.testExpression([
         .intLiteral("1"),
         tokOp,
