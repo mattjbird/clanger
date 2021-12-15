@@ -9,8 +9,9 @@ class TestParser: XCTestCase {
   private let parser = Parser()
 }
 
-// MARK: Expressions
+// MARK: - Expressions
 extension TestParser {
+  // MARK: Integer constants
   func testIntegerConstantExpressions() {
     for i in stride(from: 0, to: 32, by: 1) {
       let n = Int32(UInt64((1 << i) - 1))
@@ -18,7 +19,7 @@ extension TestParser {
       let hexadecimal = "0x" + String(n, radix: 16)
       let octal = "0" + String(n, radix: 8)
       for representation in [decimal, hexadecimal, octal] {
-        self.testExpression([.intLiteral( representation )], .integerConstant(n))
+        testExpression([.intLiteral( representation )], .integerConstant(n))
       }
     }
   }
@@ -29,10 +30,11 @@ extension TestParser {
     let hexadecimal = "0x" + String(tooBig, radix: 16)
     let octal = "0" + String(tooBig, radix: 8)
     for representation in [decimal, hexadecimal, octal] {
-      self.testExpression([ .intLiteral(representation)], throwsError: .overflow)
+      testExpression([ .intLiteral(representation)], throwsError: .overflow)
     }
   }
 
+  // MARK: Unary Ops
   private func tokenUnaryOpPairs() -> [(CToken, Expression.UnaryOperator)] {
     return [
       // token     =>       operator
@@ -44,7 +46,7 @@ extension TestParser {
 
   func testUnaryOperatorExpressionsBasic() {
     for (tokOp, op) in tokenUnaryOpPairs() {
-      self.testExpression(
+      testExpression(
         [tokOp, .intLiteral("1337")],
         .unaryOp(op, .integerConstant(1337))
       )
@@ -52,11 +54,11 @@ extension TestParser {
   }
 
   func testUnaryOperatorExpressionsNested() {
-    self.testExpression(
+    testExpression(
       [.hyphen, .hyphen, .intLiteral("0")],
       .unaryOp(.negation, .unaryOp(.negation, .integerConstant(0)))
     )
-    self.testExpression(
+    testExpression(
       [.bitwiseComplement, .hyphen, .logicalNegation, .intLiteral("9001")],
       .unaryOp(
         .bitwiseComplement,
@@ -73,11 +75,12 @@ extension TestParser {
 
   func testUnaryOperatorExpressionsMissingOperands() {
     for tokOp in tokenUnaryOpPairs().map(\.0) {
-      self.testExpression([tokOp], throwsError: .unexpectedToken)
-      self.testExpression([tokOp, tokOp], throwsError: .unexpectedToken)
+      testExpression([tokOp], throwsError: .unexpectedToken)
+      testExpression([tokOp, tokOp], throwsError: .unexpectedToken)
     }
   }
 
+  // MARK: Binary Ops
   private func tokenBinaryOpPairs() -> [(CToken, Expression.BinaryOperator)] {
     return [
       // token => operator
@@ -91,7 +94,7 @@ extension TestParser {
   func testBinaryOperatorExpressionsBasic() {
     // e.g., 1 + 2
     for (tokOp, op) in tokenBinaryOpPairs() {
-      self.testExpression(
+      testExpression(
         [.intLiteral("1"), tokOp, .intLiteral("2")],
         .binaryOp(op, .integerConstant(1), .integerConstant(2))
       )
@@ -101,7 +104,7 @@ extension TestParser {
   func testBinaryOperatorExpressionsLeftAssociativity() {
     // e.g., 1 + 2 + 3
     for (tokOp, op) in tokenBinaryOpPairs() {
-      self.testExpression(
+      testExpression(
         [.intLiteral("1"), tokOp, .intLiteral("2"), tokOp, .intLiteral("3")],
         .binaryOp(
           op,
@@ -119,7 +122,7 @@ extension TestParser {
   func testBinaryOperatorExpressionsNested() {
     // braces e.g., 1 + ((2 + 3) + 4)
     for (tokOp, op) in tokenBinaryOpPairs() {
-      self.testExpression([
+      testExpression([
         .intLiteral("1"),
         tokOp,
         .openParen,
@@ -148,22 +151,68 @@ extension TestParser {
       )
     }
   }
+
+  func testBinaryOperatorExpresionsMissingOp() {
+    // __ + 2
+    testExpression([.addition, .intLiteral("2")], throwsError: .unexpectedToken)
+    // 2 + __
+    testExpression([.intLiteral("2"), .addition], throwsError: .unexpectedToken)
+  }
 }
 
-// MARK: Statements
+// MARK: - Statements
 extension TestParser {
   func testReturnStatements() {
-    self.testStatement(
+    // return 0;
+    testStatement(
       [.keyword(.return), .intLiteral("0"), .semiColon],
       Statement.return( Expression.integerConstant(0) )
     )
   }
+
+  func testMissingSemicolonStatement() {
+    // return 1
+    let statement = [
+      CToken.keyword(.return),
+      .intLiteral("1"),
+    ]
+    testStatement(statement, throwsError: .unexpectedToken)
+  }
+
+  func testReturnBinaryOp() {
+    // return (1 + 2);
+    testStatement([
+      CToken.keyword(.return),
+      .openParen,
+      .intLiteral("1"),
+      .addition,
+      .intLiteral("2"),
+      .closeParen,
+      .semiColon
+    ],
+      .return(.binaryOp(.add, .integerConstant(1), .integerConstant(2)))
+    )
+  }
+
+  func testIllFormedBracketStatement() {
+    // return 1 (+ 2);
+    let statement = [
+      CToken.keyword(.return),
+      .intLiteral("1"),
+      .openParen,
+      .addition,
+      .intLiteral("2"),
+      .closeParen,
+      .semiColon
+    ]
+    testStatement(statement, throwsError: .unexpectedToken)
+  }
 }
 
-// MARK: Functions
+// MARK: - Functions
 extension TestParser {
   func testBasicFunction() {
-    self.testFunction(
+    testFunction(
       [
         .keyword(.int),
         .identifier("main"),
@@ -183,12 +232,80 @@ extension TestParser {
       )
     )
   }
+
+  // Note: the standard *does* allow main() to be written without a return.
+  func testEmptyFunctionNotMain() {
+    let f = [
+      CToken.keyword(.int),
+      .identifier("i_am_not_main"),
+      .openParen,
+      .closeParen,
+      .openBrace,
+      .closeBrace
+    ]
+    testFunction(f, throwsError: .unexpectedToken)
+  }
+
+  func testMissingOpenBraceFunction() {
+    let f = [
+      CToken.keyword(.int),
+      .identifier("main"),
+      .openParen,
+      .closeParen,
+      .keyword(.return),
+      .intLiteral("0"),
+      .semiColon,
+      .closeBrace
+    ]
+    testFunction(f, throwsError: .unexpectedToken)
+  }
+
+  func testMissingCloseBraceFunction() {
+    let f = [
+      CToken.keyword(.int),
+      .identifier("main"),
+      .openParen,
+      .closeParen,
+      .openBrace,
+      .keyword(.return),
+      .intLiteral("0"),
+      .semiColon,
+    ]
+    testFunction(f, throwsError: .unexpectedToken)
+  }
+
+  func testMissingReturnTypeFunction() {
+    let f = [
+      CToken.identifier("main"),
+      .openParen,
+      .closeParen,
+      .openBrace,
+      .keyword(.return),
+      .intLiteral("0"),
+      .semiColon,
+      .closeBrace
+    ]
+    testFunction(f, throwsError: .unexpectedToken)
+  }
+
+  func testMissingArgListFunction() {
+    let f = [
+      CToken.keyword(.int),
+      .identifier("main"),
+      .openBrace,
+      .keyword(.return),
+      .intLiteral("0"),
+      .semiColon,
+      .closeBrace
+    ]
+    testFunction(f, throwsError: .unexpectedToken)
+  }
 }
 
-// MARK: Programs
+// MARK: - Programs
 extension TestParser {
   func testBasicProgram() {
-    self.testProgram(
+    testProgram(
       [
         .keyword(.int),
         .identifier("main"),
@@ -210,38 +327,38 @@ extension TestParser {
   }
 }
 
-// MARK: Private
+// MARK: - Private
 private extension TestParser {
   private func testExpression(_ tokens: [CToken], _ expected: Expression) {
-    self.testParse(tokens, expected, self.parser.parseExpression)
+    testParse(tokens, expected, parser.parseExpression)
   }
 
   private func testExpression(_ tokens: [CToken], throwsError err: ParseError) {
-    self.testParse(tokens, self.parser.parseExpression, throwsError: err)
+    testParse(tokens, parser.parseExpression, throwsError: err)
   }
 
   private func testStatement(_ tokens: [CToken], _ expected: Statement) {
-    self.testParse(tokens, expected, self.parser.parseStatement)
+    testParse(tokens, expected, parser.parseStatement)
   }
 
   private func testStatement(_ tokens: [CToken], throwsError err: ParseError) {
-    self.testParse(tokens, self.parser.parseStatement, throwsError: err)
+    testParse(tokens, parser.parseStatement, throwsError: err)
   }
 
   private func testFunction(_ tokens: [CToken], _ expected: Function) {
-    self.testParse(tokens, expected, self.parser.parseFunction)
+    testParse(tokens, expected, parser.parseFunction)
   }
 
   private func testFunction(_ tokens: [CToken], throwsError err: ParseError) {
-    self.testParse(tokens, self.parser.parseFunction, throwsError: err)
+    testParse(tokens, parser.parseFunction, throwsError: err)
   }
 
   private func testProgram(_ tokens: [CToken], _ expected: Program) {
-    self.testParse(tokens, expected, self.parser.parse)
+    testParse(tokens, expected, parser.parse)
   }
 
   private func testProgram(_ tokens: [CToken], throwsError err: ParseError) {
-    self.testParse(tokens, self.parser.parse, throwsError: err)
+    testParse(tokens, parser.parse, throwsError: err)
   }
 
   // Check that the tokens can be parsed
