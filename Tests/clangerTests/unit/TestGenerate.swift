@@ -12,6 +12,7 @@ class TestGenerator: XCTestCase {
   }
 
   func testUnaryOps() {
+    // -3
     testExpression(
       .unaryOp(.negation, .integerConstant(3)),
       """
@@ -19,6 +20,7 @@ class TestGenerator: XCTestCase {
       neg     %eax
       """
     )
+    // ~7
     testExpression(
       .unaryOp(.bitwiseComplement, .integerConstant(7)),
       """
@@ -26,6 +28,7 @@ class TestGenerator: XCTestCase {
       not     %eax
       """
     )
+    // !1
     testExpression(
       .unaryOp(.logicalNegation, .integerConstant(1)),
       """
@@ -37,6 +40,7 @@ class TestGenerator: XCTestCase {
     )
 
     // Nested
+    // --842
     testExpression(
       .unaryOp(.negation, .unaryOp(.negation, .integerConstant(842))),
       """
@@ -45,10 +49,30 @@ class TestGenerator: XCTestCase {
       neg     %eax
       """
     )
+    // !!1337
+    testExpression(
+      .unaryOp(
+        .logicalNegation,
+        .unaryOp(
+          .logicalNegation,
+          .integerConstant(1337)
+        )
+      ),
+      """
+      movl    $1337, %eax
+      cmpl    $0, %eax
+      movl    $0, %eax
+      sete    %al
+      cmpl    $0, %eax
+      movl    $0, %eax
+      sete    %al
+      """
+    )
   }
 
   // MARK: Statements
   func testReturn() {
+    // return 42
     testStatement(
       Statement.return( Expression.integerConstant(42)),
       """
