@@ -11,10 +11,8 @@ internal enum AssemblyToken: Equatable {
   // TODO: we don't want to treat this punctuation as a token per se, but
   // instead require that e.g., registers are prefixed correctly.
   internal enum AssemblyPunctuation: Character {
-    case literalPrefix  = "$"
-    case registerPrefix = "%"
-    case comma          = ","
-    case colon          = ":"
+    case comma = ","
+    case colon = ":"
   }
 
   internal enum AssemblyDirective: String {
@@ -48,21 +46,30 @@ internal enum AssemblyToken: Equatable {
 // MARK: Static AssemblyToken
 extension AssemblyToken {
   static func fromString(_ str: String) -> AssemblyToken? {
+    guard !str.isEmpty else { return nil }
     if str.count == 1,
       let punctuation = AssemblyToken.AssemblyPunctuation(rawValue: str.first!) {
       return .punctuation(punctuation)
+    }
+    switch str.first! {
+      case "$":
+        let value = String(str.dropFirst())
+        guard value.convertsToIntegerLiteral else { return nil }
+        return AssemblyToken.literal(value)
+      case "%":
+        guard let register = AssemblyToken.AssemblyRegister(
+          rawValue: String(str.dropFirst())
+        ) else {
+          return nil
+        }
+        return .register(register)
+      default: break
     }
     if let directive = AssemblyToken.AssemblyDirective(rawValue: str) {
       return .directive(directive)
     }
     if let keyword = AssemblyToken.AssemblyKeyword(rawValue: str) {
       return .keyword(keyword)
-    }
-    if let register = AssemblyToken.AssemblyRegister(rawValue: str) {
-      return .register(register)
-    }
-    if str.convertsToIntegerLiteral {
-      return .literal(str)
     }
     return .identifier(str)
   }

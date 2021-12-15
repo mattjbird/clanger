@@ -24,9 +24,8 @@ class TestAssemblyLexer: XCTestCase {
   }
 
   func testPunctuation() {
-    testLex("$", [.punctuation(.literalPrefix)])
-    testLex("%", [.punctuation(.registerPrefix)])
     testLex(",", [.punctuation(.comma)])
+    testLex(":", [.punctuation(.colon)])
   }
 
   func testIdentifier() {
@@ -55,10 +54,8 @@ class TestAssemblyLexer: XCTestCase {
       """,
       [
         .keyword(.movl),
-        .punctuation(.literalPrefix),
         .literal("9"),
         .punctuation(.comma),
-        .punctuation(.registerPrefix),
         .register(.eax),
         .keyword(.ret)
       ]
@@ -74,25 +71,21 @@ class TestAssemblyLexer: XCTestCase {
       """,
       [
         .keyword(.movl),
-        .punctuation(.literalPrefix),
         .literal("1"),
         .punctuation(.comma),
-        .punctuation(.registerPrefix),
         .register(.eax),
+
         .keyword(.cmpl),
-        .punctuation(.literalPrefix),
         .literal("0"),
         .punctuation(.comma),
-        .punctuation(.registerPrefix),
         .register(.eax),
+
         .keyword(.movl),
-        .punctuation(.literalPrefix),
         .literal("0"),
         .punctuation(.comma),
-        .punctuation(.registerPrefix),
         .register(.eax),
+
         .keyword(.sete),
-        .punctuation(.registerPrefix),
         .register(.al),
     ])
   }
@@ -107,32 +100,24 @@ class TestAssemblyLexer: XCTestCase {
     """,
       [
         .keyword(.movl),
-        .punctuation(.literalPrefix),
         .literal("1"),
         .punctuation(.comma),
-        .punctuation(.registerPrefix),
         .register(.eax),
 
         .keyword(.push),
-        .punctuation(.registerPrefix),
         .register(.eax),
 
         .keyword(.movl),
-        .punctuation(.literalPrefix),
         .literal("2"),
         .punctuation(.comma),
-        .punctuation(.registerPrefix),
         .register(.eax),
 
         .keyword(.pop),
-        .punctuation(.registerPrefix),
         .register(.ecx),
 
         .keyword(.addl),
-        .punctuation(.registerPrefix),
         .register(.ecx),
         .punctuation(.comma),
-        .punctuation(.registerPrefix),
         .register(.eax)
       ]
     )
