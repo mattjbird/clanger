@@ -40,6 +40,15 @@ class FunctionalTests: XCTestCase {
     """
     XCTAssertEqual(execute(source), 0)
   }
+
+  func testReturnNestedLogicalNegation() {
+    let source = """
+      int main() {
+        return !!1;
+      }
+    """
+    XCTAssertEqual(execute(source), 1)
+  }
 }
 
 
