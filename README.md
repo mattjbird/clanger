@@ -68,3 +68,4 @@ swift test 2>&1 | xcpretty
 2. Ghuloum’s [*An Incremental Approach to Compiler Construction*](http://scheme2006.cs.uchicago.edu/11-ghuloum.pdf)
 3. Nora Sandler's [*Writing A C Compiler*](https://norasandler.com/2017/11/29/Write-a-Compiler.html) series.
 4. The [*C11 Standard language specification*](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf)
+5. https://www.lri.fr/~filliatr/ens/compil/x86-64.pdf
