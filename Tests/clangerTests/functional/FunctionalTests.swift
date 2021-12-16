@@ -49,6 +49,17 @@ class FunctionalTests: XCTestCase {
     """
     XCTAssertEqual(execute(source), 1)
   }
+
+  /*
+  func testAddition() {
+    let source = """
+      int main() {
+        return 32 + 10;
+      }
+    """
+    XCTAssertEqual(execute(source), 42)
+  }
+  */
 }
 
 
@@ -64,7 +75,11 @@ private extension FunctionalTests {
   func execute(_ source: String) -> ExecOutcome? {
     let tmpSrc = tmpPath()
     let tmpExec = tmpPath()
-    defer { [tmpSrc, tmpExec].forEach({ try! FileManager.default.removeItem(atPath: $0)})}
+    defer {
+      [tmpSrc, tmpExec].forEach({
+        try! FileManager.default.removeItem(atPath: $0)
+      })
+    }
 
     try! source.write(toFile: tmpSrc, atomically: false, encoding: .utf8)
 
