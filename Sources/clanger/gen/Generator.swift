@@ -45,8 +45,33 @@ public final class Generator {
             builder.movl(0, .eax) // sete can only check eax's lsb (al)
             builder.sete(.al)
         }
-      case .binaryOp(_, _, _):
-        fatalError("Unimplemented binary op!")
+      case .binaryOp(let op, let exprA, let exprB):
+        switch op {
+          case .add:
+            genExpression(exprA)
+            builder.pushq(.eax)
+            genExpression(exprB)
+            builder.popq(.ecx)
+            builder.addl(.ecx, .eax)
+          case .multiply:
+            genExpression(exprA)
+            builder.pushq(.eax)
+            genExpression(exprB)
+            builder.popq(.ecx)
+            builder.imul(.ecx, .eax)
+          case .minus:
+            genExpression(exprB)
+            builder.pushq(.eax)
+            genExpression(exprA)
+            builder.popq(.ecx)
+            builder.subl(.ecx, .eax)
+          case .divide:
+            genExpression(exprB)
+            builder.movl(.eax, .ecx)
+            genExpression(exprA)
+            builder.cdq()
+            builder.idivl(.ecx)
+        }
     }
   }
 
