@@ -69,3 +69,4 @@ swift test 2>&1 | xcpretty
 3. Nora Sandler's [*Writing A C Compiler*](https://norasandler.com/2017/11/29/Write-a-Compiler.html) series.
 4. The [*C11 Standard language specification*](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf)
 5. https://www.lri.fr/~filliatr/ens/compil/x86-64.pdf
+6. https://www.cs.oberlin.edu/~bob/cs331/Notes%20on%20x86-64%20Assembly%20Language.pdf
