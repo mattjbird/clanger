@@ -76,6 +76,15 @@ class FunctionalTests: XCTestCase {
     """
     XCTAssertEqual(execute(source), 200)
   }
+
+  func testReturnDivision() {
+    let source = """
+      int main() {
+        return 12 / 3;
+      }
+    """
+    XCTAssertEqual(execute(source), 4)
+  }
 }
 
 

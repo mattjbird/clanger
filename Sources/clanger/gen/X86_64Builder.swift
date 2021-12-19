@@ -67,8 +67,8 @@ extension X86_64Builder {
 
   /// Performs a signed divide of %edx:%eax by `reg` putting the quotient in
   /// %eax, and the remainder in %edx.
-  func idivl(_ reg: X86_64.Reg) {
-    indent("idivl  %reg")
+  func idivq(_ reg: X86_64.Reg) {
+    indent("idivq  %\(reg)")
   }
 
   /// Converts the doubleword in %eax into a quadword in %edx:%eax by sign-

@@ -104,6 +104,17 @@ class TestGenerator: XCTestCase {
       subq  %rcx, %rax
       """
     )
+    // 600 / 12
+    testExpression(
+      .binaryOp(.divide, .integerConstant(600), .integerConstant(12)),
+      """
+      movq   $12, %rax
+      movq   %rax, %rcx
+      movq   $600, %rax
+      cdq
+      idivq  %rcx
+      """
+    )
   }
 
   // MARK: Statements
