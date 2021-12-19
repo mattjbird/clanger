@@ -82,6 +82,17 @@ class TestGenerator: XCTestCase {
       addq  %rcx, %rax
       """
     )
+    // 2 * 3
+    testExpression(
+      .binaryOp(.multiply, .integerConstant(2), .integerConstant(3)),
+      """
+      movq  $2, %rax
+      pushq %rax
+      movq  $3, %rax
+      popq  %rcx
+      imul  %rcx, %rax
+      """
+    )
   }
 
   // MARK: Statements

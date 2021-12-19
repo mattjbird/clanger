@@ -53,15 +53,15 @@ public final class Generator {
             genExpression(exprB)
             builder.popq(.rcx)
             builder.addq(.rcx, .rax)
-          default:
-            fatalError("Unimplemented!")
-            /*
           case .multiply:
             genExpression(exprA)
-            builder.pushq(.eax)
+            builder.pushq(.rax)
             genExpression(exprB)
-            builder.popq(.ecx)
-            builder.imul(.ecx, .eax)
+            builder.popq(.rcx)
+            builder.imul(.rcx, .rax)
+          default:
+            fatalError("Unimplemented!")
+          /*
           case .minus:
             genExpression(exprB)
             builder.pushq(.eax)
