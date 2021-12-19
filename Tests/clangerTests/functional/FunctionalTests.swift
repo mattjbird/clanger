@@ -50,13 +50,22 @@ class FunctionalTests: XCTestCase {
     XCTAssertEqual(execute(source), 1)
   }
 
-  func testAddition() {
+  func testReturnAddition() {
     let source = """
       int main() {
         return 32 + 10;
       }
     """
     XCTAssertEqual(execute(source), 42)
+  }
+
+  func testReturnMultiplication() {
+    let source = """
+      int main() {
+        return 4 * 10;
+      }
+    """
+    XCTAssertEqual(execute(source), 40)
   }
 }
 
