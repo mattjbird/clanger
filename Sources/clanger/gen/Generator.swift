@@ -29,23 +29,25 @@ public final class Generator {
   func genExpression(_ expr: Expression) {
     switch expr {
       case .integerConstant(let val):
-        builder.movl(val, .eax)
+        builder.movq(val, .rax)
       case .unaryOp(let op, let expr):
         switch op {
           case .negation:
             genExpression(expr)
-            builder.neg(.eax)
+            builder.neg(.rax)
           case .bitwiseComplement:
             genExpression(expr)
-            builder.not(.eax)
+            builder.not(.rax)
           case .logicalNegation:
-            // %eax => 1 iff expr == 0
+            // %rax => 1 iff expr == 0
             genExpression(expr)
-            builder.cmpl(0, .eax)
-            builder.movl(0, .eax) // sete can only check eax's lsb (al)
+            builder.cmpq(0, .rax)
+            builder.movq(0, .rax) // sete can only check eax's lsb (al)
             builder.sete(.al)
         }
       case .binaryOp(let op, let exprA, let exprB):
+        fatalError("Unimplemented!")
+        /*
         switch op {
           case .add:
             genExpression(exprA)
@@ -72,6 +74,7 @@ public final class Generator {
             builder.cdq()
             builder.idivl(.ecx)
         }
+        */
     }
   }
 

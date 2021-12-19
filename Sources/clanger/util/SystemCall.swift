@@ -1,8 +1,8 @@
 import Foundation
 
-/// Executes the command in the zsh shell, returning any output.
+/// Executes the command in the zsh shell, returning a status and any output.
 @discardableResult
-func systemCall(_ command: String) -> String {
+func systemCall(_ command: String) -> (status: Int32, output: String) {
     let task = Process()
     let pipe = Pipe()
 
@@ -11,9 +11,9 @@ func systemCall(_ command: String) -> String {
     task.arguments = ["-c", command]
     task.launchPath = "/bin/zsh"
     task.launch()
+    task.waitUntilExit()
 
     let data = pipe.fileHandleForReading.readDataToEndOfFile()
     let output = String(data: data, encoding: .utf8)!
-
-    return output
+    return (task.terminationStatus, output)
 }

@@ -80,8 +80,10 @@ public final class Compiler {
   }
 
   private func assemble(_ path: String, _ outPath: String) {
-    // TODO: error handling
-    systemCall("gcc \(path) -o \(outPath)")
+    let outcome = systemCall("gcc \(path) -o \(outPath)")
+    if outcome.status != 0 {
+      logger.error("Assembling error: \(outcome.output)")
+    }
   }
 
   private func cleanup(_ path: String) {

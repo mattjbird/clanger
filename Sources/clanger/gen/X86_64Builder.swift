@@ -26,19 +26,17 @@ extension X86_64Builder {
   func neg(_ reg: X86_64.Reg) { indent("neg  %\(reg)") }
   func not(_ reg: X86_64.Reg) { indent("not  %\(reg)") }
 
-  /// Sets the register to its operand.
-  func movl(_ val: Int32, _ reg: X86_64.Reg) {
-    indent("movl  $\(val), %\(reg)")
+  func movq(_ regA: X86_64.Reg, _ regB: X86_64.Reg) {
+    indent("movq  %\(regA), %\(regB)")
   }
 
-  /// Sets `regB` to `regA`
-  func movl(_ regA: X86_64.Reg, _ regB: X86_64.Reg) {
-    indent("movl  %\(regA), %\(regB)")
+  func movq(_ val: Int32, _ reg: X86_64.Reg) {
+    indent("movq  $\(val), %\(reg)")
   }
 
   /// cmpl(a,b) computes (b - a) and sets the EFLAGS register accordingly.
-  func cmpl(_ val: Int32, _ reg: X86_64.Reg) {
-    indent("cmpl  $\(val), %\(reg)")
+  func cmpq(_ val: Int32, _ reg: X86_64.Reg) {
+    indent("cmpq  $\(val), %\(reg)")
   }
 
   /// Sets its operand to 1 if the zero-flag of the EFLAGS register (ZF) is on,
