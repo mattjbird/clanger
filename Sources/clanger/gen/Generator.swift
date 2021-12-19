@@ -59,15 +59,15 @@ public final class Generator {
             genExpression(exprB)
             builder.popq(.rcx)
             builder.imul(.rcx, .rax)
+          case .minus:
+            genExpression(exprB)
+            builder.pushq(.rax)
+            genExpression(exprA)
+            builder.popq(.rcx)
+            builder.subq(.rcx, .rax)
           default:
             fatalError("Unimplemented!")
           /*
-          case .minus:
-            genExpression(exprB)
-            builder.pushq(.eax)
-            genExpression(exprA)
-            builder.popq(.ecx)
-            builder.subl(.ecx, .eax)
           case .divide:
             genExpression(exprB)
             builder.movl(.eax, .ecx)

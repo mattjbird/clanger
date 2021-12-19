@@ -67,6 +67,15 @@ class FunctionalTests: XCTestCase {
     """
     XCTAssertEqual(execute(source), 40)
   }
+
+  func testReturnSubtraction() {
+    let source = """
+      int main() {
+        return 255 - 55;
+      }
+    """
+    XCTAssertEqual(execute(source), 200)
+  }
 }
 
 

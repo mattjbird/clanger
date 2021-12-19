@@ -61,8 +61,8 @@ extension X86_64Builder {
   }
 
   /// Computes `regB` - `rebA` and saves the result in `regB`.
-  func subl(_ regA: X86_64.Reg, _ regB: X86_64.Reg) {
-    indent("imul  %\(regA), %\(regB)")
+  func subq(_ regA: X86_64.Reg, _ regB: X86_64.Reg) {
+    indent("subq  %\(regA), %\(regB)")
   }
 
   /// Performs a signed divide of %edx:%eax by `reg` putting the quotient in
