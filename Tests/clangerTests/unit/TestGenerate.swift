@@ -115,8 +115,10 @@ class TestGenerator: XCTestCase {
       """
     )
   }
+}
 
-  // MARK: - Private
+// MARK: Private
+private extension TestGenerator {
   private func testProgram(_ program: Program, _ expected: String) {
     test({ $0.genProgram(program) }, expected)
   }
