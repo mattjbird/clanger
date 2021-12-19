@@ -138,7 +138,10 @@ class TestLexer: XCTestCase {
     XCTAssertEqual(tokens.peek(), .semiColon)
     XCTAssertEqual(tokens.peek(), .semiColon)
   }
+}
 
+// MARK: Private
+private extension TestLexer {
   private func getTokens(_ str: String) -> TokenSequence {
     return TokenSequence(CharacterStream(InputStream(string: str)))
   }
