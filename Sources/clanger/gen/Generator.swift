@@ -46,15 +46,16 @@ public final class Generator {
             builder.sete(.al)
         }
       case .binaryOp(let op, let exprA, let exprB):
-        fatalError("Unimplemented!")
-        /*
         switch op {
           case .add:
             genExpression(exprA)
-            builder.pushq(.eax)
+            builder.pushq(.rax)
             genExpression(exprB)
-            builder.popq(.ecx)
-            builder.addl(.ecx, .eax)
+            builder.popq(.rcx)
+            builder.addq(.rcx, .rax)
+          default:
+            fatalError("Unimplemented!")
+            /*
           case .multiply:
             genExpression(exprA)
             builder.pushq(.eax)
@@ -73,8 +74,8 @@ public final class Generator {
             genExpression(exprA)
             builder.cdq()
             builder.idivl(.ecx)
+            */
         }
-        */
     }
   }
 

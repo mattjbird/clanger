@@ -14,13 +14,14 @@ class TestAssemblyLexer: XCTestCase {
 
   func testKeywords() {
     testLex("movl", [.keyword(.movl)])
+    testLex("movq", [.keyword(.movq)])
     testLex("ret", [.keyword(.ret)])
     testLex("neg", [.keyword(.neg)])
     testLex("not", [.keyword(.not)])
-    testLex("cmpl", [.keyword(.cmpl)])
+    testLex("cmpq", [.keyword(.cmpq)])
     testLex("sete", [.keyword(.sete)])
-    testLex("push", [.keyword(.push)])
-    testLex("pop", [.keyword(.pop)])
+    testLex("pushq", [.keyword(.pushq)])
+    testLex("popq", [.keyword(.popq)])
   }
 
   func testPunctuation() {
@@ -49,14 +50,14 @@ class TestAssemblyLexer: XCTestCase {
 
   func testReturnLiteral() {
     testLex("""
-      movl  $9, %eax
+      movq  $9, %rax
       ret
       """,
       [
-        .keyword(.movl),
+        .keyword(.movq),
         .literal("9"),
         .punctuation(.comma),
-        .register(.eax),
+        .register(.rax),
         .keyword(.ret)
       ]
     )
@@ -64,26 +65,26 @@ class TestAssemblyLexer: XCTestCase {
 
   func testLogicalNegation() {
     testLex("""
-      movl    $1, %eax
-      cmpl    $0, %eax
-      movl    $0, %eax
+      movq    $1, %rax
+      cmpq    $0, %rax
+      movq    $0, %rax
       sete    %al
       """,
       [
-        .keyword(.movl),
+        .keyword(.movq),
         .literal("1"),
         .punctuation(.comma),
-        .register(.eax),
+        .register(.rax),
 
-        .keyword(.cmpl),
+        .keyword(.cmpq),
         .literal("0"),
         .punctuation(.comma),
-        .register(.eax),
+        .register(.rax),
 
-        .keyword(.movl),
+        .keyword(.movq),
         .literal("0"),
         .punctuation(.comma),
-        .register(.eax),
+        .register(.rax),
 
         .keyword(.sete),
         .register(.al),
@@ -92,39 +93,51 @@ class TestAssemblyLexer: XCTestCase {
 
   func testAddition() {
     testLex("""
-      movl    $1, %eax
-      push    %eax
-      movl    $2, %eax
-      pop     %ecx
-      addl    %ecx, %eax
+      movq    $1, %rax
+      pushq   %rax
+      movq    $2, %rax
+      popq    %rcx
+      addq    %rcx, %rax
     """,
       [
-        .keyword(.movl),
+        .keyword(.movq),
         .literal("1"),
         .punctuation(.comma),
-        .register(.eax),
+        .register(.rax),
 
-        .keyword(.push),
-        .register(.eax),
+        .keyword(.pushq),
+        .register(.rax),
 
-        .keyword(.movl),
+        .keyword(.movq),
         .literal("2"),
         .punctuation(.comma),
-        .register(.eax),
+        .register(.rax),
 
-        .keyword(.pop),
-        .register(.ecx),
+        .keyword(.popq),
+        .register(.rcx),
 
-        .keyword(.addl),
-        .register(.ecx),
+        .keyword(.addq),
+        .register(.rcx),
         .punctuation(.comma),
-        .register(.eax)
+        .register(.rax)
       ]
     )
   }
 
   private func testLex(_ src: String, _ expected: [AssemblyToken]) {
-    let tokens = AssemblyTokenSequence(CharacterStream(InputStream(string: src)))
-    XCTAssertEqual(Array(tokens), expected)
+    func get(_ arr: [AssemblyToken], _ i: Int) -> AssemblyToken? {
+      guard i < arr.count else { return nil }
+      return arr[i]
+    }
+    let tokens = Array(AssemblyTokenSequence(CharacterStream(InputStream(string: src))))
+    for i in stride(from: 0, through: max(tokens.count, expected.count) - 1, by: 1) {
+      if i >= expected.count {
+        return XCTFail("Expected end of tokens but got \(tokens[i])")
+      }
+      if i >= tokens.count {
+        return XCTFail("Expected \(expected[i]) but got end of tokens")
+      }
+      XCTAssertEqual(tokens[i], expected[i])
+    }
   }
 }
