@@ -65,16 +65,12 @@ public final class Generator {
             genExpression(exprA)
             builder.popq(.rcx)
             builder.subq(.rcx, .rax)
-          default:
-            fatalError("Unimplemented!")
-          /*
           case .divide:
             genExpression(exprB)
-            builder.movl(.eax, .ecx)
+            builder.movq(.rax, .rcx)
             genExpression(exprA)
             builder.cdq()
-            builder.idivl(.ecx)
-            */
+            builder.idivq(.rcx)
         }
     }
   }
