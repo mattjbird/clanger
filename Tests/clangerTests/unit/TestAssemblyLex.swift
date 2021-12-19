@@ -48,27 +48,17 @@ class TestAssemblyLexer: XCTestCase {
     )
   }
 
-  func testReturnLiteral() {
-    testLex("""
-      movq  $9, %rax
-      ret
-      """,
-      [
-        .keyword(.movq),
-        .literal("9"),
-        .punctuation(.comma),
-        .register(.rax),
-        .keyword(.ret)
-      ]
+  func testDirective() {
+    testLex(
+      "movq  $42, %rax",
+      [.keyword(.movq), .literal("42"), .punctuation(.comma), .register(.rax)]
     )
   }
 
-  func testLogicalNegation() {
+  func testMultiline() {
     testLex("""
       movq    $1, %rax
       cmpq    $0, %rax
-      movq    $0, %rax
-      sete    %al
       """,
       [
         .keyword(.movq),
@@ -80,50 +70,35 @@ class TestAssemblyLexer: XCTestCase {
         .literal("0"),
         .punctuation(.comma),
         .register(.rax),
-
-        .keyword(.movq),
-        .literal("0"),
-        .punctuation(.comma),
-        .register(.rax),
-
-        .keyword(.sete),
-        .register(.al),
-    ])
+      ]
+    )
   }
 
-  func testAddition() {
+  func testWhitespace() {
     testLex("""
-      movq    $1, %rax
-      pushq   %rax
-      movq    $2, %rax
-      popq    %rcx
-      addq    %rcx, %rax
-    """,
+      movq $1,                %rax
+
+
+
+      cmpq          $0,%rax
+      """,
       [
         .keyword(.movq),
         .literal("1"),
         .punctuation(.comma),
         .register(.rax),
 
-        .keyword(.pushq),
-        .register(.rax),
-
-        .keyword(.movq),
-        .literal("2"),
+        .keyword(.cmpq),
+        .literal("0"),
         .punctuation(.comma),
         .register(.rax),
-
-        .keyword(.popq),
-        .register(.rcx),
-
-        .keyword(.addq),
-        .register(.rcx),
-        .punctuation(.comma),
-        .register(.rax)
       ]
     )
   }
+}
 
+// MARK: Private
+private extension TestAssemblyLexer {
   private func testLex(_ src: String, _ expected: [AssemblyToken]) {
     func get(_ arr: [AssemblyToken], _ i: Int) -> AssemblyToken? {
       guard i < arr.count else { return nil }
