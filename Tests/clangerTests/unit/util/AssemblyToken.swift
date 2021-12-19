@@ -8,8 +8,6 @@ internal enum AssemblyToken: Equatable {
   case literal(String)
 
 
-  // TODO: we don't want to treat this punctuation as a token per se, but
-  // instead require that e.g., registers are prefixed correctly.
   internal enum AssemblyPunctuation: Character {
     case comma = ","
     case colon = ":"
@@ -21,15 +19,17 @@ internal enum AssemblyToken: Equatable {
 
   internal enum AssemblyKeyword: String {
     case movl
+    case movq
     case ret
     case neg
     case not
-    case cmpl
+    case cmpq
     case sete
 
-    case push
-    case pop
+    case pushq
+    case popq
 
+    case addq
     case addl
     case imul
     case subl
@@ -37,9 +37,33 @@ internal enum AssemblyToken: Equatable {
   }
 
   internal enum AssemblyRegister: String {
+    case rax
+    case rsp
+    case rdi
+    case rdx
+    case rcx
+    case r8
+    case r9
+    case rbx
+    case rbp
+    case r10
+    case r13
+    case r14
+    case r15
     case eax
-    case al
+    case esp
+    case edi
+    case edx
     case ecx
+    case e8
+    case e9
+    case ebx
+    case ebp
+    case e10
+    case e13
+    case e14
+    case e15
+    case al
   }
 }
 

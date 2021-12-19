@@ -29,7 +29,6 @@ extension X86_64Builder {
   func movq(_ regA: X86_64.Reg, _ regB: X86_64.Reg) {
     indent("movq  %\(regA), %\(regB)")
   }
-
   func movq(_ val: Int32, _ reg: X86_64.Reg) {
     indent("movq  $\(val), %\(reg)")
   }
@@ -48,6 +47,12 @@ extension X86_64Builder {
   /// Computes `regA` + `regB` and saves the result in `regB`.
   func addl(_ regA: X86_64.Reg, _ regB: X86_64.Reg) {
     indent("addl  %\(regA), %\(regB)")
+  }
+  func addl(_ val: Int32, _ regB: X86_64.Reg) {
+    indent("addl  $\(val), %\(regB)")
+  }
+  func addq(_ regA: X86_64.Reg, _ regB: X86_64.Reg) {
+    indent("addq  %\(regA), %\(regB)")
   }
 
   /// Computes `regA` * `regB` and saves the result in `regB`.

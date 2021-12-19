@@ -16,26 +16,26 @@ class TestGenerator: XCTestCase {
     testExpression(
       .unaryOp(.negation, .integerConstant(3)),
       """
-      movq    $3, %rax
-      neg     %rax
+      movq  $3, %rax
+      neg   %rax
       """
     )
     // ~7
     testExpression(
       .unaryOp(.bitwiseComplement, .integerConstant(7)),
       """
-      movq    $7, %rax
-      not     %rax
+      movq  $7, %rax
+      not   %rax
       """
     )
     // !1
     testExpression(
       .unaryOp(.logicalNegation, .integerConstant(1)),
       """
-      movq    $1, %rax
-      cmpl    $0, %rax
-      movq    $0, %rax
-      sete    %al
+      movq  $1, %rax
+      cmpq  $0, %rax
+      movq  $0, %rax
+      sete  %al
       """
     )
 
@@ -44,9 +44,9 @@ class TestGenerator: XCTestCase {
     testExpression(
       .unaryOp(.negation, .unaryOp(.negation, .integerConstant(842))),
       """
-      movq    $842, %rax
-      neg     %rax
-      neg     %rax
+      movq  $842, %rax
+      neg   %rax
+      neg   %rax
       """
     )
     // !!1337
@@ -59,24 +59,38 @@ class TestGenerator: XCTestCase {
         )
       ),
       """
-      movq    $1337, %rax
-      cmpl    $0, %rax
-      movq    $0, %rax
-      sete    %al
-      cmpl    $0, %rax
-      movq    $0, %rax
-      sete    %al
+      movq  $1337, %rax
+      cmpq  $0, %rax
+      movq  $0, %rax
+      sete  %al
+      cmpq  $0, %rax
+      movq  $0, %rax
+      sete  %al
+      """
+    )
+  }
+
+  func testBinaryOps() {
+    // 1 + 2
+    testExpression(
+      .binaryOp(.add, .integerConstant(1), .integerConstant(2)),
+      """
+      movq  $1, %rax
+      pushq %rax
+      movq  $2, %rax
+      popq  %rcx
+      addq  %rcx, %rax
       """
     )
   }
 
   // MARK: Statements
   func testReturn() {
-    // return 42
+    // return 42;
     testStatement(
       Statement.return( Expression.integerConstant(42)),
       """
-      movq    $42, %rax
+      movq  $42, %rax
       ret
       """
     )
@@ -92,7 +106,7 @@ class TestGenerator: XCTestCase {
       """
           .globl _meaning_of_life
       _meaning_of_life:
-          movq    $42, %rax
+          movq  $42, %rax
           ret
       """
     )
@@ -110,7 +124,7 @@ class TestGenerator: XCTestCase {
       """
           .globl _main
       _main:
-          movq    $0, %rax
+          movq  $0, %rax
           ret
       """
     )
