@@ -93,6 +93,17 @@ class TestGenerator: XCTestCase {
       imul  %rcx, %rax
       """
     )
+    // 42 - 2
+    testExpression(
+      .binaryOp(.minus, .integerConstant(42), .integerConstant(2)),
+      """
+      movq  $2, %rax
+      pushq %rax
+      movq  $42, %rax
+      popq  %rcx
+      subq  %rcx, %rax
+      """
+    )
   }
 
   // MARK: Statements
