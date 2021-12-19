@@ -8,7 +8,7 @@ import XCTest
 class TestGenerator: XCTestCase {
   // MARK: Expressions
   func testConstants() {
-    testExpression( .integerConstant(9001), "movl  $9001, %eax" )
+    testExpression( .integerConstant(9001), "movq  $9001, %rax" )
   }
 
   func testUnaryOps() {
@@ -16,25 +16,25 @@ class TestGenerator: XCTestCase {
     testExpression(
       .unaryOp(.negation, .integerConstant(3)),
       """
-      movl    $3, %eax
-      neg     %eax
+      movq    $3, %rax
+      neg     %rax
       """
     )
     // ~7
     testExpression(
       .unaryOp(.bitwiseComplement, .integerConstant(7)),
       """
-      movl    $7, %eax
-      not     %eax
+      movq    $7, %rax
+      not     %rax
       """
     )
     // !1
     testExpression(
       .unaryOp(.logicalNegation, .integerConstant(1)),
       """
-      movl    $1, %eax
-      cmpl    $0, %eax
-      movl    $0, %eax
+      movq    $1, %rax
+      cmpl    $0, %rax
+      movq    $0, %rax
       sete    %al
       """
     )
@@ -44,9 +44,9 @@ class TestGenerator: XCTestCase {
     testExpression(
       .unaryOp(.negation, .unaryOp(.negation, .integerConstant(842))),
       """
-      movl    $842, %eax
-      neg     %eax
-      neg     %eax
+      movq    $842, %rax
+      neg     %rax
+      neg     %rax
       """
     )
     // !!1337
@@ -59,12 +59,12 @@ class TestGenerator: XCTestCase {
         )
       ),
       """
-      movl    $1337, %eax
-      cmpl    $0, %eax
-      movl    $0, %eax
+      movq    $1337, %rax
+      cmpl    $0, %rax
+      movq    $0, %rax
       sete    %al
-      cmpl    $0, %eax
-      movl    $0, %eax
+      cmpl    $0, %rax
+      movq    $0, %rax
       sete    %al
       """
     )
@@ -76,7 +76,7 @@ class TestGenerator: XCTestCase {
     testStatement(
       Statement.return( Expression.integerConstant(42)),
       """
-      movl    $42, %eax
+      movq    $42, %rax
       ret
       """
     )
@@ -92,7 +92,7 @@ class TestGenerator: XCTestCase {
       """
           .globl _meaning_of_life
       _meaning_of_life:
-          movl    $42, %eax
+          movq    $42, %rax
           ret
       """
     )
@@ -110,7 +110,7 @@ class TestGenerator: XCTestCase {
       """
           .globl _main
       _main:
-          movl    $0, %eax
+          movq    $0, %rax
           ret
       """
     )
