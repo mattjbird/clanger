@@ -108,11 +108,13 @@ class TestGenerator: XCTestCase {
     testExpression(
       .binaryOp(.divide, .integerConstant(600), .integerConstant(12)),
       """
+      pushq  %rbp
       movq   $12, %rax
       movq   %rax, %rbp
       movq   $600, %rax
       cqto
       idivq  %rbp
+      popq   %rbp
       """
     )
   }

@@ -66,6 +66,8 @@ public final class Generator {
             builder.popq(.rcx)
             builder.sub(.rcx, .rax)
           case .divide:
+            builder.pushq(.rbp)
+            defer { builder.popq(.rbp) }
             genExpression(exprB)
             builder.movq(.rax, .rbp)
             genExpression(exprA)
