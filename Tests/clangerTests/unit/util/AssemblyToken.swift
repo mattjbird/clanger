@@ -32,8 +32,13 @@ internal enum AssemblyToken: Equatable {
     case addq
     case addl
     case imul
-    case subl
+    case sub
+    case subq
     case idivl
+    case idivq
+
+    case cqto
+    case cltq
   }
 
   internal enum AssemblyRegister: String {

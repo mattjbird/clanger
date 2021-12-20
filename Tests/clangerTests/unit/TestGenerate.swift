@@ -101,7 +101,7 @@ class TestGenerator: XCTestCase {
       pushq %rax
       movq  $42, %rax
       popq  %rcx
-      subq  %rcx, %rax
+      sub   %rcx, %rax
       """
     )
     // 600 / 12
@@ -109,10 +109,10 @@ class TestGenerator: XCTestCase {
       .binaryOp(.divide, .integerConstant(600), .integerConstant(12)),
       """
       movq   $12, %rax
-      movq   %rax, %rcx
+      movq   %rax, %rbp
       movq   $600, %rax
-      cdq
-      idivq  %rcx
+      cqto
+      idivq  %rbp
       """
     )
   }
