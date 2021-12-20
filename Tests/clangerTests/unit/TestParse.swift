@@ -83,11 +83,17 @@ extension TestParser {
   // MARK: Binary Ops
   private func tokenBinaryOpPairs() -> [(CToken, Expression.BinaryOperator)] {
     return [
-      // token => operator
-      (.addition, .add),
-      (.hyphen,   .minus),
-      (.asterisk, .multiply),
-      (.division, .divide),
+      // token      =>       operator
+      (.addition,           .add),
+      (.hyphen,             .minus),
+      (.asterisk,           .multiply),
+      (.division,           .divide),
+      (.and,                .and),
+      (.or,                 .or),
+      (.lessThan,           .lessThan),
+      (.greaterThan,        .greaterThan),
+      (.lessThanOrEqual,    .lessThanOrEqual),
+      (.greaterThanOrEqual, .greaterThanOrEqual),
     ]
   }
 
@@ -117,6 +123,72 @@ extension TestParser {
         )
       )
     }
+  }
+
+  func testOperatorExpressionsPrecedence() {
+    // Precedence ordering:
+    //   1. brackets / unary-ops
+    //   2. multiplication / division
+    //   3. addition / subtraction
+    //   4. relational ( < | > | <= | >= )
+    //   5. equality ( == | != )
+    //   6. logical-and
+    //   7. logical-or
+
+    //   1 || 2 && 3 != 4 >= 5 - (6 + 7) * ~8
+    testExpression([
+      .intLiteral("1"),
+      .or,
+      .intLiteral("2"),
+      .and,
+      .intLiteral("3"),
+      .notEqual,
+      .intLiteral("4"),
+      .greaterThanOrEqual,
+      .intLiteral("5"),
+      .hyphen,
+      .openParen,
+      .intLiteral("6"),
+      .addition,
+      .intLiteral("7"),
+      .closeParen,
+      .asterisk,
+      .bitwiseComplement,
+      .intLiteral("8"),
+    ],
+      .binaryOp(
+        .or,
+        .integerConstant(1),
+        .binaryOp(
+          .and,
+          .integerConstant(2),
+          .binaryOp(
+            .notEqual,
+            .integerConstant(3),
+            .binaryOp(
+              .greaterThanOrEqual,
+              .integerConstant(4),
+              .binaryOp(
+                .minus,
+                .integerConstant(5),
+                .binaryOp(
+                  .multiply,
+                  .binaryOp(
+                    .add,
+                    .integerConstant(6),
+                    .integerConstant(7)
+                  ),
+                  .unaryOp(
+                    .bitwiseComplement,
+                    .integerConstant(8)
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    )
   }
 
   func testBinaryOperatorExpressionsNested() {

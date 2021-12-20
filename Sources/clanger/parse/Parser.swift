@@ -12,7 +12,7 @@ public class Parser {
   }
 
   // MARK: - Internal
-  internal func parseFunction(_ tokens: TokenSource) throws -> Function {
+  func parseFunction(_ tokens: TokenSource) throws -> Function {
     if tokens.next() != .keyword(.int) {
       // TODO: we only handle programs consisting of a single main function
       throw ParseError.unexpectedToken
@@ -36,7 +36,7 @@ public class Parser {
     return Function(name, body)
   }
 
-  internal func parseStatement(_ tokens: TokenSource) throws -> Statement {
+  func parseStatement(_ tokens: TokenSource) throws -> Statement {
     switch tokens.next() {
       case .keyword(let keyword):
         switch keyword {
@@ -56,34 +56,65 @@ public class Parser {
     }
   }
 
-  // <exp> ::= <term> { ("+" | "-") <term> }
   func parseExpression(_ tokens: TokenSource) throws -> Expression {
-    var term = try parseTerm(tokens)
+    return try parseLogicalOrExpr(tokens)
+  }
+
+  // Multiple binary operations in the grammar take the form:
+  //    <φ> ::= <ψ> { (o1 | o2 | o3 ...) <ψ> }
+  // That is, the expression is composed of an arbitrary number of
+  // sub-expressions chained together by a set of operators.
+  // This higher-level parsing function abstracts that parsing pattern.
+  func repeatingBinOpExpr(
+    _ tokens: TokenSource,
+    _ parser: (TokenSource) throws -> Expression,
+    _ ops: [CToken]
+  ) throws -> Expression {
+    var expr = try parser(tokens)
     var next = tokens.peek()
-    while next == .addition || next == .hyphen {
+    while next != nil, ops.contains(next!) {
       guard let op = parseBinaryOperator(tokens.next()!) else {
         throw ParseError.unexpectedToken
       }
-      let nextTerm = try parseTerm(tokens)
-      term = .binaryOp(op, term, nextTerm)
+      let expr2 = try parser(tokens)
+      expr = .binaryOp(op, expr, expr2)
       next = tokens.peek()
     }
-    return term
+    return expr
+  }
+
+  // <expr> ::= <logical-and-expr> { "||" <logical-and-expr> }
+  func parseLogicalOrExpr(_ tokens: TokenSource) throws -> Expression {
+    return try repeatingBinOpExpr(tokens, parseLogicalAndExpr, [.or])
+  }
+
+  // <logical-and-expr> ::= <equality-expr> { "&&" <equality-expr> }
+  func parseLogicalAndExpr(_ tokens: TokenSource) throws -> Expression {
+    return try repeatingBinOpExpr(tokens, parseEqualityExpr, [.and])
+  }
+
+  // <equality-expr> ::= <relational-expr> { ("!=" | "==") <relational-expr> }
+  func parseEqualityExpr(_ tokens: TokenSource) throws -> Expression {
+    return try repeatingBinOpExpr(tokens, parseRelationalExpr, [.equal, .notEqual])
+  }
+
+  // <relational-expr> ::= <additive-expr> { ("<" | ">" | "<=" | ">=") <additive-expr> }
+  func parseRelationalExpr(_ tokens: TokenSource) throws -> Expression {
+    return try repeatingBinOpExpr(
+      tokens,
+      parseAdditiveExpr,
+      [.lessThan, .greaterThan, .lessThanOrEqual, .greaterThanOrEqual]
+    )
+  }
+
+  // <additive-expr> ::= <term> { ("+" | "-") <term> }
+  func parseAdditiveExpr(_ tokens: TokenSource) throws -> Expression {
+    return try repeatingBinOpExpr(tokens, parseTerm, [.addition, .hyphen])
   }
 
   // <term> ::= <factor> { ("*" | "/") <factor> }
   func parseTerm(_ tokens: TokenSource) throws -> Expression {
-    var factor = try parseFactor(tokens)
-    var next = tokens.peek()
-    while next == .asterisk || next == .division {
-      guard let op = parseBinaryOperator(tokens.next()!) else {
-        throw ParseError.unexpectedToken
-      }
-      let nextFactor = try parseFactor(tokens)
-      factor = .binaryOp(op, factor, nextFactor)
-      next = tokens.peek()
-    }
-    return factor
+    return try repeatingBinOpExpr(tokens, parseFactor, [.asterisk, .division])
   }
 
   // <factor> ::= "(" <exp> ")" | <unary_op> <factor> | <int>
@@ -145,11 +176,19 @@ public class Parser {
 
   private func parseBinaryOperator(_ token: CToken) -> Expression.BinaryOperator? {
     switch token {
-      case .hyphen:   return .minus
-      case .addition: return .add
-      case .asterisk: return .multiply
-      case .division: return .divide
-      default:        return nil
+      case .hyphen:             return .minus
+      case .addition:           return .add
+      case .asterisk:           return .multiply
+      case .division:           return .divide
+      case .equal:              return .equal
+      case .notEqual:           return .notEqual
+      case .and:                return .and
+      case .or:                 return .or
+      case .lessThan:           return .lessThan
+      case .greaterThan:        return .greaterThan
+      case .lessThanOrEqual:    return .lessThanOrEqual
+      case .greaterThanOrEqual: return .greaterThanOrEqual
+      default:                  return nil
     }
   }
 }

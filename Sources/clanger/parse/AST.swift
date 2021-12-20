@@ -35,10 +35,18 @@ extension Expression {
     case bitwiseComplement  = "~"
     case logicalNegation    = "!"
   }
-  public enum BinaryOperator: Character {
-    case minus     = "-"
-    case add       = "+"
-    case multiply  = "*"
-    case divide    = "/"
+  public enum BinaryOperator: String {
+    case minus              = "-"
+    case add                = "+"
+    case multiply           = "*"
+    case divide             = "/"
+    case equal              = "=="
+    case notEqual           = "!="
+    case and                = "&&"
+    case or                 = "||"
+    case lessThan           = "<"
+    case greaterThan        = ">"
+    case lessThanOrEqual    = "<="
+    case greaterThanOrEqual = ">="
   }
 }
