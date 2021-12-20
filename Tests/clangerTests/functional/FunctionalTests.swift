@@ -5,103 +5,79 @@ import XCTest
 
 class FunctionalTests: XCTestCase {
   func testReturnInt() {
-    let source = """
-      int main() {
-        return 42;
-      }
-    """
+    let source = "int main() { return 42; }"
     XCTAssertEqual(execute(source), 42)
   }
 
   func testReturnNegative() {
-    let source = """
-      int main() {
-        return -43;
-      }
-    """
+    let source = "int main() { return -43; }"
     XCTAssertEqual(execute(source), 213)
   }
 
   func testReturnBitwiseComplement() {
-    let source = """
-      int main() {
-        return ~4;
-      }
-    """
+    let source = "int main() { return ~4; }"
     // ~4 => 251 for 8 bits
     XCTAssertEqual(execute(source), 251)
   }
 
   func testReturnLogicalNegation() {
-    let source = """
-      int main() {
-        return !1;
-      }
-    """
+    let source = "int main() { return !1; }"
     XCTAssertEqual(execute(source), 0)
   }
 
   func testReturnNestedLogicalNegation() {
-    let source = """
-      int main() {
-        return ~-11;
-      }
-    """
+    let source = "int main() { return ~-11; }"
     XCTAssertEqual(execute(source), 10)
   }
 
   func testReturnAddition() {
-    let source = """
-      int main() {
-        return 32 + 10;
-      }
-    """
+    let source = "int main() { return 32 + 10; }"
     XCTAssertEqual(execute(source), 42)
   }
 
   func testReturnMultiplication() {
-    let source = """
-      int main() {
-        return 4 * 10;
-      }
-    """
+    let source = "int main() { return 4 * 10; }"
     XCTAssertEqual(execute(source), 40)
   }
 
   func testReturnSubtraction() {
-    let source = """
-      int main() {
-        return 255 - 55;
-      }
-    """
+    let source = "int main() { return 255 - 55; }"
     XCTAssertEqual(execute(source), 200)
   }
 
   func testReturnDivision() {
-    let source = """
-      int main() {
-        return 12 / 3;
-      }
-    """
+    let source = "int main() { return 12 / 3; }"
     XCTAssertEqual(execute(source), 4)
   }
 
   func testReturnEquality() {
-    let source = """
-      int main() {
-        return 42 == 42;
-      }
-    """
+    let source = "int main() { return 42 == 42; }"
     XCTAssertEqual(execute(source), 1)
   }
 
   func testReturnInequality() {
-    let source = """
-      int main() {
-        return 42 != 42;
-      }
-    """
+    let source = "int main() { return 42 != 42; }"
     XCTAssertEqual(execute(source), 0)
+  }
+
+  func testReturnLessThan() {
+    let source = "int main() { return 2 < 2; }"
+    XCTAssertEqual(execute(source), 0)
+  }
+
+  func testReturnLessThanOrEqualTo() {
+    let source = "int main() { return 2 <= 2; }"
+    XCTAssertEqual(execute(source), 1)
+  }
+
+  func testReturnGreaterThan() {
+    let source = "int main() { return 2 > 2; }"
+    XCTAssertEqual(execute(source), 0)
+  }
+
+  func testReturnGreaterThanOrEqualTo() {
+    let source = "int main() { return 2 >= 2; }"
+    XCTAssertEqual(execute(source), 1)
   }
 
   func testReturnComplexUnaryBinaryOp() {
