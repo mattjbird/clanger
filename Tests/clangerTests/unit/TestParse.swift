@@ -249,10 +249,15 @@ extension TestParser {
   }
 
   func testBinaryOperatorExpresionsMissingOp() {
-    // __ + 2
-    testExpression([.addition, .intLiteral("2")], throwsError: .unexpectedToken)
-    // 2 + __
-    testExpression([.intLiteral("2"), .addition], throwsError: .unexpectedToken)
+    for (tokOp, _) in tokenBinaryOpPairs() {
+      // __ OP 2
+      if tokOp != .hyphen {
+        // -2 is valid!
+        testExpression([tokOp, .intLiteral("2")], throwsError: .unexpectedToken)
+      }
+      // 2 OP __
+      testExpression([.intLiteral("2"), tokOp], throwsError: .unexpectedToken)
+    }
   }
 }
 
