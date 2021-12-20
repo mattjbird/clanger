@@ -107,6 +107,7 @@ extension TestParser {
     }
   }
 
+  // Tests every combination of operators for left-associativity
   func testBinaryOperatorExpressionsLeftAssociativity() {
     // e.g., 1 + 2 + 3
     for (tokOp, op) in tokenBinaryOpPairs() {
@@ -125,70 +126,93 @@ extension TestParser {
     }
   }
 
+  // Tests every combination of operators and ensures that the correct operator
+  // precedence level is respected.
   func testOperatorExpressionsPrecedence() {
     // Precedence ordering:
     //   1. brackets / unary-ops
-    //   2. multiplication / division
-    //   3. addition / subtraction
-    //   4. relational ( < | > | <= | >= )
-    //   5. equality ( == | != )
-    //   6. logical-and
-    //   7. logical-or
-
-    //   1 || 2 && 3 != 4 >= 5 - (6 + 7) * ~8
-    testExpression([
-      .intLiteral("1"),
-      .or,
-      .intLiteral("2"),
-      .and,
-      .intLiteral("3"),
-      .notEqual,
-      .intLiteral("4"),
-      .greaterThanOrEqual,
-      .intLiteral("5"),
-      .hyphen,
-      .openParen,
-      .intLiteral("6"),
-      .addition,
-      .intLiteral("7"),
-      .closeParen,
-      .asterisk,
-      .bitwiseComplement,
-      .intLiteral("8"),
-    ],
-      .binaryOp(
-        .or,
-        .integerConstant(1),
-        .binaryOp(
-          .and,
-          .integerConstant(2),
-          .binaryOp(
-            .notEqual,
-            .integerConstant(3),
-            .binaryOp(
-              .greaterThanOrEqual,
-              .integerConstant(4),
-              .binaryOp(
-                .minus,
-                .integerConstant(5),
-                .binaryOp(
-                  .multiply,
-                  .binaryOp(
-                    .add,
-                    .integerConstant(6),
-                    .integerConstant(7)
-                  ),
-                  .unaryOp(
-                    .bitwiseComplement,
-                    .integerConstant(8)
-                  )
-                )
-              )
-            )
-          )
-        )
-      )
-    )
+    let unaryOps = tokenUnaryOpPairs()
+    let binaryOpPrecedences: [[(CToken, Expression.BinaryOperator) ]] = [
+      // 2. multiplication / division
+      [(.asterisk, .multiply), (.division, .divide)],
+      // 3. addition / subtraction
+      [(.addition, .add), (.hyphen, .minus) ],
+      // 4. relational ( < | > | <= | >= )
+      [
+        (.lessThan, .lessThan),
+        (.greaterThan, .greaterThan),
+        (.lessThanOrEqual, .lessThanOrEqual),
+        (.greaterThanOrEqual, .greaterThanOrEqual)
+      ],
+      // 5. equality ( == | != )
+      [(.equal, .equal), (.notEqual, .notEqual)],
+      // 6. logical-and
+      [(.and, .and)],
+      // 7. logical-or
+      [(.or, .or)]
+    ]
+    for first in unaryOps {
+      for second in binaryOpPrecedences[0] {
+        for third in binaryOpPrecedences[1] {
+          for fourth in binaryOpPrecedences[2] {
+            for fifth in binaryOpPrecedences[3] {
+              for sixth in binaryOpPrecedences[4] {
+                for seventh in binaryOpPrecedences[5] {
+                    // e.g., 1 || 2 && 3 != 4 >= (5 + 6) * ~7
+                    testExpression([
+                      .intLiteral("1"),
+                      seventh.0,
+                      .intLiteral("2"),
+                      sixth.0,
+                      .intLiteral("3"),
+                      fifth.0,
+                      .intLiteral("4"),
+                      fourth.0,
+                      .openParen,
+                      .intLiteral("5"),
+                      third.0,
+                      .intLiteral("6"),
+                      .closeParen,
+                      second.0,
+                      first.0,
+                      .intLiteral("7"),
+                    ],
+                      .binaryOp(
+                        seventh.1,
+                        .integerConstant(1),
+                        .binaryOp(
+                          sixth.1,
+                          .integerConstant(2),
+                          .binaryOp(
+                            fifth.1,
+                            .integerConstant(3),
+                            .binaryOp(
+                              fourth.1,
+                              .integerConstant(4),
+                              .binaryOp(
+                                second.1,
+                                .binaryOp(
+                                  third.1,
+                                  .integerConstant(5),
+                                  .integerConstant(6)
+                                ),
+                                .unaryOp(
+                                  first.1,
+                                  .integerConstant(7)
+                                )
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   func testBinaryOperatorExpressionsNested() {
