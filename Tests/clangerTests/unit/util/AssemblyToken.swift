@@ -17,28 +17,103 @@ internal enum AssemblyToken: Equatable {
     case globl = ".globl"
   }
 
-  internal enum AssemblyKeyword: String {
-    case movl
-    case movq
-    case ret
-    case neg
-    case not
-    case cmpq
-    case sete
-
-    case pushq
-    case popq
-
-    case addq
+  internal enum AssemblyKeyword: String, CaseIterable {
     case addl
-    case imul
-    case sub
-    case subq
+    case addq
+    case and
+    case call
+    case cltq
+    case cmova
+    case cmovae
+    case cmovb
+    case cmovbe
+    case cmove
+    case cmovg
+    case cmovge
+    case cmovl
+    case cmovle
+    case cmovna
+    case cmovnae
+    case cmovnb
+    case cmovnbe
+    case cmovne
+    case cmovng
+    case cmovnge
+    case cmovnl
+    case cmovnle
+    case cmovns
+    case cmovnz
+    case cmovs
+    case cmovz
+    case cmp
+    case cmpq
+    case cqto
+    case cwtl
+    case dec
     case idivl
     case idivq
-
-    case cqto
-    case cltq
+    case imul
+    case inc
+    case ja
+    case jae
+    case jb
+    case jbe
+    case je
+    case jg
+    case jge
+    case jl
+    case jle
+    case jmp
+    case jna
+    case jnae
+    case jnb
+    case jnbe
+    case jne
+    case jng
+    case jnge
+    case jnl
+    case jnle
+    case jns
+    case jnz
+    case js
+    case jz
+    case leaq
+    case leave
+    case movl
+    case movq
+    case neg
+    case not
+    case or
+    case popq
+    case pushq
+    case ret
+    case sal
+    case sar
+    case seta
+    case setae
+    case setb
+    case setbe
+    case sete
+    case setg
+    case setge
+    case setl
+    case setle
+    case setna
+    case setnae
+    case setnb
+    case setne
+    case setng
+    case setnge
+    case setnle
+    case setns
+    case setnz
+    case setz
+    case shl
+    case shr
+    case sub
+    case subq
+    case test
+    case xor
   }
 
   internal enum AssemblyRegister: String {
