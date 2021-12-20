@@ -64,13 +64,13 @@ public final class Generator {
             builder.pushq(.rax)
             genExpression(exprA)
             builder.popq(.rcx)
-            builder.subq(.rcx, .rax)
+            builder.sub(.rcx, .rax)
           case .divide:
             genExpression(exprB)
-            builder.movq(.rax, .rcx)
+            builder.movq(.rax, .rbp)
             genExpression(exprA)
-            builder.cdq()
-            builder.idivq(.rcx)
+            builder.cqto()
+            builder.idivq(.rbp)
         }
     }
   }
