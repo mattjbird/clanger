@@ -60,16 +60,22 @@ public final class TokenSequence: Sequence, IteratorProtocol {
         continue
       }
 
-      // Check for single character tokens
-      if currentString.isEmpty, let token = CToken.punctuationMatch(c) {
+      currentString.append(c)
+
+      if let token = CToken.punctuationMatch(currentString) {
+        // Check if (token + next) is also a punctuation match to catch tokens
+        // like "&&" without prematurely stopping at "&"
+        if let next = characterStream.peek(),
+           let tokenPlus = CToken.punctuationMatch(currentString.appending(String(next))) {
+          let _  = characterStream.next()
+          return (tokenPlus, line, col + 1)
+        }
         return (token, line, col)
       }
 
-      currentString.append(c)
-
       // Is this the end of our identifier?
       guard let next = characterStream.peek() else { break }
-      if next.isWhitespace || CToken.punctuationMatch(next) != nil {
+      if next.isWhitespace || CToken.punctuationMatch(String(next)) != nil {
         break
       }
     }

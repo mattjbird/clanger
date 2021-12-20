@@ -8,13 +8,23 @@ public enum CToken: Equatable {
   case semiColon
   case hyphen
   case bitwiseComplement
-  case logicalNegation
-  case keyword(CKeyWord)
-  case identifier(String)
-  case intLiteral(String)
+  case bitwiseOr
+  case bitwiseAnd
   case addition
   case division
   case asterisk
+  case logicalNegation
+  case and
+  case or
+  case equal
+  case notEqual
+  case lessThan
+  case greaterThan
+  case lessThanOrEqual
+  case greaterThanOrEqual
+  case keyword(CKeyWord)
+  case identifier(String)
+  case intLiteral(String)
   // ...
 }
 
@@ -32,7 +42,7 @@ extension CToken {
 extension CToken {
   public static func fromString(_ str: String) -> CToken? {
     // Punctuation
-    if str.count == 1, let punctuation = CToken.punctuationMatch(str.first!) {
+    if let punctuation = CToken.punctuationMatch(str) {
       return punctuation
     }
 
@@ -53,20 +63,30 @@ extension CToken {
 
 // MARK: Static CToken::punctuationMatch
 extension CToken {
-  public static func punctuationMatch(_ c: Character) -> CToken? {
-    switch c {
-      case "{": return .openBrace
-      case "}": return .closeBrace
-      case "(": return .openParen
-      case ")": return .closeParen
-      case ";": return .semiColon
-      case "-": return .hyphen
-      case "~": return .bitwiseComplement
-      case "!": return .logicalNegation
-      case "+": return .addition
-      case "/": return .division
-      case "*": return .asterisk
-      default:  return nil
+  public static func punctuationMatch(_ str: String) -> CToken? {
+    switch str {
+      case "{":  return .openBrace
+      case "}":  return .closeBrace
+      case "(":  return .openParen
+      case ")":  return .closeParen
+      case ";":  return .semiColon
+      case "-":  return .hyphen
+      case "~":  return .bitwiseComplement
+      case "&":  return .bitwiseAnd
+      case "|":  return .bitwiseOr
+      case "!":  return .logicalNegation
+      case "+":  return .addition
+      case "/":  return .division
+      case "*":  return .asterisk
+      case "&&": return .and
+      case "||": return .or
+      case "==": return .equal
+      case "!=": return .notEqual
+      case "<":  return .lessThan
+      case ">":  return .greaterThan
+      case "<=": return .lessThanOrEqual
+      case ">=": return .greaterThanOrEqual
+      default:   return nil
     }
   }
 }
@@ -82,10 +102,20 @@ extension CToken: CustomDebugStringConvertible {
       case .semiColon:                  return ";"
       case .hyphen:                     return "-"
       case .bitwiseComplement:          return "~"
+      case .bitwiseAnd:                 return "&"
+      case .bitwiseOr:                  return "|"
       case .logicalNegation:            return "!"
       case .addition:                   return "+"
       case .division:                   return "/"
       case .asterisk:                   return "*"
+      case .and:                        return "&&"
+      case .or:                         return "||"
+      case .equal:                      return "=="
+      case .notEqual:                   return "!="
+      case .lessThan:                   return "<"
+      case .greaterThan:                return ">"
+      case .lessThanOrEqual:            return "<="
+      case .greaterThanOrEqual:         return ">="
       case .keyword(let keyword):       return "\(keyword)"
       case .identifier(let identifier): return identifier
       case .intLiteral(let int):        return String(int)

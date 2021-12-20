@@ -11,7 +11,7 @@ class TestLexer: XCTestCase {
   }
 
   func testPunctuation() {
-    for (token, expected) in zip("{}();-~!+/*", [
+    testLex("{}();-~!+/*&&||==!=<><=>=", [
       CToken.openBrace,
       .closeBrace,
       .openParen,
@@ -23,9 +23,15 @@ class TestLexer: XCTestCase {
       .addition,
       .division,
       .asterisk,
-    ]) {
-      testLex(String(token), [expected])
-    }
+      .and,
+      .or,
+      .equal,
+      .notEqual,
+      .lessThan,
+      .greaterThan,
+      .lessThanOrEqual,
+      .greaterThanOrEqual
+    ])
   }
 
   func testIntegerLiterals() {
