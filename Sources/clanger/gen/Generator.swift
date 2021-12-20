@@ -73,6 +73,22 @@ public final class Generator {
             genExpression(exprA)
             builder.cqto()
             builder.idivq(.rbp)
+          case .equal:
+            fallthrough
+          case .notEqual:
+            fallthrough
+          case .and:
+            fallthrough
+          case .or:
+            fallthrough
+          case .lessThan:
+            fallthrough
+          case .greaterThan:
+            fallthrough
+          case .lessThanOrEqual:
+            fallthrough
+          case .greaterThanOrEqual:
+            fatalError("Unimplemented")
         }
     }
   }
