@@ -68,6 +68,7 @@ swift test 2>&1 | xcpretty
 2. Ghuloum’s [*An Incremental Approach to Compiler Construction*](http://scheme2006.cs.uchicago.edu/11-ghuloum.pdf)
 3. Nora Sandler's [*Writing A C Compiler*](https://norasandler.com/2017/11/29/Write-a-Compiler.html) series.
 4. The [*C11 Standard language specification*](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf)
-5. https://www.lri.fr/~filliatr/ens/compil/x86-64.pdf
-6. https://www.cs.oberlin.edu/~bob/cs331/Notes%20on%20x86-64%20Assembly%20Language.pdf
-7. https://cs.brown.edu/courses/cs033/docs/guides/x64_cheatsheet.pdf
+5. The [*Intel 64 Dev Manual*](https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-instruction-set-reference-manual-325383.pdf)
+6. https://www.lri.fr/~filliatr/ens/compil/x86-64.pdf
+7. https://www.cs.oberlin.edu/~bob/cs331/Notes%20on%20x86-64%20Assembly%20Language.pdf
+8. https://cs.brown.edu/courses/cs033/docs/guides/x64_cheatsheet.pdf
