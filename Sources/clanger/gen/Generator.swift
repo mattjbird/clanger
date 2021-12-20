@@ -42,28 +42,26 @@ public final class Generator {
             // %rax => 1 iff expr == 0
             genExpression(expr)
             builder.cmpq(0, .rax)
-            builder.movq(0, .rax) // sete can only check eax's lsb (al)
+            builder.movq(0, .rax)
             builder.sete(.al)
         }
       case .binaryOp(let op, let exprA, let exprB):
+        /// Generates e1 => rcx and e2 => rax
+        func stage(rcx e1: Expression, rax e2: Expression) {
+          genExpression(e1)
+          builder.pushq(.rax)
+          genExpression(e2)
+          builder.popq(.rcx)
+        }
         switch op {
           case .add:
-            genExpression(exprA)
-            builder.pushq(.rax)
-            genExpression(exprB)
-            builder.popq(.rcx)
+            stage(rcx: exprA, rax: exprB)
             builder.addq(.rcx, .rax)
           case .multiply:
-            genExpression(exprA)
-            builder.pushq(.rax)
-            genExpression(exprB)
-            builder.popq(.rcx)
+            stage(rcx: exprA, rax: exprB)
             builder.imul(.rcx, .rax)
           case .minus:
-            genExpression(exprB)
-            builder.pushq(.rax)
-            genExpression(exprA)
-            builder.popq(.rcx)
+            stage(rcx: exprB, rax: exprA)
             builder.sub(.rcx, .rax)
           case .divide:
             builder.pushq(.rbp)
@@ -74,9 +72,15 @@ public final class Generator {
             builder.cqto()
             builder.idivq(.rbp)
           case .equal:
-            fallthrough
+            stage(rcx: exprA, rax: exprB)
+            builder.cmpq(.rax, .rcx)
+            builder.movq(0, .rax)
+            builder.sete(.al)
           case .notEqual:
-            fallthrough
+            stage(rcx: exprA, rax: exprB)
+            builder.cmpq(.rax, .rcx)
+            builder.movq(0, .rax)
+            builder.setne(.al)
           case .and:
             fallthrough
           case .or:

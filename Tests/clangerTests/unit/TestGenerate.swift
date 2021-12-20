@@ -117,6 +117,32 @@ class TestGenerator: XCTestCase {
       popq   %rbp
       """
     )
+    // 2 == 3
+    testExpression(
+      .binaryOp(.equal, .integerConstant(2), .integerConstant(3)),
+      """
+      movq  $2, %rax
+      pushq %rax
+      movq  $3, %rax
+      popq  %rcx
+      cmpq  %rax, %rcx
+      movq  $0, %rax
+      sete  %al
+      """
+    )
+    // 2 != 3
+    testExpression(
+      .binaryOp(.notEqual, .integerConstant(2), .integerConstant(3)),
+      """
+      movq  $2, %rax
+      pushq %rax
+      movq  $3, %rax
+      popq  %rcx
+      cmpq  %rax, %rcx
+      movq  $0, %rax
+      setne  %al
+      """
+    )
   }
 
   // MARK: Statements
@@ -198,18 +224,30 @@ fileprivate func AssertAssemblyEqual(
   file: StaticString = #filePath,
   line: UInt = #line
 ) {
-  let actualTokens = AssemblyTokenSequence(CharacterStream(InputStream(string: actual)))
-  let expectedTokens = AssemblyTokenSequence(CharacterStream(InputStream(string: expected)))
+  let actualTokens = Array(AssemblyTokenSequence(CharacterStream(InputStream(string: actual))))
+  let expectedTokens = Array(AssemblyTokenSequence(CharacterStream(InputStream(string: expected))))
+
+  func failStr() -> String {
+    return """
+    \(actual)
+
+    does not equal expected:
+
+    \(expected)\n
+    """
+  }
+
+  guard actualTokens.count == expectedTokens.count else {
+    XCTFail(" XCTAssertion fail: assembly not equal:\n\n\(failStr())")
+    return
+  }
+
   for (actualToken, expectedToken) in zip(actualTokens, expectedTokens) {
     if actualToken != expectedToken {
       XCTFail("""
         XCTAssertion fail: assembly not equal at \(actualToken) (expected \(expectedToken)):
 
-        \(actual)
-
-        does not equal expected:
-
-        \(expected)\n
+        \(failStr())
         """,
         file: file,
         line: line
