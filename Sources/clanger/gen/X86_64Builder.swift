@@ -43,11 +43,21 @@ extension X86_64Builder {
   func cmpq(_ val: Int32, _ reg: X86_64.Reg) {
     indent("cmpq  $\(val), %\(reg)")
   }
+  /// cmpq(a,b) computes (b - a) and sets the EFLAGS register accordingly.
+  func cmpq(_ regA: X86_64.Reg, _ regB: X86_64.Reg) {
+    indent("cmpq  %\(regA), %\(regB)")
+  }
 
-  /// Sets its operand to 1 if the zero-flag of the EFLAGS register (ZF) is on,
-  /// and 0 if ZF is off. Note that sete can only set a byte, not a word.
+  /// Sets its operand to 1 if the zero-flag of the EFLAGS register (ZF) is ON,
+  /// and 0 if ZF is ON. Note that sete can only set a byte, not a word/quad.
   func sete(_ reg: X86_64.Reg) {
     indent("sete  %\(reg)")
+  }
+
+  /// Sets its operand to 1 if the zero-flag of the EFLAGS register (ZF) is OFF,
+  /// and 0 if ZF is ON. Note that sete can only set a byte, not a word/quad.
+  func setne(_ reg: X86_64.Reg) {
+    indent("setne  %\(reg)")
   }
 
   /// Computes `regA` + `regB` and saves the result in `regB`.

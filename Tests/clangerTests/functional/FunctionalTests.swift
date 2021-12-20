@@ -86,6 +86,24 @@ class FunctionalTests: XCTestCase {
     XCTAssertEqual(execute(source), 4)
   }
 
+  func testReturnEquality() {
+    let source = """
+      int main() {
+        return 42 == 42;
+      }
+    """
+    XCTAssertEqual(execute(source), 1)
+  }
+
+  func testReturnInequality() {
+    let source = """
+      int main() {
+        return 42 != 42;
+      }
+    """
+    XCTAssertEqual(execute(source), 0)
+  }
+
   func testReturnComplexUnaryBinaryOp() {
     let source = """
       int main() {
