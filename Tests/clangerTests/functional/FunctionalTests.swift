@@ -86,16 +86,12 @@ class FunctionalTests: XCTestCase {
     XCTAssertEqual(execute(source), 4)
   }
 
-  // FIXME: this is failing. It's something about the way we're leaving the regs
-  // after addition and multiplication operations since ~-11 / 2 works (where ~-11
-  // == 10) and (100 / 10) / 2 works.
   func testReturnComplexUnaryBinaryOp() {
     let source = """
       int main() {
-        return (5 + 5) / 2;
+        return (3 * (!9001 + 4 - 1) + 1) / 2;
       }
     """
-    //return (3 * (!9001 + 4 - 1) + 1) / 2;
     XCTAssertEqual(execute(source), 5)
   }
 }
