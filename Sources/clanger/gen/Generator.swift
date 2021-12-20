@@ -71,27 +71,27 @@ public final class Generator {
             genExpression(exprA)
             builder.cqto()
             builder.idivq(.rbp)
-          case .equal:
+          case .equal,
+               .notEqual,
+               .lessThan,
+               .lessThanOrEqual,
+               .greaterThan,
+               .greaterThanOrEqual:
             stage(rcx: exprA, rax: exprB)
             builder.cmpq(.rax, .rcx)
             builder.movq(0, .rax)
-            builder.sete(.al)
-          case .notEqual:
-            stage(rcx: exprA, rax: exprB)
-            builder.cmpq(.rax, .rcx)
-            builder.movq(0, .rax)
-            builder.setne(.al)
+            switch op {
+              case .equal:              builder.sete(.al)
+              case .notEqual:           builder.setne(.al)
+              case .lessThan:           builder.setl(.al)
+              case .lessThanOrEqual:    builder.setle(.al)
+              case .greaterThan:        builder.setg(.al)
+              case .greaterThanOrEqual: builder.setge(.al)
+              default:                  break
+            }
           case .and:
             fallthrough
           case .or:
-            fallthrough
-          case .lessThan:
-            fallthrough
-          case .greaterThan:
-            fallthrough
-          case .lessThanOrEqual:
-            fallthrough
-          case .greaterThanOrEqual:
             fatalError("Unimplemented")
         }
     }

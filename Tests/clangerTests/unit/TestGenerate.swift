@@ -11,7 +11,7 @@ class TestGenerator: XCTestCase {
     testExpression( .integerConstant(9001), "movq  $9001, %rax" )
   }
 
-  func testUnaryOps() {
+  func testUnaryOpsNegation() {
     // -3
     testExpression(
       .unaryOp(.negation, .integerConstant(3)),
@@ -20,6 +20,9 @@ class TestGenerator: XCTestCase {
       neg   %rax
       """
     )
+  }
+
+  func testUnaryOpsBitwiseComplement() {
     // ~7
     testExpression(
       .unaryOp(.bitwiseComplement, .integerConstant(7)),
@@ -28,6 +31,9 @@ class TestGenerator: XCTestCase {
       not   %rax
       """
     )
+  }
+
+  func testUnaryOpsLogicalNegation() {
     // !1
     testExpression(
       .unaryOp(.logicalNegation, .integerConstant(1)),
@@ -38,8 +44,9 @@ class TestGenerator: XCTestCase {
       sete  %al
       """
     )
+  }
 
-    // Nested
+  func testUnaryOpsNested() {
     // --842
     testExpression(
       .unaryOp(.negation, .unaryOp(.negation, .integerConstant(842))),
@@ -70,7 +77,7 @@ class TestGenerator: XCTestCase {
     )
   }
 
-  func testBinaryOps() {
+  func testBinaryOpsAddition() {
     // 1 + 2
     testExpression(
       .binaryOp(.add, .integerConstant(1), .integerConstant(2)),
@@ -82,6 +89,9 @@ class TestGenerator: XCTestCase {
       addq  %rcx, %rax
       """
     )
+  }
+
+  func testBinaryOpsMultiplication() {
     // 2 * 3
     testExpression(
       .binaryOp(.multiply, .integerConstant(2), .integerConstant(3)),
@@ -93,6 +103,9 @@ class TestGenerator: XCTestCase {
       imul  %rcx, %rax
       """
     )
+  }
+
+  func testBinaryOpsSubtraction() {
     // 42 - 2
     testExpression(
       .binaryOp(.minus, .integerConstant(42), .integerConstant(2)),
@@ -104,6 +117,9 @@ class TestGenerator: XCTestCase {
       sub   %rcx, %rax
       """
     )
+  }
+
+  func testBinaryOpsDivision() {
     // 600 / 12
     testExpression(
       .binaryOp(.divide, .integerConstant(600), .integerConstant(12)),
@@ -117,32 +133,31 @@ class TestGenerator: XCTestCase {
       popq   %rbp
       """
     )
-    // 2 == 3
-    testExpression(
-      .binaryOp(.equal, .integerConstant(2), .integerConstant(3)),
-      """
-      movq  $2, %rax
-      pushq %rax
-      movq  $3, %rax
-      popq  %rcx
-      cmpq  %rax, %rcx
-      movq  $0, %rax
-      sete  %al
-      """
-    )
-    // 2 != 3
-    testExpression(
-      .binaryOp(.notEqual, .integerConstant(2), .integerConstant(3)),
-      """
-      movq  $2, %rax
-      pushq %rax
-      movq  $3, %rax
-      popq  %rcx
-      cmpq  %rax, %rcx
-      movq  $0, %rax
-      setne  %al
-      """
-    )
+  }
+
+  func testBinaryOpsComparisons() {
+    // 2 == 3, 2 != 3, 2 < 3, 2 <= 3, 2 > 3, 2 >= 3
+    for (op, inst) in Array<(Expression.BinaryOperator, String)>([
+      (.equal,              "sete"),
+      (.notEqual,           "setne"),
+      (.lessThan,           "setl"),
+      (.lessThanOrEqual,    "setle"),
+      (.greaterThan,        "setg"),
+      (.greaterThanOrEqual, "setge"),
+    ]) {
+      testExpression(
+        .binaryOp(op, .integerConstant(2), .integerConstant(3)),
+        """
+        movq     $2, %rax
+        pushq    %rax
+        movq     $3, %rax
+        popq     %rcx
+        cmpq     %rax, %rcx
+        movq     $0, %rax
+        \(inst)  %al
+        """
+      )
+    }
   }
 
   // MARK: Statements
