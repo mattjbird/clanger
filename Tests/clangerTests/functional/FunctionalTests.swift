@@ -107,10 +107,10 @@ class FunctionalTests: XCTestCase {
   func testReturnComplexUnaryBinaryOp() {
     let source = """
       int main() {
-        return (3 * (!9001 + 4 - 1) + 1) / 2;
+        return (3 * (!9001 + 4 - 1) + 1) / 2 + (5 == 5);
       }
     """
-    XCTAssertEqual(execute(source), 5)
+    XCTAssertEqual(execute(source), 6)
   }
 }
 
