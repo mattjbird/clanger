@@ -255,76 +255,146 @@
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
       "line": 11,
-      "symbol": "CToken.logicalNegation",
+      "symbol": "CToken.bitwiseOr",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
       "line": 12,
-      "symbol": "CToken.keyword(_:)",
+      "symbol": "CToken.bitwiseAnd",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
       "line": 13,
-      "symbol": "CToken.identifier(_:)",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
-      "line": 14,
-      "symbol": "CToken.intLiteral(_:)",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
-      "line": 15,
       "symbol": "CToken.addition",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
-      "line": 16,
+      "line": 14,
       "symbol": "CToken.division",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
-      "line": 17,
+      "line": 15,
       "symbol": "CToken.asterisk",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
+      "line": 16,
+      "symbol": "CToken.logicalNegation",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
+      "line": 17,
+      "symbol": "CToken.and",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
+      "line": 18,
+      "symbol": "CToken.or",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
+      "line": 19,
+      "symbol": "CToken.equal",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
+      "line": 20,
+      "symbol": "CToken.notEqual",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
+      "line": 21,
+      "symbol": "CToken.lessThan",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
+      "line": 22,
+      "symbol": "CToken.greaterThan",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
+      "line": 23,
+      "symbol": "CToken.lessThanOrEqual",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
+      "line": 24,
+      "symbol": "CToken.greaterThanOrEqual",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
       "line": 25,
-      "symbol": "CToken.CKeyWord.int",
+      "symbol": "CToken.keyword(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
       "line": 26,
+      "symbol": "CToken.identifier(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
+      "line": 27,
+      "symbol": "CToken.intLiteral(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
+      "line": 35,
+      "symbol": "CToken.CKeyWord.int",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
+      "line": 36,
       "symbol": "CToken.CKeyWord.return",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
-      "line": 33,
+      "line": 43,
       "symbol": "CToken.fromString(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/lex/Token.swift",
-      "line": 56,
+      "line": 66,
       "symbol": "CToken.punctuationMatch(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
@@ -438,6 +508,62 @@
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/parse/AST.swift",
       "line": 42,
       "symbol": "Expression.BinaryOperator.divide",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/parse/AST.swift",
+      "line": 43,
+      "symbol": "Expression.BinaryOperator.equal",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/parse/AST.swift",
+      "line": 44,
+      "symbol": "Expression.BinaryOperator.notEqual",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/parse/AST.swift",
+      "line": 45,
+      "symbol": "Expression.BinaryOperator.and",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/parse/AST.swift",
+      "line": 46,
+      "symbol": "Expression.BinaryOperator.or",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/parse/AST.swift",
+      "line": 47,
+      "symbol": "Expression.BinaryOperator.lessThan",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/parse/AST.swift",
+      "line": 48,
+      "symbol": "Expression.BinaryOperator.greaterThan",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/parse/AST.swift",
+      "line": 49,
+      "symbol": "Expression.BinaryOperator.lessThanOrEqual",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/parse/AST.swift",
+      "line": 50,
+      "symbol": "Expression.BinaryOperator.greaterThanOrEqual",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },

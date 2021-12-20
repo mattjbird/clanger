@@ -16,14 +16,189 @@
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/gen/X86_64.swift",
-      "line": 6,
+      "line": 7,
+      "symbol": "X86_64.Reg.rax",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/gen/X86_64.swift",
+      "line": 8,
+      "symbol": "X86_64.Reg.rsp",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/gen/X86_64.swift",
+      "line": 9,
+      "symbol": "X86_64.Reg.rdi",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/gen/X86_64.swift",
+      "line": 10,
+      "symbol": "X86_64.Reg.rdx",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/gen/X86_64.swift",
+      "line": 11,
+      "symbol": "X86_64.Reg.rcx",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/gen/X86_64.swift",
+      "line": 12,
+      "symbol": "X86_64.Reg.r8",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/gen/X86_64.swift",
+      "line": 13,
+      "symbol": "X86_64.Reg.r9",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/gen/X86_64.swift",
+      "line": 14,
+      "symbol": "X86_64.Reg.rbx",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/gen/X86_64.swift",
+      "line": 15,
+      "symbol": "X86_64.Reg.rbp",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/gen/X86_64.swift",
+      "line": 16,
+      "symbol": "X86_64.Reg.r10",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/gen/X86_64.swift",
+      "line": 17,
+      "symbol": "X86_64.Reg.r13",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/gen/X86_64.swift",
+      "line": 18,
+      "symbol": "X86_64.Reg.r14",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/gen/X86_64.swift",
+      "line": 19,
+      "symbol": "X86_64.Reg.r15",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/gen/X86_64.swift",
+      "line": 23,
       "symbol": "X86_64.Reg.eax",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/mjb/hobby/clanger/Sources/clanger/gen/X86_64.swift",
-      "line": 7,
+      "line": 24,
+      "symbol": "X86_64.Reg.esp",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/gen/X86_64.swift",
+      "line": 25,
+      "symbol": "X86_64.Reg.edi",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/gen/X86_64.swift",
+      "line": 26,
+      "symbol": "X86_64.Reg.edx",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/gen/X86_64.swift",
+      "line": 27,
+      "symbol": "X86_64.Reg.ecx",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/gen/X86_64.swift",
+      "line": 28,
+      "symbol": "X86_64.Reg.e8",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/gen/X86_64.swift",
+      "line": 29,
+      "symbol": "X86_64.Reg.e9",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/gen/X86_64.swift",
+      "line": 30,
+      "symbol": "X86_64.Reg.ebx",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/gen/X86_64.swift",
+      "line": 31,
+      "symbol": "X86_64.Reg.ebp",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/gen/X86_64.swift",
+      "line": 32,
+      "symbol": "X86_64.Reg.e10",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/gen/X86_64.swift",
+      "line": 33,
+      "symbol": "X86_64.Reg.e13",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/gen/X86_64.swift",
+      "line": 34,
+      "symbol": "X86_64.Reg.e14",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/gen/X86_64.swift",
+      "line": 35,
+      "symbol": "X86_64.Reg.e15",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/mjb/hobby/clanger/Sources/clanger/gen/X86_64.swift",
+      "line": 37,
       "symbol": "X86_64.Reg.al",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
