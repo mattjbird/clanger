@@ -11,33 +11,27 @@ class TestLexer: XCTestCase {
   }
 
   func testPunctuation() {
-    for (str, tok) in zip([
-      "{", "}", "(", ")", ";", "-", "~", "!", "+", "/", "*", "&&", "||", "==",
-      "!=", "<", ">", "<=", ">=", "="
-    ], [
-      CToken.openBrace,
-      .closeBrace,
-      .openParen,
-      .closeParen,
-      .semiColon,
-      .hyphen,
-      .bitwiseComplement,
-      .logicalNegation,
-      .addition,
-      .division,
-      .asterisk,
-      .and,
-      .or,
-      .equal,
-      .notEqual,
-      .lessThan,
-      .greaterThan,
-      .lessThanOrEqual,
-      .greaterThanOrEqual,
-      .assignment,
-    ]) {
-      testLex(str, [tok])
-    }
+    testLex("{", .openBrace)
+    testLex("}", .closeBrace)
+    testLex("(", .openParen)
+    testLex(")", .closeParen)
+    testLex(";", .semiColon)
+    testLex("-", .hyphen)
+    testLex("~", .bitwiseComplement)
+    testLex("!", .logicalNegation)
+    testLex("+", .addition)
+    testLex("/", .division)
+    testLex("*", .asterisk)
+    testLex("<", .lessThan)
+    testLex(">", .greaterThan)
+    testLex("=", .assignment)
+
+    testLex("&&", .and)
+    testLex("||", .or)
+    testLex("==", .equal)
+    testLex("!=", .notEqual)
+    testLex("<=", .lessThanOrEqual)
+    testLex(">=", .greaterThanOrEqual)
   }
 
   func testIntegerLiterals() {
@@ -161,5 +155,9 @@ private extension TestLexer {
   private func testLex(_ src: String, _ expected: [CToken]) {
     let tokens = getTokens(src)
     XCTAssertEqual(Array(tokens), expected)
+  }
+
+  private func testLex(_ src: String, _ expected: CToken) {
+    testLex(src, [expected])
   }
 }
