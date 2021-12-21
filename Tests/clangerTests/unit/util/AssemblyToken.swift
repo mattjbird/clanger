@@ -4,13 +4,13 @@ internal enum AssemblyToken: Equatable {
   case punctuation(AssemblyPunctuation)
   case keyword(AssemblyKeyword)
   case register(AssemblyRegister)
-  case identifier(String)
+  case label(String)
   case literal(String)
+  case identifier(String)
 
 
   internal enum AssemblyPunctuation: Character {
     case comma = ","
-    case colon = ":"
   }
 
   internal enum AssemblyDirective: String {
@@ -168,6 +168,9 @@ extension AssemblyToken {
         }
         return .register(register)
       default: break
+    }
+    if str.last! == ":" {
+      return .label(String(str.dropLast()))
     }
     if let directive = AssemblyToken.AssemblyDirective(rawValue: str) {
       return .directive(directive)
