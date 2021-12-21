@@ -80,6 +80,16 @@ class FunctionalTests: XCTestCase {
     XCTAssertEqual(execute(source), 1)
   }
 
+  func testReturnOr() {
+    let source = "int main() { return 0 || 1; }"
+    XCTAssertEqual(execute(source), 1)
+  }
+
+  func testReturnAnd() {
+    let source = "int main() { return 1 && 1; }"
+    XCTAssertEqual(execute(source), 1)
+  }
+
   func testReturnComplexUnaryBinaryOp() {
     let source = """
       int main() {

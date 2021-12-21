@@ -160,6 +160,45 @@ class TestGenerator: XCTestCase {
     }
   }
 
+  func testBinaryOpsOr() {
+    // 99 || 25
+    testExpression(
+      .binaryOp(.or, .integerConstant(99), .integerConstant(25)),
+      """
+        movq   $99, %rax
+        cmpq   $0, %rax
+        je     _disjunct2
+        movq   $1, %rax
+        jmp    _end
+      _disjunct2:
+        movq   $25, %rax
+        cmpq   $0, %rax
+        movq   $0, %rax
+        setne  %al
+      _end:
+      """
+    )
+  }
+
+  func testBinaryOpsAnd() {
+    // 100 && 200
+    testExpression(
+      .binaryOp(.and, .integerConstant(100), .integerConstant(200)),
+      """
+        movq   $100, %rax
+        cmpq   $0, %rax
+        jne    _conjunct2
+        jmp    _end
+      _conjunct2:
+        movq   $200, %rax
+        cmpq   $0, %rax
+        movq   $0, %rax
+        setne  %al
+      _end:
+      """
+    )
+  }
+
   // MARK: Statements
   func testReturn() {
     // return 42;
@@ -259,6 +298,15 @@ fileprivate func AssertAssemblyEqual(
 
   for (actualToken, expectedToken) in zip(actualTokens, expectedTokens) {
     if actualToken != expectedToken {
+      // We don't care about the contents of labels or identifiers. The generator
+      // will increment a counter at the end of each new label to keep them
+      // unique. This will mess with the test.
+      if case .label(_) = actualToken, case .label(_) = expectedToken {
+        continue
+      }
+      if case .identifier(_) = actualToken, case .identifier(_) = expectedToken {
+        continue
+      }
       XCTFail("""
         XCTAssertion fail: assembly not equal at \(actualToken) (expected \(expectedToken)):
 

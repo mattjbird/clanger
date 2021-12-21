@@ -14,7 +14,7 @@ public final class Generator {
   // MARK: - Internal
   func genFunction(_ f: Function) {
     builder.global(f.name)
-    builder.label(f.name)
+    builder.label(raw: "_\(f.name)")
     genStatement(f.body)
   }
 
@@ -89,10 +89,33 @@ public final class Generator {
               case .greaterThanOrEqual: builder.setge(.al)
               default:                  break
             }
-          case .and:
-            fallthrough
           case .or:
-            fatalError("Unimplemented")
+            let disjunct2 = builder.createLabel("or_disjunct_2")
+            let end = builder.createLabel("or_end")
+            genExpression(exprA)
+            builder.cmpq(0, .rax)
+            builder.je(disjunct2)
+            builder.movq(1, .rax)
+            builder.jmp(end)
+            builder.label(disjunct2)
+            genExpression(exprB)
+            builder.cmpq(0, .rax)
+            builder.movq(0, .rax)
+            builder.setne(.al)
+            builder.label(end)
+          case .and:
+            let conjunct2 = builder.createLabel("and_conjunct_2")
+            let end = builder.createLabel("and_end")
+            genExpression(exprA)
+            builder.cmpq(0, .rax)
+            builder.jne(conjunct2)
+            builder.jmp(end)
+            builder.label(conjunct2)
+            genExpression(exprB)
+            builder.cmpq(0, .rax)
+            builder.movq(0, .rax)
+            builder.setne(.al)
+            builder.label(end)
         }
     }
   }

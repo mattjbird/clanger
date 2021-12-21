@@ -12,11 +12,30 @@ final class X86_64Builder {
   private func indent(_ str: String) {
     emit("  \(str)")
   }
+
+}
+
+extension X86_64Builder {
+  struct Label {
+    fileprivate let name: String
+    private static var labelN = 0
+
+    init(_ name: String) {
+      self.name = "_\(name)_\(Self.labelN)"
+      Self.labelN += 1
+    }
+  }
+
+  func createLabel(_ name: String) -> Label {
+    return Label(name)
+  }
+
+  func label(_ label: Label) { emit("\(label.name):") }
+  func label(raw label: String) { emit("\(label):") }
 }
 
 extension X86_64Builder {
   func global(_ name: String) { emit(".globl _\(name)") }
-  func label(_ name: String) { emit("_\(name):") }
 
   func pushq(_ reg: X86_64.Reg) { indent("pushq  %\(reg)") }
   func popq(_ reg: X86_64.Reg) { indent("popq  %\(reg)") }
@@ -61,6 +80,13 @@ extension X86_64Builder {
   func setl(_ reg: X86_64.Reg) { indent("setl  %\(reg)") }
   /// (SF^0F)|ZF
   func setle(_ reg: X86_64.Reg) { indent("setle  %\(reg)") }
+
+  /// Unconditional jump
+  func jmp(_ label: Label) { indent("jmp  \(label.name)") }
+  /// Jump iff ZF
+  func je(_ label: Label) { indent("je  \(label.name)") }
+  /// Jump iff ~ZF
+  func jne(_ label: Label) { indent("jne  \(label.name)") }
 
   /// Computes `regA` + `regB` and saves the result in `regB`.
   func addl(_ val: Int32, _ regB: X86_64.Reg) {

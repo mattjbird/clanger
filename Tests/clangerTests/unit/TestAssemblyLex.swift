@@ -113,11 +113,10 @@ class TestAssemblyLexer: XCTestCase {
 
   func testPunctuation() {
     testLex(",", [.punctuation(.comma)])
-    testLex(":", [.punctuation(.colon)])
   }
 
   func testIdentifier() {
-    testLex("hello", [.identifier("hello")])
+    testLex("_hello:", [.label("_hello")])
   }
 
   func testDeclaration() {
@@ -129,8 +128,7 @@ class TestAssemblyLexer: XCTestCase {
       [
         .directive(.globl),
         .identifier("_meaning_of_life"),
-        .identifier("_meaning_of_life"),
-        .punctuation(.colon),
+        .label("_meaning_of_life"),
       ]
     )
   }
