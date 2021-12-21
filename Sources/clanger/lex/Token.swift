@@ -1,6 +1,9 @@
 /// The tokens that can appear in a C program
 /// - Warning: very much work in progress and incomplete!
 public enum CToken: Equatable {
+  case keyword(CKeyWord)
+  case identifier(String)
+  case intLiteral(String)
   case openBrace
   case closeBrace
   case openParen
@@ -22,9 +25,7 @@ public enum CToken: Equatable {
   case greaterThan
   case lessThanOrEqual
   case greaterThanOrEqual
-  case keyword(CKeyWord)
-  case identifier(String)
-  case intLiteral(String)
+  case assignment
   // ...
 }
 
@@ -86,6 +87,7 @@ extension CToken {
       case ">":  return .greaterThan
       case "<=": return .lessThanOrEqual
       case ">=": return .greaterThanOrEqual
+      case "=":  return .assignment
       default:   return nil
     }
   }
@@ -95,6 +97,9 @@ extension CToken {
 extension CToken: CustomDebugStringConvertible {
   public var debugDescription: String {
     switch self {
+      case .keyword(let keyword):       return "\(keyword)"
+      case .identifier(let identifier): return identifier
+      case .intLiteral(let int):        return String(int)
       case .openBrace:                  return "{"
       case .closeBrace:                 return "}"
       case .openParen:                  return "("
@@ -116,9 +121,7 @@ extension CToken: CustomDebugStringConvertible {
       case .greaterThan:                return ">"
       case .lessThanOrEqual:            return "<="
       case .greaterThanOrEqual:         return ">="
-      case .keyword(let keyword):       return "\(keyword)"
-      case .identifier(let identifier): return identifier
-      case .intLiteral(let int):        return String(int)
+      case .assignment:                 return "="
     }
   }
 }
