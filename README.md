@@ -6,7 +6,7 @@ Why, you ask? Good question...
 > **Clanger (noun)**. *An absurd or embarrassing blunder*.
 
 ## Documentation
-https://matthewbyrd.github.io/clanger/
+https://mattjbird.github.io/clanger/
 
 ## Requirements
 You'll need Swift. You can get it here: https://swift.org/getting-started/
